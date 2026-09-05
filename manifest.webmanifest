@@ -1,0 +1,9 @@
+{
+  "name": "BBTS LIVE HUB",
+  "short_name": "BBTS LIVE",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07080b",
+  "theme_color": "#07080b",
+  "description": "Broken By The Scream live schedule prototype"
+}
