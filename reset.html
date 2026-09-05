@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BBTS LIVE HUB RESET</title></head>
+<body style="background:#050608;color:#fff;font-family:system-ui;padding:40px">
+<p>BBTS LIVE HUB cache reset...</p>
+<script>
+(async()=>{
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+  } catch(e) { console.error(e); }
+  location.replace('./?fresh=' + Date.now());
+})();
+</script>
+</body></html>

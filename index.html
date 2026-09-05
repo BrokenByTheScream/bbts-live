@@ -182,8 +182,14 @@ async function loadEvents(){
 }
 loadEvents();
 
-if('serviceWorker' in navigator&&location.protocol.startsWith('http')){
-  navigator.serviceWorker.register('sw.js');
+// Development mode: remove old service workers/caches so GitHub Pages always shows current files.
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations()
+    .then(regs => Promise.all(regs.map(r => r.unregister())))
+    .catch(()=>{});
+}
+if ('caches' in window) {
+  caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).catch(()=>{});
 }
 </script>
 </body>
