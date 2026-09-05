@@ -8,9 +8,18 @@
     "title": "FC会員限定イベント Vol.48",
     "type": "FC EVENT",
     "detail": "OPEN 18:30 / START 19:00｜ADV ¥3,000 / DOOR ¥3,500",
-    "ticket": "https://www.brokenbythescream.jp/answers/live_2026_09_HEARTS/new",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [],
+      "fc": [
+        {
+          "label": "FC TICKET",
+          "url": "https://www.brokenbythescream.jp/answers/live_2026_09_HEARTS/new"
+        }
+      ],
+      "vip": []
+    }
   },
   {
     "date": "2026-09-13",
@@ -21,9 +30,18 @@
     "title": "LIVE EVENT",
     "type": "EVENT",
     "detail": "OPEN 9:50 / START 10:10 / CLOSE 14:40｜ADV ¥3,800 / DOOR ¥4,400 (+1D)",
-    "ticket": "https://livepocket.jp/e/d4c_0913",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/d4c_0913"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-09-21",
@@ -34,9 +52,18 @@
     "title": "RizM presents 獅子音-Vol,37-",
     "type": "EVENT",
     "detail": "OPEN 16:30 / START 17:00 (予定)｜ADV ¥4,000 / DOOR ¥4,500 (+1D)",
-    "ticket": "https://livepocket.jp/e/shishion",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/shishion"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-09-24",
@@ -47,22 +74,40 @@
     "title": "愛探眼影 presents. ユキナ生誕主催 “SHEROES”",
     "type": "EVENT",
     "detail": "OPEN 17:45 / START 18:15｜ADV ¥3,900 / DOOR ¥4,400 (+1D)",
-    "ticket": "https://tiget.net/events/502218",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "TIGET",
+          "url": "https://tiget.net/events/502218"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-10-03",
     "display": "10.03",
     "dow": "SAT",
-    "city": "SHIBUYA",
+    "city": "TOKYO",
     "venue": "THE GAME / 渋谷音楽堂 / CHELSEA HOTEL / STAR LOUNGE / Milkyway / CYCLONE / GARRET",
     "title": "ITFF 2026",
     "type": "CIRCUIT",
     "detail": "OPEN 12:00 / START 12:30｜ADV ¥6,000 / DOOR ¥7,000 (+1D)",
-    "ticket": "https://livepocket.jp/e/itff2026",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/itff2026"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-10-09",
@@ -73,9 +118,18 @@
     "title": "Taipei Event",
     "type": "EVENT",
     "detail": "OPEN 18:00 / START 19:30｜ADV TWD 700 / DOOR TWD 800",
-    "ticket": "https://forms.gle/6QMkgLgMQKyM7b",
     "status": "ON SALE",
-    "country": "TAIWAN"
+    "country": "TAIWAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "GENERAL RESERVATION",
+          "url": "https://forms.gle/6QMkgLgMQKyM7b"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-10-10",
@@ -86,10 +140,23 @@
     "title": "Broken By The Scream Taiwan One Man",
     "type": "ONE MAN",
     "detail": "OPEN 18:30 / START 19:00｜O.A. 終焉Rebirth｜VIP TWD 2,500 / ADV TWD 1,000 / DOOR TWD 1,200",
-    "ticket": "https://docs.google.com/forms/d/e/1FAIpQLScA0NNVLIol1Lcb00vYTO3yKIFhD3zB2OAVgN8O4dK4oIRr9g/closedform",
-    "vipTicket": "https://docs.google.com/forms/d/e/1FAIpQLSdq9YzqxRt3khpQJYvqnv_u5dv-8hSIHSuaCzWB2V-u17kipQ/closedform",
     "status": "ON SALE",
-    "country": "TAIWAN"
+    "country": "TAIWAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "GENERAL RESERVATION",
+          "url": "https://docs.google.com/forms/d/e/1FAIpQLScA0NNVLIol1Lcb00vYTO3yKIFhD3zB2OAVgN8O4dK4oIRr9g/closedform"
+        }
+      ],
+      "fc": [],
+      "vip": [
+        {
+          "label": "VIP RESERVATION",
+          "url": "https://docs.google.com/forms/d/e/1FAIpQLSdq9YzqxRt3khpQJYvqnv_u5dv-8hSIHSuaCzWB2V-u17kipQ/closedform"
+        }
+      ]
+    }
   },
   {
     "date": "2026-10-11",
@@ -100,9 +167,13 @@
     "title": "MAGIC BREAK FES -SPLASH-",
     "type": "FESTIVAL",
     "detail": "DAY3｜TICKET詳細近日発表",
-    "ticket": "",
     "status": "COMING SOON",
-    "country": "TAIWAN"
+    "country": "TAIWAN",
+    "tickets": {
+      "general": [],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-10-24",
@@ -113,10 +184,24 @@
     "title": "Fire From The Signals -JAPAN TOUR-",
     "type": "ONE MAN",
     "detail": "OPEN 18:00 / START 18:30｜ADV ¥4,500 / DOOR ¥5,000",
-    "ticket": "https://livepocket.jp/e/2_-9d",
-    "fcTicket": "https://brokenbythescream.bitfan.id/events/22770",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/2_-9d"
+        }
+      ],
+      "fc": [
+        {
+          "label": "Bitfan / FC",
+          "url": "https://brokenbythescream.bitfan.id/events/22770"
+        }
+      ],
+      "vip": []
+    },
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
   },
   {
     "date": "2026-11-14",
@@ -127,9 +212,18 @@
     "title": "Another day comes vol.3",
     "type": "BAND SET",
     "detail": "OPEN 16:00 / START 16:30 / END 21:15｜ADV ¥3,400 / DOOR ¥4,000",
-    "ticket": "https://livepocket.jp/e/07ukk",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/07ukk"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-11-15",
@@ -140,23 +234,70 @@
     "title": "Fire From The Signals -JAPAN TOUR-",
     "type": "ONE MAN",
     "detail": "OPEN 13:00 / START 13:30｜ADV ¥4,500 / DOOR ¥5,000",
-    "ticket": "https://livepocket.jp/e/mh9wz",
-    "fcTicket": "https://brokenbythescream.bitfan.id/events/22772",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/mh9wz"
+        }
+      ],
+      "fc": [
+        {
+          "label": "Bitfan / FC",
+          "url": "https://brokenbythescream.bitfan.id/events/22772"
+        }
+      ],
+      "vip": []
+    },
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
+  },
+  {
+    "date": "2026-11-28",
+    "display": "11.28",
+    "dow": "SAT",
+    "city": "KAWASAKI",
+    "venue": "CLUB CITTA",
+    "title": "MIXED HELL 2026 second",
+    "type": "FESTIVAL",
+    "detail": "先行予約［抽選］受付",
+    "artists": "怒髪天 / moreru / 鬼の右腕 / Broken By The Scream / 愛探眼影 / Pale / FesterDecay / Cissné",
+    "ticketNote": "先行予約［抽選］ 2026/09/05 18:00〜",
+    "status": "PRESALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "チケットぴあ",
+          "url": "https://t.pia.jp/pia/event/event.do?eventCd=2633817"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-11-29",
     "display": "11.29",
     "dow": "SUN",
-    "city": "SHIMOKITAZAWA",
+    "city": "TOKYO",
     "venue": "下北沢11会場",
     "title": "LIVEHOLIC presents. “革命ロジック2026”",
     "type": "CIRCUIT",
     "detail": "OPEN 11:00 (予定)｜ADV ¥5,000 / 学生 ¥4,000 (+D)｜DOOR +¥1,000",
-    "ticket": "https://livepocket.jp/e/kakumei2026",
     "status": "ON SALE",
-    "country": "JAPAN"
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LivePocket",
+          "url": "https://livepocket.jp/e/kakumei2026"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    }
   },
   {
     "date": "2026-12-21",
@@ -167,9 +308,19 @@
     "title": "Fire From The Signals -JAPAN TOUR-",
     "type": "ONE MAN",
     "detail": "OPEN 18:00 / START 18:30｜ADV ¥5,500 / DOOR ¥6,000",
-    "ticket": "https://www.brokenbythescream.jp/contents/1107576",
     "status": "ON SALE",
     "country": "JAPAN",
-    "special": "TOUR FINAL"
+    "special": "TOUR FINAL",
+    "tickets": {
+      "general": [
+        {
+          "label": "OFFICIAL TICKET INFO",
+          "url": "https://www.brokenbythescream.jp/contents/1107576"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
   }
 ]

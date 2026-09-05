@@ -36,10 +36,10 @@ section{padding:68px clamp(18px,5vw,70px)}.section-head{display:flex;align-items
 .one-card{position:relative;min-height:220px;border:1px solid var(--line);background:rgba(8,9,13,.60);backdrop-filter:blur(12px);padding:22px;cursor:pointer;transition:.24s ease;overflow:hidden}
 .one-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.42)}.one-card .od{font-family:Georgia,serif;font-size:42px;line-height:1;margin-bottom:8px}.one-card .oc{font-size:16px;letter-spacing:.16em;margin-bottom:8px}.one-card .ot{font-size:11px;color:#f3a7b9;letter-spacing:.12em;line-height:1.5}.one-card .ov{position:absolute;left:22px;right:22px;bottom:20px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:var(--muted)}.one-card .special{position:absolute;top:18px;right:18px;border:1px solid rgba(255,49,95,.65);background:rgba(255,49,95,.12);padding:5px 8px;border-radius:99px;font-size:9px;letter-spacing:.15em}
 .past-empty{color:#777b84;font-size:12px;letter-spacing:.12em;padding:18px 0}
-dialog{border:1px solid rgba(255,255,255,.18);background:rgba(7,8,12,.92);color:#fff;max-width:640px;width:calc(100% - 30px);padding:0;box-shadow:0 40px 120px rgba(0,0,0,.68);backdrop-filter:blur(22px)}dialog::backdrop{background:rgba(0,0,0,.67);backdrop-filter:blur(5px)}.modal{padding:28px}.modal-head{display:flex;justify-content:space-between;gap:20px}.modal small{letter-spacing:.22em;color:#a5a8b2}.modal h2{font-family:Georgia,serif;font-size:36px;margin:8px 0 0}.close{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:none;color:#fff;cursor:pointer}.meta{margin:24px 0;color:#c8cad1;line-height:1.8}.meta b{color:#fff}.ticket-stack{display:grid;gap:10px;margin-top:8px}.ticket{display:flex;justify-content:center;text-decoration:none;color:#fff;border:1px solid rgba(255,49,95,.55);padding:13px;border-radius:3px;letter-spacing:.18em;font-size:11px;background:rgba(255,49,95,.13)}.ticket.secondary{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.05)}.ticket.vip{border-color:rgba(255,200,90,.55);background:rgba(255,200,90,.08)}.ticket.disabled{opacity:.45;pointer-events:none}
+dialog{border:1px solid rgba(255,255,255,.18);background:rgba(7,8,12,.92);color:#fff;max-width:640px;width:calc(100% - 30px);padding:0;box-shadow:0 40px 120px rgba(0,0,0,.68);backdrop-filter:blur(22px)}dialog::backdrop{background:rgba(0,0,0,.67);backdrop-filter:blur(5px)}.modal{padding:28px}.modal-head{display:flex;justify-content:space-between;gap:20px}.modal small{letter-spacing:.22em;color:#a5a8b2}.modal h2{font-family:Georgia,serif;font-size:36px;margin:8px 0 0}.close{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:none;color:#fff;cursor:pointer}.meta{margin:24px 0;color:#c8cad1;line-height:1.8}.meta b{color:#fff}.modal-content{display:block}.modal-content.has-flyer{display:grid;grid-template-columns:minmax(180px,250px) minmax(0,1fr);gap:24px;align-items:start}.modal-flyer{display:none;width:100%;max-height:430px;object-fit:contain;background:#020204;border:1px solid var(--line)}.modal-content.has-flyer .modal-flyer{display:block}.artists{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:#bfc1c8;font-size:12px;line-height:1.7}.artists b{font-size:9px;letter-spacing:.18em;color:#858994}.ticket-note{margin-top:12px;color:#9da0a8;font-size:10px;letter-spacing:.06em}.ticket-stack{display:grid;gap:16px;margin-top:18px}.ticket-group{display:grid;gap:8px}.ticket-group h4{margin:0;color:#9da0a8;font-size:9px;letter-spacing:.20em;font-weight:500}.ticket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.ticket{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;text-decoration:none;color:#fff;border:1px solid rgba(255,49,95,.55);padding:11px 12px;border-radius:3px;letter-spacing:.10em;font-size:10px;background:rgba(255,49,95,.13)}.ticket.secondary{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.05)}.ticket.vip{border-color:rgba(255,200,90,.55);background:rgba(255,200,90,.08)}.ticket.disabled{opacity:.45;pointer-events:none}
 footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;letter-spacing:.16em;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between}
 @media(max-width:950px){.hero{grid-template-columns:1fr;min-height:58svh}.next-box{text-align:left;border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.schedule-row{grid-template-columns:90px 100px 1fr 24px}.stag{display:none}.oneman-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:700px){header{height:68px}nav{display:none}.brand-logo{width:132px;height:42px}.hero{padding-top:90px}.oneman-grid{grid-template-columns:1fr}.schedule-row{grid-template-columns:76px 1fr 22px;gap:12px}.smeta{display:none}.smain h3{font-size:13px}.section-head{align-items:start;flex-direction:column}footer{display:block;line-height:2}}
+@media(max-width:700px){.modal-content.has-flyer{grid-template-columns:1fr}.modal-flyer{max-height:520px}header{height:68px}nav{display:none}.brand-logo{width:132px;height:42px}.hero{padding-top:90px}.oneman-grid{grid-template-columns:1fr}.schedule-row{grid-template-columns:76px minmax(0,1fr) 22px;grid-template-areas:"date main arrow" "meta main arrow";gap:4px 12px;align-items:start}.sd{grid-area:date}.smeta{grid-area:meta;display:block;font-size:9px;line-height:1.45;letter-spacing:.12em;margin-top:1px}.smain{grid-area:main}.arrow{grid-area:arrow;align-self:center}.stag{display:none}.smain h3{font-size:13px}.section-head{align-items:start;flex-direction:column}footer{display:block;line-height:2}}
 </style>
 </head>
 <body>
@@ -50,7 +50,7 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
 <section id="oneman"><div class="section-head"><div><h2>ONE MAN</h2><div class="rule"></div></div><p>FEATURED SOLO SHOWS</p></div><div class="oneman-grid" id="oneManGrid"></div></section>
 <section id="past"><div class="section-head"><div><h2>PAST SHOWS</h2><div class="rule"></div></div><p>ARCHIVE</p></div><div class="schedule" id="pastList"></div></section>
 <footer><span>SCREAM BEYOND BORDERS.</span><span>BBTS LIVE HUB</span></footer></div>
-<dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="meta" id="mMeta"></div><div class="ticket-stack" id="ticketButtons"></div></div></dialog>
+<dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="modal-content" id="modalContent"><img class="modal-flyer" id="mFlyer" alt=""><div><div class="meta" id="mMeta"></div><div class="ticket-note" id="mTicketNote"></div><div class="ticket-stack" id="ticketButtons"></div></div></div></div></dialog>
 <script>
 let events=[];
 const dialog=document.getElementById('detailDialog');
@@ -63,24 +63,72 @@ function past(){return events.filter(isPast).sort((a,b)=>b.date.localeCompare(a.
 function openEvent(e){
   document.getElementById('mType').textContent=[e.type,e.status,e.country].filter(Boolean).join(' / ');
   document.getElementById('mTitle').textContent=`${e.display} ${e.city}`;
-  document.getElementById('mMeta').innerHTML=`<b>${e.title}${e.special?` — ${e.special}`:''}</b><br>${e.venue}<br>${e.detail}`;
+
+  const artistHtml=e.artists?`<div class="artists"><b>LINEUP</b><br>${e.artists}</div>`:'';
+  document.getElementById('mMeta').innerHTML=`<b>${e.title}${e.special?` — ${e.special}`:''}</b><br>${e.venue}<br>${e.detail||''}${artistHtml}`;
+  document.getElementById('mTicketNote').textContent=e.ticketNote||'';
+
+  const modalContent=document.getElementById('modalContent');
+  const flyer=document.getElementById('mFlyer');
+  modalContent.classList.remove('has-flyer');
+  flyer.removeAttribute('src');
+  flyer.alt='';
+  flyer.onerror=null;
+  if(e.flyer){
+    flyer.src=e.flyer;
+    flyer.alt=`${e.title} flyer`;
+    flyer.onerror=()=>{
+      modalContent.classList.remove('has-flyer');
+      flyer.removeAttribute('src');
+    };
+    modalContent.classList.add('has-flyer');
+  }
+
   const wrap=document.getElementById('ticketButtons');
   wrap.innerHTML='';
-  const tickets=[
-    {label:'GENERAL TICKET',url:e.ticket,cls:''},
-    {label:'FC TICKET',url:e.fcTicket,cls:'secondary'},
-    {label:'VIP TICKET',url:e.vipTicket,cls:'vip'}
-  ].filter(t=>t.url&&t.url!=='#');
-  if(tickets.length){
-    tickets.forEach(t=>{
+
+  // New schema. Old fields remain supported as a fallback for easy manual editing.
+  const groups=(e.tickets&&typeof e.tickets==='object')?e.tickets:{
+    general:e.ticket?[{label:'GENERAL TICKET',url:e.ticket}]:[],
+    fc:e.fcTicket?[{label:'FC TICKET',url:e.fcTicket}]:[],
+    vip:e.vipTicket?[{label:'VIP TICKET',url:e.vipTicket}]:[]
+  };
+  const config=[
+    {key:'general',heading:'GENERAL TICKETS',cls:''},
+    {key:'fc',heading:'FC TICKETS',cls:'secondary'},
+    {key:'vip',heading:'VIP TICKETS',cls:'vip'}
+  ];
+
+  let count=0;
+  config.forEach(g=>{
+    const items=Array.isArray(groups[g.key])?groups[g.key].filter(t=>t&&t.url):[];
+    if(!items.length)return;
+    count+=items.length;
+    const group=document.createElement('div');
+    group.className='ticket-group';
+    const h=document.createElement('h4');
+    h.textContent=g.heading;
+    const grid=document.createElement('div');
+    grid.className='ticket-grid';
+    items.forEach(t=>{
       const a=document.createElement('a');
-      a.className=`ticket ${t.cls}`.trim();
-      a.href=t.url;a.target='_blank';a.rel='noopener';a.textContent=t.label;
-      wrap.appendChild(a);
+      a.className=`ticket ${g.cls}`.trim();
+      a.href=t.url;
+      a.target='_blank';
+      a.rel='noopener';
+      a.textContent=t.label||g.heading;
+      grid.appendChild(a);
     });
-  }else{
+    group.appendChild(h);
+    group.appendChild(grid);
+    wrap.appendChild(group);
+  });
+
+  if(!count){
     const a=document.createElement('a');
-    a.className='ticket disabled';a.href='#';a.textContent='TICKET INFO COMING SOON';
+    a.className='ticket disabled';
+    a.href='#';
+    a.textContent='TICKET INFO COMING SOON';
     wrap.appendChild(a);
   }
   dialog.showModal();
