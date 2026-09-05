@@ -1,0 +1,80 @@
+[
+  {
+    "date": "2026-10-09",
+    "display": "10.09",
+    "dow": "FRI",
+    "city": "TAIPEI",
+    "venue": "Jack's studio",
+    "title": "Taipei Event",
+    "type": "EVENT",
+    "detail": "対バンイベント / OPEN 18:00 / START 19:30",
+    "ticket": "https://forms.gle/6QMkgLgMQKyM7b",
+    "status": "ON SALE",
+    "country": "TAIWAN"
+  },
+  {
+    "date": "2026-10-10",
+    "display": "10.10",
+    "dow": "SAT",
+    "city": "TAIPEI",
+    "venue": "Taipei",
+    "title": "ONE MAN LIVE",
+    "type": "ONE MAN",
+    "detail": "Broken By The Scream Taiwan One Man",
+    "ticket": "https://brokenbythescream.jp/contents/10892",
+    "status": "ON SALE",
+    "country": "TAIWAN"
+  },
+  {
+    "date": "2026-10-11",
+    "display": "10.11",
+    "dow": "SUN",
+    "city": "TAIPEI",
+    "venue": "NUZONE 展演空間",
+    "title": "MAGIC BREAK FES -SPLASH-",
+    "type": "FESTIVAL",
+    "detail": "DAY3",
+    "ticket": "",
+    "status": "COMING SOON",
+    "country": "TAIWAN"
+  },
+  {
+    "date": "2026-10-24",
+    "display": "10.24",
+    "dow": "SAT",
+    "city": "OSAKA",
+    "venue": "FANJ twice",
+    "title": "Fire From The Signals",
+    "type": "ONE MAN",
+    "detail": "Broken By The Scream presents",
+    "ticket": "",
+    "status": "COMING SOON",
+    "country": "JAPAN"
+  },
+  {
+    "date": "2026-11-15",
+    "display": "11.15",
+    "dow": "SUN",
+    "city": "NAGOYA",
+    "venue": "今池 GROW",
+    "title": "Fire From The Signals",
+    "type": "ONE MAN",
+    "detail": "Broken By The Scream presents",
+    "ticket": "",
+    "status": "COMING SOON",
+    "country": "JAPAN"
+  },
+  {
+    "date": "2026-12-21",
+    "display": "12.21",
+    "dow": "MON",
+    "city": "TOKYO",
+    "venue": "渋谷 duo MUSIC EXCHANGE",
+    "title": "Fire From The Signals",
+    "type": "ONE MAN",
+    "detail": "Broken By The Scream presents",
+    "ticket": "",
+    "status": "COMING SOON",
+    "country": "JAPAN"
+  }
+]

@@ -141,13 +141,14 @@
 </dialog>
 
 <script>
-const events = [{"date": "2026-10-09", "display": "10.09", "dow": "FRI", "city": "TAIPEI", "venue": "Jack's studio", "title": "Taipei Event", "type": "EVENT", "detail": "対バンイベント / OPEN 18:00 / START 19:30", "ticket": "https://forms.gle/6QMkgLgMQKyM7b"}, {"date": "2026-10-10", "display": "10.10", "dow": "SAT", "city": "TAIPEI", "venue": "Taipei", "title": "ONE MAN LIVE", "type": "ONE MAN", "detail": "Broken By The Scream Taiwan One Man", "ticket": "https://brokenbythescream.jp/contents/10892"}, {"date": "2026-10-11", "display": "10.11", "dow": "SUN", "city": "TAIPEI", "venue": "NUZONE 展演空間", "title": "MAGIC BREAK FES -SPLASH-", "type": "FESTIVAL", "detail": "DAY3", "ticket": "#"}, {"date": "2026-10-24", "display": "10.24", "dow": "SAT", "city": "OSAKA", "venue": "FANJ twice", "title": "Fire From The Signals", "type": "ONE MAN", "detail": "Broken By The Scream presents", "ticket": "#"}, {"date": "2026-11-15", "display": "11.15", "dow": "SUN", "city": "NAGOYA", "venue": "今池 GROW", "title": "Fire From The Signals", "type": "ONE MAN", "detail": "Broken By The Scream presents", "ticket": "#"}, {"date": "2026-12-21", "display": "12.21", "dow": "MON", "city": "TOKYO", "venue": "渋谷 duo MUSIC EXCHANGE", "title": "Fire From The Signals", "type": "ONE MAN", "detail": "Broken By The Scream presents", "ticket": "#"}];
+let events = [];
+
 const floatView = document.getElementById('floatView');
 const listView = document.getElementById('listView');
 const dialog = document.getElementById('detailDialog');
 
 function openEvent(e){
-  document.getElementById('mType').textContent = e.type;
+  document.getElementById('mType').textContent = [e.type, e.status, e.country].filter(Boolean).join(' / ');
   document.getElementById('mTitle').textContent = `${e.display} ${e.city}`;
   document.getElementById('mMeta').innerHTML =
     `<b>${e.title}</b><br>${e.venue}<br>${e.detail}`;
@@ -158,21 +159,27 @@ function openEvent(e){
   dialog.showModal();
 }
 
-events.forEach((e,i)=>{
-  const c = document.createElement('article');
-  c.className = `card c${i} ${i===0?'hot':''}`;
-  c.innerHTML = `<div class="top"><span>2026 / ${e.dow}</span><span class="tag">${e.type}</span></div>
-    <div class="date">${e.display}</div><div class="city">${e.city}</div>
-    <div class="event-title">${e.title}</div><div class="venue">${e.venue}</div>`;
-  c.onclick = ()=>openEvent(e);
-  floatView.appendChild(c);
 
-  const r = document.createElement('article');
-  r.className='row';
-  r.innerHTML=`<div class="row-date">${e.display}</div><div><h3>${e.city} / ${e.title}</h3><p>${e.venue} — ${e.detail}</p></div><div class="arrow">↗</div>`;
-  r.onclick=()=>openEvent(e);
-  listView.appendChild(r);
-});
+function renderEvents(){
+  floatView.innerHTML = '';
+  listView.innerHTML = '';
+
+  events.forEach((e,i)=>{
+    const c = document.createElement('article');
+    c.className = `card c${i} ${i===0?'hot':''}`;
+    c.innerHTML = `<div class="top"><span>${e.date.slice(0,4)} / ${e.dow}</span><span class="tag">${e.status || e.type}</span></div>
+      <div class="date">${e.display}</div><div class="city">${e.city}</div>
+      <div class="event-title">${e.title}</div><div class="venue">${e.venue}</div>`;
+    c.onclick = ()=>openEvent(e);
+    floatView.appendChild(c);
+
+    const r = document.createElement('article');
+    r.className='row';
+    r.innerHTML=`<div class="row-date">${e.display}</div><div><h3>${e.city} / ${e.title}</h3><p>${e.venue} — ${e.detail}</p></div><div class="arrow">↗</div>`;
+    r.onclick=()=>openEvent(e);
+    listView.appendChild(r);
+  });
+}
 
 function switchView(mode){
   const isFloat = mode==='float';
@@ -188,13 +195,36 @@ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 
 function updateCountdown(){
   const now = new Date();
-  const upcoming = events.map(e=>({...e,dt:new Date(e.date+'T00:00:00+09:00')})).find(e=>e.dt>=now);
-  if(!upcoming){document.getElementById('countdown').textContent='SEE YOU';document.getElementById('nextLabel').textContent='AT THE NEXT STAGE';return}
+  const upcoming = events
+    .map(e=>({...e,dt:new Date(e.date+'T00:00:00+09:00')}))
+    .filter(e=>e.dt>=now)
+    .sort((a,b)=>a.dt-b.dt)[0];
+
+  if(!upcoming){
+    document.getElementById('countdown').textContent='SEE YOU';
+    document.getElementById('nextLabel').textContent='AT THE NEXT STAGE';
+    return;
+  }
+
   const days=Math.ceil((upcoming.dt-now)/86400000);
   document.getElementById('countdown').textContent = days===0?'TODAY':`${days} DAYS`;
   document.getElementById('nextLabel').textContent = `${upcoming.display} / ${upcoming.city}`;
 }
-updateCountdown();
+
+async function loadEvents(){
+  try{
+    const res = await fetch(`events.json?v=${Date.now()}`, {cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    events = await res.json();
+    renderEvents();
+    updateCountdown();
+  }catch(err){
+    console.error('Failed to load events.json', err);
+    document.getElementById('nextLabel').textContent='SCHEDULE LOAD ERROR';
+  }
+}
+
+loadEvents();
 setInterval(updateCountdown,60000);
 
 if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js');
