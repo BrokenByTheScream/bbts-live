@@ -156,7 +156,9 @@
           "url": "https://docs.google.com/forms/d/e/1FAIpQLSdq9YzqxRt3khpQJYvqnv_u5dv-8hSIHSuaCzWB2V-u17kipQ/closedform"
         }
       ]
-    }
+    },
+    "flyer": "assets/flyers/taiwan-oneman-2026-10-10.jpg",
+    "missionRole": "SPECIAL STAGE"
   },
   {
     "date": "2026-10-11",
@@ -201,7 +203,9 @@
       ],
       "vip": []
     },
-    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg",
+    "missionGroup": "FIRE FROM THE SIGNALS",
+    "missionRole": "TOUR STAGE"
   },
   {
     "date": "2026-11-14",
@@ -251,7 +255,9 @@
       ],
       "vip": []
     },
-    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg",
+    "missionGroup": "FIRE FROM THE SIGNALS",
+    "missionRole": "TOUR STAGE"
   },
   {
     "date": "2026-11-28",
@@ -321,6 +327,8 @@
       "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg",
+    "missionGroup": "FIRE FROM THE SIGNALS",
+    "missionRole": "FINAL STAGE"
   }
 ]
