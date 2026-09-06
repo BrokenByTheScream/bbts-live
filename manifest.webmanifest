@@ -1,7 +1,7 @@
 {
   "id": "./",
   "name": "BBTS LIVE HUB",
-  "short_name": "BBTS LIVE",
+  "short_name": "BBTS LIVE HUB",
   "description": "Broken By The Scream official live schedule.",
   "start_url": "./",
   "scope": "./",
