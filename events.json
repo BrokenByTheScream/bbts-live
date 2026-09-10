@@ -19,7 +19,8 @@
         }
       ],
       "vip": []
-    }
+    },
+    "flyer": "assets/flyers/2026-09-11-tokyo-fc-vol-48.jpg"
   },
   {
     "date": "2026-09-13",
@@ -27,7 +28,7 @@
     "dow": "SUN",
     "city": "TOKYO",
     "venue": "新宿ANTIKNOCK",
-    "title": "LIVE EVENT",
+    "title": "-DAYTIME- shinjuku ANTIKNOCK presents 【DirtyDeedsDoneDirtCheap】",
     "type": "EVENT",
     "detail": "OPEN 9:50 / START 10:10 / CLOSE 14:40｜ADV ¥3,800 / DOOR ¥4,400 (+1D)",
     "status": "ON SALE",
@@ -96,7 +97,7 @@
     "dow": "SAT",
     "city": "TOKYO",
     "venue": "THE GAME / 渋谷音楽堂 / CHELSEA HOTEL / STAR LOUNGE / Milkyway / CYCLONE / GARRET",
-    "title": "ITFF 2026",
+    "title": "ZEPHYREN × SHIBUYA THE GAME presents『In The Family FEST 2026』",
     "type": "CIRCUIT",
     "detail": "OPEN 12:00 / START 12:30｜ADV ¥6,000 / DOOR ¥7,000 (+1D)",
     "status": "ON SALE",
@@ -118,7 +119,7 @@
     "display": "10.09",
     "dow": "FRI",
     "city": "TAIPEI",
-    "venue": "Jack's studio",
+    "venue": "杰克音樂 Jack's studio",
     "title": "Taipei Event",
     "type": "EVENT",
     "detail": "OPEN 18:00 / START 19:30｜ADV TWD 700 / DOOR TWD 800",
@@ -133,14 +134,15 @@
       ],
       "fc": [],
       "vip": []
-    }
+    },
+    "flyer": "assets/flyers/2026-10-09-taipei-taipei-event.jpg"
   },
   {
     "date": "2026-10-10",
     "display": "10.10",
     "dow": "SAT",
     "city": "TAIPEI",
-    "venue": "Jack's studio",
+    "venue": "杰克音樂 Jack's studio",
     "title": "Broken By The Scream Taiwan One Man",
     "type": "ONE MAN",
     "detail": "OPEN 18:30 / START 19:00｜O.A. 終焉Rebirth｜VIP TWD 2,500 / ADV TWD 1,000 / DOOR TWD 1,200",
@@ -161,8 +163,8 @@
         }
       ]
     },
-    "flyer": "assets/flyers/taiwan-oneman-2026-10-10.jpg",
-    "missionRole": "SPECIAL STAGE"
+    "missionRole": "SPECIAL STAGE",
+    "flyer": "assets/flyers/taiwan-oneman-2026-10-10.jpg"
   },
   {
     "date": "2026-10-11",
@@ -179,7 +181,8 @@
       "general": [],
       "fc": [],
       "vip": []
-    }
+    },
+    "flyer": "assets/flyers/2026-10-11-taipei-magic-break-fes-splash.jpg"
   },
   {
     "date": "2026-10-24",
@@ -330,15 +333,20 @@
     "tickets": {
       "general": [
         {
+          "label": "e＋",
+          "url": "https://eplus.jp/bbts/"
+        }
+      ],
+      "fc": [
+        {
           "label": "OFFICIAL TICKET INFO",
           "url": "https://www.brokenbythescream.jp/contents/1107576"
         }
       ],
-      "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg",
     "missionGroup": "FIRE FROM THE SIGNALS",
-    "missionRole": "FINAL STAGE"
+    "missionRole": "FINAL STAGE",
+    "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
   }
 ]
