@@ -14,8 +14,12 @@
       "general": [],
       "fc": [
         {
-          "label": "FC TICKET",
+          "label": "現地観覧チケット",
           "url": "https://www.brokenbythescream.jp/answers/live_2026_09_HEARTS/new"
+        },
+        {
+          "label": "配信チケット",
+          "url": "https://brokenbythescream.bitfan.id/events/23003"
         }
       ],
       "vip": []
