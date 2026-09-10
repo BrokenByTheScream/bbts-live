@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="BBTS LIVE">
+<meta name="apple-mobile-web-app-title" content="BBTS LIVE HUB">
 <meta name="color-scheme" content="dark">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -1282,6 +1282,57 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
   }
 }
 
+
+/* ===== MULTI FLYER SUPPORT ===== */
+dialog{
+  max-height:90vh !important;
+  overflow:auto !important;
+}
+.modal-content.has-flyer{
+  grid-template-columns:minmax(150px,210px) minmax(0,1fr) !important;
+  gap:20px !important;
+}
+.modal-flyers{
+  display:none;
+  gap:9px;
+  min-width:0;
+}
+.modal-content.has-flyer .modal-flyers{
+  display:grid;
+}
+.modal-flyer-link{
+  display:block;
+  width:100%;
+  min-width:0;
+  line-height:0;
+  border:1px solid rgba(255,255,255,.12);
+  background:#020204;
+}
+.modal-flyer{
+  display:block !important;
+  width:100% !important;
+  max-height:290px !important;
+  object-fit:contain !important;
+  border:0 !important;
+  background:#020204 !important;
+}
+.modal-flyers .modal-flyer-link + .modal-flyer-link{
+  margin-top:2px;
+}
+
+@media(max-width:700px){
+  .modal-content.has-flyer{
+    grid-template-columns:1fr !important;
+  }
+  .modal-flyers{
+    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:8px;
+  }
+  .modal-flyer{
+    max-height:320px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1366,7 +1417,7 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
 
 
 <footer><span>SCREAM BEYOND BORDERS.</span><span>BBTS LIVE HUB</span></footer></div>
-<dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="modal-content" id="modalContent"><img class="modal-flyer" id="mFlyer" alt=""><div><div class="meta" id="mMeta"></div><div class="ticket-note" id="mTicketNote"></div><div class="ticket-stack" id="ticketButtons"></div></div></div></div></dialog>
+<dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="modal-content" id="modalContent"><div class="modal-flyers" id="mFlyers" aria-label="Event images"></div><div><div class="meta" id="mMeta"></div><div class="ticket-note" id="mTicketNote"></div><div class="ticket-stack" id="ticketButtons"></div></div></div></div></dialog>
 <script>
 let events=[];
 const dialog=document.getElementById('detailDialog');
@@ -1385,18 +1436,38 @@ function openEvent(e){
   document.getElementById('mTicketNote').textContent=e.ticketNote||'';
 
   const modalContent=document.getElementById('modalContent');
-  const flyer=document.getElementById('mFlyer');
+  const flyerWrap=document.getElementById('mFlyers');
   modalContent.classList.remove('has-flyer');
-  flyer.removeAttribute('src');
-  flyer.alt='';
-  flyer.onerror=null;
-  if(e.flyer){
-    flyer.src=e.flyer;
-    flyer.alt=`${e.title} flyer`;
-    flyer.onerror=()=>{
-      modalContent.classList.remove('has-flyer');
-      flyer.removeAttribute('src');
-    };
+  flyerWrap.innerHTML='';
+
+  const flyerSources=Array.isArray(e.flyers)&&e.flyers.length
+    ? e.flyers.filter(Boolean)
+    : (e.flyer?[e.flyer]:[]);
+
+  if(flyerSources.length){
+    flyerSources.forEach((src,index)=>{
+      const link=document.createElement('a');
+      link.href=src;
+      link.target='_blank';
+      link.rel='noopener';
+      link.className='modal-flyer-link';
+
+      const img=document.createElement('img');
+      img.className='modal-flyer';
+      img.src=src;
+      img.alt=`${e.title} image ${index+1}`;
+      img.loading='lazy';
+
+      img.onerror=()=>{
+        link.remove();
+        if(!flyerWrap.children.length){
+          modalContent.classList.remove('has-flyer');
+        }
+      };
+
+      link.appendChild(img);
+      flyerWrap.appendChild(link);
+    });
     modalContent.classList.add('has-flyer');
   }
 
