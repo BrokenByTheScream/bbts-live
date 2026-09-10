@@ -1178,6 +1178,54 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
   }
 }
 
+
+/* v3 small cleanup */
+.campaign-head{
+  align-items:flex-start !important;
+}
+
+
+/* v4 — make TODAY'S SHOW clearer without becoming loud */
+.next-today{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin-top:12px !important;
+
+  color:#ff315f !important;
+  font-size:15px !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  letter-spacing:.16em !important;
+
+  text-shadow:
+    0 0 16px rgba(255,49,95,.34),
+    0 0 2px rgba(255,49,95,.55) !important;
+}
+
+.next-today::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:7px !important;
+  height:7px !important;
+  border-radius:50% !important;
+  background:#ff315f !important;
+  box-shadow:0 0 10px rgba(255,49,95,.72) !important;
+  flex:0 0 auto !important;
+}
+
+.next-today[hidden]{
+  display:none !important;
+}
+
+@media(max-width:700px){
+  .next-today{
+    font-size:14px !important;
+    margin-top:10px !important;
+    letter-spacing:.14em !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1211,14 +1259,14 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
         </span>
         <span class="count-unit" id="nmCountUnit">DAYS</span>
       </div>
-      <div class="next-today" id="nmToday" hidden>LIVE TODAY!</div>
+      <div class="next-today" id="nmToday" hidden>TODAY&#39;S SHOW</div>
 
       <button class="next-details" type="button" id="nmButton">VIEW DETAILS →</button>
     </article>
   </div>
 </section>
 <section id="schedule"><div class="section-head"><div><h2>ALL SCHEDULE</h2><div class="rule"></div></div><p>ALL UPCOMING EVENTS</p></div><div class="filters" id="filters"><button class="active" data-filter="ALL">ALL</button><button data-filter="ONE MAN">ONE MAN</button><button data-filter="OVERSEAS">OVERSEAS</button><button data-filter="FESTIVAL">FESTIVAL</button><button data-filter="FC EVENT">FC</button></div><div class="schedule" id="scheduleList"></div></section>
-<section id="special"><div class="section-head"><div><h2>SPECIAL SHOWS</h2><div class="rule"></div></div><p>ONE MAN / JAPAN TOUR</p></div><div class="special-shell"><article class="special-stage" id="taiwanMission"><img src="assets/flyers/taiwan-oneman-2026-10-10.jpg" alt="Taiwan One Man Show flyer"><div class="special-copy"><span>SPECIAL STAGE</span><h3>TAIWAN ONE MAN</h3><b>10.10 / TAIPEI</b><p>Broken By The Scream Taiwan One Man<br>Jack's Studio</p><div class="special-action">VIEW DETAILS →</div></div></article><div class="campaign"><div class="campaign-flyer"><img src="assets/flyers/fire-from-the-signals-2026.jpg" alt="Fire From The Signals JAPAN TOUR 2026 flyer"></div><div class="campaign-main"><div class="campaign-head"><div><span>TOUR CAMPAIGN</span><h3>FIRE FROM THE SIGNALS</h3><small>JAPAN TOUR 2026</small></div><div class="campaign-count" id="tourCount">0 / 3<small>COMPLETE</small></div></div><div class="stage-line" id="tourStages"></div></div></div></div></section>
+<section id="special"><div class="section-head"><div><h2>SPECIAL SHOWS</h2><div class="rule"></div></div><p>ONE MAN / JAPAN TOUR</p></div><div class="special-shell"><article class="special-stage" id="taiwanMission"><img src="assets/flyers/taiwan-oneman-2026-10-10.jpg" alt="Taiwan One Man Show flyer"><div class="special-copy"><span>SPECIAL STAGE</span><h3>TAIWAN ONE MAN</h3><b>10.10 / TAIPEI</b><p>Broken By The Scream Taiwan One Man<br>Jack's Studio</p><div class="special-action">VIEW DETAILS →</div></div></article><div class="campaign"><div class="campaign-flyer"><img src="assets/flyers/fire-from-the-signals-2026.jpg" alt="Fire From The Signals JAPAN TOUR 2026 flyer"></div><div class="campaign-main"><div class="campaign-head"><div><span>TOUR CAMPAIGN</span><h3>FIRE FROM THE SIGNALS</h3><small>JAPAN TOUR 2026</small></div></div><div class="stage-line" id="tourStages"></div></div></div></div></section>
 
 <section id="backstage">
   <div class="section-head">
@@ -1228,8 +1276,8 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
 
   <div class="backstage-gate" id="backstageGate">
     <div class="backstage-gate-copy">
-      <span class="backstage-mini">A LITTLE LOOK BEHIND THE SCENES</span>
-      <h3>まだ決まっていない予定を、少しだけ。</h3>
+      <span class="backstage-mini">BACKSTAGE PREVIEW</span>
+      <h3>UNANNOUNCED / 未発表情報</h3>
       <p>
         ここには仮押さえ・調整中などの未確定予定が含まれます。<br>
         掲載内容は正式発表ではなく、変更・中止・削除される可能性があります。
@@ -1417,7 +1465,6 @@ function renderSpecialMissions(){
     el.innerHTML=`<div class="stage-node">${done?'✓':(final?'★':'●')}</div><div class="stage-role">${final?'FINAL STAGE':`STAGE 0${i+1}`}</div><div class="stage-city">${e.city}</div><div class="stage-date">${e.display}</div><div class="stage-venue">${e.venue}</div><div class="stage-details">VIEW DETAILS →</div>`;
     el.onclick=()=>openEvent(e);root.appendChild(el);
   });
-  document.getElementById('tourCount').innerHTML=`${cleared} / ${stages.length}<small>COMPLETE</small>`;
 }
 
 document.getElementById('filters').addEventListener('click',e=>{
