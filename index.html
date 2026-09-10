@@ -1226,6 +1226,62 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
   }
 }
 
+
+/* ===== BACKSTAGE v7 — clean schedule typography ===== */
+/* Keep the blackboard artwork handwritten, but make dynamic schedule data orderly. */
+.blackboard-row{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:clamp(11px,1.45vw,21px) !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  letter-spacing:.08em !important;
+  text-align:center !important;
+  text-shadow:
+    0 1px 1px rgba(0,0,0,.60),
+    0 0 1px rgba(255,255,255,.30) !important;
+}
+
+.blackboard-row span{
+  transform:none !important;
+  padding:0 5% !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+}
+
+/* Date is slightly smaller so "10.24 SAT" sits cleanly inside the DATE column. */
+.blackboard-row span:nth-child(1){
+  font-size:.88em !important;
+  letter-spacing:.055em !important;
+}
+
+/* Area gets a little more emphasis. */
+.blackboard-row span:nth-child(2){
+  font-weight:800 !important;
+}
+
+/* DAY / NIGHT / TBD remains compact and consistent. */
+.blackboard-row span:nth-child(3){
+  font-size:.92em !important;
+  letter-spacing:.07em !important;
+}
+
+@media(max-width:700px){
+  .blackboard-row{
+    font-size:clamp(9px,2.45vw,12px) !important;
+    letter-spacing:.04em !important;
+  }
+
+  .blackboard-row span{
+    padding:0 2% !important;
+  }
+
+  .blackboard-row span:nth-child(1){
+    font-size:.84em !important;
+    letter-spacing:.025em !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1502,6 +1558,13 @@ function backstageDisplayDate(dateStr){
   return `${parts[1]}.${parts[2]}`;
 }
 
+function backstageWeekday(dateStr){
+  const parts=String(dateStr||'').split('-').map(Number);
+  if(parts.length!==3 || parts.some(Number.isNaN))return '';
+  const labels=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  return labels[new Date(Date.UTC(parts[0],parts[1]-1,parts[2])).getUTCDay()];
+}
+
 function renderBlackboardRows(items){
   const root=document.getElementById('blackboardRows');
   root.innerHTML='';
@@ -1515,7 +1578,7 @@ function renderBlackboardRows(items){
     const area=document.createElement('span');
     const daypart=document.createElement('span');
 
-    date.textContent=backstageDisplayDate(item.date);
+    date.textContent=`${backstageDisplayDate(item.date)} ${backstageWeekday(item.date)}`;
     area.textContent=String(item.area||'').toUpperCase();
     daypart.textContent=String(item.daypart||'TBD').toUpperCase();
 
