@@ -912,11 +912,183 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
   }
 }
 
+
+/* ===== BACKSTAGE BLACKBOARD ===== */
+#backstage{
+  background:linear-gradient(180deg,rgba(5,6,8,.42),rgba(5,6,8,.58)) !important;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.backstage-gate{
+  display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(270px,.7fr);
+  gap:34px;
+  align-items:end;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(6,7,10,.30);
+  padding:clamp(22px,4vw,38px);
+}
+.backstage-mini{
+  display:block;
+  color:rgba(255,255,255,.46);
+  font-size:9px;
+  letter-spacing:.24em;
+  margin-bottom:10px;
+}
+.backstage-gate h3{
+  margin:0 0 11px;
+  font:500 clamp(22px,3vw,34px)/1.2 Georgia,"Times New Roman",serif;
+  letter-spacing:.04em;
+}
+.backstage-gate p{
+  margin:0;
+  color:rgba(255,255,255,.63);
+  font-size:11px;
+  line-height:1.9;
+}
+.backstage-pass-hint{
+  margin-top:20px;
+  font-size:10px;
+  letter-spacing:.18em;
+  color:rgba(255,255,255,.52);
+}
+.backstage-pass-hint strong{
+  color:#fff;
+  font-size:13px;
+  letter-spacing:.22em;
+}
+.backstage-unlock label{
+  display:block;
+  margin-bottom:8px;
+  color:rgba(255,255,255,.48);
+  font-size:8px;
+  letter-spacing:.22em;
+}
+.backstage-unlock-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+}
+.backstage-unlock input{
+  min-width:0;
+  height:44px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:0;
+  background:rgba(0,0,0,.28);
+  color:#fff;
+  padding:0 13px;
+  font:600 16px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.16em;
+  outline:none;
+}
+.backstage-unlock input:focus{
+  border-color:rgba(255,49,95,.72);
+}
+.backstage-unlock button{
+  min-height:44px;
+  border:1px solid rgba(255,255,255,.34);
+  background:rgba(0,0,0,.16);
+  color:#fff;
+  padding:0 16px;
+  font-size:9px;
+  letter-spacing:.16em;
+  cursor:pointer;
+}
+.backstage-unlock button:hover{
+  border-color:#ff315f;
+  background:rgba(255,49,95,.08);
+}
+.backstage-error{
+  min-height:17px;
+  margin-top:7px;
+  color:#ff7896;
+  font-size:10px;
+}
+.backstage-content{
+  margin-top:22px;
+}
+.blackboard-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  background:#0a0a09;
+  border:1px solid rgba(255,255,255,.12);
+}
+.blackboard-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.blackboard-data{
+  position:absolute;
+  left:23.1%;
+  top:36.8%;
+  width:47.1%;
+  height:46.2%;
+  display:grid;
+  grid-template-rows:repeat(8,1fr);
+  pointer-events:none;
+}
+.blackboard-row{
+  display:grid;
+  grid-template-columns:26% 37% 37%;
+  align-items:center;
+  text-align:center;
+  min-width:0;
+  color:rgba(250,249,242,.96);
+  font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;
+  font-size:clamp(11px,2vw,27px);
+  line-height:1;
+  letter-spacing:.035em;
+  text-shadow:
+    0 0 1px rgba(255,255,255,.8),
+    0 1px 0 rgba(0,0,0,.45);
+}
+.blackboard-row span{
+  display:block;
+  min-width:0;
+  white-space:nowrap;
+}
+.blackboard-row:nth-child(odd) span:nth-child(1){transform:rotate(-1.2deg)}
+.blackboard-row:nth-child(even) span:nth-child(1){transform:rotate(.8deg)}
+.blackboard-row:nth-child(3n) span:nth-child(2){transform:rotate(-.7deg)}
+.blackboard-row:nth-child(2n) span:nth-child(3){transform:rotate(.9deg)}
+.backstage-disclaimer{
+  padding:12px 2px 0;
+  color:rgba(255,255,255,.44);
+  font-size:9px;
+  line-height:1.7;
+  letter-spacing:.06em;
+}
+@media(max-width:700px){
+  .backstage-gate{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+  .backstage-unlock-row{
+    grid-template-columns:1fr;
+  }
+  .backstage-unlock button{
+    width:100%;
+  }
+  .blackboard-row{
+    font-size:clamp(10px,3vw,14px);
+    letter-spacing:0;
+  }
+}
+
 </style>
 </head>
 <body>
 <div class="app"><div class="bg"></div>
-<header><img class="brand-logo" src="assets/bbts-logo.png" alt="Broken By The Scream"><nav><a href="#schedule">SCHEDULE</a><a href="#special">SPECIAL SHOWS</a><a href="#past">PAST</a></nav></header>
+<header><img class="brand-logo" src="assets/bbts-logo.png" alt="Broken By The Scream"><nav><a href="#schedule">SCHEDULE</a><a href="#special">SPECIAL SHOWS</a><a href="#past">PAST</a><a href="#backstage">BACKSTAGE</a></nav></header>
 <section class="hero">
   <div class="hero-layout">
     <div class="hero-title-block">
@@ -953,6 +1125,45 @@ footer{padding:26px clamp(18px,5vw,70px) 38px;color:#777b84;font-size:10px;lette
 <section id="schedule"><div class="section-head"><div><h2>ALL SCHEDULE</h2><div class="rule"></div></div><p>ALL UPCOMING EVENTS</p></div><div class="filters" id="filters"><button class="active" data-filter="ALL">ALL</button><button data-filter="ONE MAN">ONE MAN</button><button data-filter="OVERSEAS">OVERSEAS</button><button data-filter="FESTIVAL">FESTIVAL</button><button data-filter="FC EVENT">FC</button></div><div class="schedule" id="scheduleList"></div></section>
 <section id="special"><div class="section-head"><div><h2>SPECIAL SHOWS</h2><div class="rule"></div></div><p>ONE MAN / JAPAN TOUR</p></div><div class="special-shell"><article class="special-stage" id="taiwanMission"><img src="assets/flyers/taiwan-oneman-2026-10-10.jpg" alt="Taiwan One Man Show flyer"><div class="special-copy"><span>SPECIAL STAGE</span><h3>TAIWAN ONE MAN</h3><b>10.10 / TAIPEI</b><p>Broken By The Scream Taiwan One Man<br>Jack's Studio</p><div class="special-action">VIEW DETAILS →</div></div></article><div class="campaign"><div class="campaign-flyer"><img src="assets/flyers/fire-from-the-signals-2026.jpg" alt="Fire From The Signals JAPAN TOUR 2026 flyer"></div><div class="campaign-main"><div class="campaign-head"><div><span>TOUR CAMPAIGN</span><h3>FIRE FROM THE SIGNALS</h3><small>JAPAN TOUR 2026</small></div><div class="campaign-count" id="tourCount">0 / 3<small>COMPLETE</small></div></div><div class="stage-line" id="tourStages"></div></div></div></div></section>
 <section id="past"><div class="section-head"><div><h2>PAST SHOWS</h2><div class="rule"></div></div><p>ARCHIVE</p></div><div class="schedule" id="pastList"></div></section>
+
+<section id="backstage">
+  <div class="section-head">
+    <div><h2>BACKSTAGE BLACKBOARD</h2><div class="rule"></div></div>
+    <p>UNCONFIRMED / ON HOLD / ADJUSTING</p>
+  </div>
+
+  <div class="backstage-gate" id="backstageGate">
+    <div class="backstage-gate-copy">
+      <span class="backstage-mini">A LITTLE LOOK BEHIND THE SCENES</span>
+      <h3>まだ決まっていない予定を、少しだけ。</h3>
+      <p>
+        ここには仮押さえ・調整中などの未確定予定が含まれます。<br>
+        掲載内容は正式発表ではなく、変更・中止・削除される可能性があります。
+      </p>
+      <div class="backstage-pass-hint">PASSCODE : <strong>BBTS</strong></div>
+    </div>
+
+    <form class="backstage-unlock" id="backstageUnlockForm">
+      <label for="backstagePass">ENTER PASSCODE</label>
+      <div class="backstage-unlock-row">
+        <input id="backstagePass" type="text" autocomplete="off" spellcheck="false" placeholder="BBTS">
+        <button type="submit">OPEN BOARD →</button>
+      </div>
+      <div class="backstage-error" id="backstageError" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="backstage-content" id="backstageContent" hidden>
+    <div class="blackboard-frame">
+      <img class="blackboard-image" src="assets/backstage-blackboard.png" alt="BACKSTAGE BLACKBOARD">
+      <div class="blackboard-data" id="blackboardRows" aria-label="仮スケジュール"></div>
+    </div>
+    <div class="backstage-disclaimer">
+      ※この情報は仮予定です。内容は予告なく変更・中止・削除される場合があります。正式情報はALL SCHEDULEをご確認ください。
+    </div>
+  </div>
+</section>
+
 <footer><span>SCREAM BEYOND BORDERS.</span><span>BBTS LIVE HUB</span></footer></div>
 <dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="modal-content" id="modalContent"><img class="modal-flyer" id="mFlyer" alt=""><div><div class="meta" id="mMeta"></div><div class="ticket-note" id="mTicketNote"></div><div class="ticket-stack" id="ticketButtons"></div></div></div></div></dialog>
 <script>
@@ -1134,6 +1345,75 @@ async function loadEvents(){
   }
 }
 loadEvents();
+
+
+// BACKSTAGE BLACKBOARD
+const BACKSTAGE_PASSCODE = 'BBTS';
+
+function backstageDisplayDate(dateStr){
+  const parts=String(dateStr||'').split('-');
+  if(parts.length!==3)return dateStr||'';
+  return `${parts[1]}.${parts[2]}`;
+}
+
+function renderBlackboardRows(items){
+  const root=document.getElementById('blackboardRows');
+  root.innerHTML='';
+  const rows=Array.isArray(items)?items.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).slice(0,8):[];
+
+  rows.forEach(item=>{
+    const row=document.createElement('div');
+    row.className='blackboard-row';
+
+    const date=document.createElement('span');
+    const area=document.createElement('span');
+    const daypart=document.createElement('span');
+
+    date.textContent=backstageDisplayDate(item.date);
+    area.textContent=String(item.area||'').toUpperCase();
+    daypart.textContent=String(item.daypart||'TBD').toUpperCase();
+
+    row.append(date,area,daypart);
+    root.appendChild(row);
+  });
+}
+
+async function openBackstageBoard(){
+  const error=document.getElementById('backstageError');
+  error.textContent='';
+
+  try{
+    const res=await fetch(`backstage.json?v=${Date.now()}`,{cache:'no-store'});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const data=await res.json();
+    renderBlackboardRows(data);
+    document.getElementById('backstageGate').hidden=true;
+    document.getElementById('backstageContent').hidden=false;
+    try{sessionStorage.setItem('bbts-backstage-open','1')}catch(_){}
+  }catch(err){
+    console.error(err);
+    error.textContent='スケジュールを読み込めませんでした。再度お試しください。';
+  }
+}
+
+document.getElementById('backstageUnlockForm').addEventListener('submit',event=>{
+  event.preventDefault();
+  const input=document.getElementById('backstagePass');
+  const value=String(input.value||'').trim().toUpperCase();
+  if(value!==BACKSTAGE_PASSCODE){
+    document.getElementById('backstageError').textContent='PASSCODEが違います。';
+    input.focus();
+    return;
+  }
+  openBackstageBoard();
+});
+
+try{
+  if(sessionStorage.getItem('bbts-backstage-open')==='1'){
+    openBackstageBoard();
+  }
+}catch(_){}
+
 
 // PWA: register the service worker.
 if ('serviceWorker' in navigator) {

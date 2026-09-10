@@ -1,10 +1,12 @@
-const CACHE_NAME = 'bbts-live-pwa-v1';
+const CACHE_NAME = 'bbts-live-pwa-v2-backstage';
 
 const PRECACHE = [
   './',
   './index.html',
   './manifest.webmanifest',
   './events.json',
+  './backstage.json',
+  './assets/backstage-blackboard.png',
   './assets/bbts-logo.png',
   './assets/summer-breeze-bg.jpg',
   './assets/flyers/fire-from-the-signals-2026.jpg',
@@ -86,7 +88,8 @@ self.addEventListener('fetch', event => {
   if (
     request.mode === 'navigate' ||
     url.pathname.endsWith('/index.html') ||
-    url.pathname.endsWith('/events.json')
+    url.pathname.endsWith('/events.json') ||
+    url.pathname.endsWith('/backstage.json')
   ) {
     event.respondWith(networkFirst(request));
     return;
