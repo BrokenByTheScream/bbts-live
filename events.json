@@ -189,6 +189,23 @@
     "flyer": "assets/flyers/2026-10-11-taipei-magic-break-fes-splash.jpg"
   },
   {
+    "date": "2026-10-19",
+    "display": "10.19",
+    "dow": "MON",
+    "city": "SAITAMA",
+    "venue": "TBA",
+    "title": "FC会員限定イベント Vo.49",
+    "type": "FC EVENT",
+    "detail": "TBA",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [],
+      "fc": [],
+      "vip": []
+    }
+  },
+  {
     "date": "2026-10-24",
     "display": "10.24",
     "dow": "SAT",
