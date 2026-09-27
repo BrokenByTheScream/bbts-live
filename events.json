@@ -373,5 +373,30 @@
     "missionGroup": "FIRE FROM THE SIGNALS",
     "missionRole": "FINAL STAGE",
     "flyer": "assets/flyers/fire-from-the-signals-2026.jpg"
+  },
+  {
+    "date": "2026-12-27",
+    "display": "12.27",
+    "dow": "SUN",
+    "city": "TOKYO",
+    "venue": "新宿ANTIKNOCK",
+    "title": "icontinew & ANTIKNOCK pre. 【SONIC IMPACT】 New Inst EP [Another icontinew] Release Event",
+    "type": "EVENT",
+    "detail": "●OPEN 10:20 / START 10:40 / CLOSE 14:40\n●ADV ¥4,000(+1D¥600) / DOOR ¥4,500(+1D¥600)\n●チケット取扱：プレイガイド[Livepocket]\n購入ページURL：https://livepocket.jp/e/s_impact\n​※Livepocketはドリンク代込での販売となります。",
+    "status": "ON SALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LIVE POCKET",
+          "url": "https://livepocket.jp/e/s_impact"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "artists": "Broken By The Scream / icontinew / ASTERISM",
+    "ticketNote": "チケット発売開始：9/28(月)20:00",
+    "flyer": "assets/flyers/2026-12-27-tokyo-icontinew-antiknock-pre-sonic-impact-new-ins.jpg"
   }
 ]
