@@ -100,7 +100,7 @@
     "display": "10.03",
     "dow": "SAT",
     "city": "TOKYO",
-    "venue": "THE GAME / 渋谷音楽堂 / CHELSEA HOTEL / STAR LOUNGE / Milkyway / CYCLONE / GARRET",
+    "venue": "CHELSEA HOTEL",
     "title": "ZEPHYREN × SHIBUYA THE GAME presents『In The Family FEST 2026』",
     "type": "CIRCUIT",
     "detail": "OPEN 12:00 / START 12:30｜ADV ¥6,000 / DOOR ¥7,000 (+1D)",
@@ -116,7 +116,11 @@
       "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/2026-10-03-itff-2026.jpg"
+    "ticketNote": "15:45～ CHELSEA HOTEL出演!!",
+    "flyers": [
+      "assets/flyers/2026-10-03-itff-2026.jpg",
+      "assets/flyers/2026-10-03-tokyo-zephyren-shibuya-the-game-presents-in-the-fa-2.jpg"
+    ]
   },
   {
     "date": "2026-10-09",
@@ -234,6 +238,30 @@
     "flyer": "assets/flyers/fire-from-the-signals-2026.jpg",
     "missionGroup": "FIRE FROM THE SIGNALS",
     "missionRole": "TOUR STAGE"
+  },
+  {
+    "date": "2026-10-31",
+    "display": "10.31",
+    "dow": "SAT",
+    "city": "TOKYO",
+    "venue": "渋谷clubasia",
+    "title": "東京激ロックDJパーティー EDGE-CRUSHER Vol.207",
+    "type": "EVENT",
+    "detail": "OPEN 13:00 / CLOSE 21:00 | ADV ¥3,500+1D / ¥4,500+1D",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "ご予約（当日支払い）",
+          "url": "https://tiget.net/events/518885"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "ticketNote": "タイムテーブル、特典会\n後日発表",
+    "flyer": "assets/flyers/2026-10-31-tokyo-dj-edge-crusher-vol-207.jpg"
   },
   {
     "date": "2026-11-14",
