@@ -264,6 +264,30 @@
     "flyer": "assets/flyers/2026-10-31-tokyo-dj-edge-crusher-vol-207.jpg"
   },
   {
+    "date": "2026-11-06",
+    "display": "11.06",
+    "dow": "FRI",
+    "city": "TOKYO",
+    "venue": "新宿ANTIKNOCK",
+    "title": "AETHER CROSS Release 3rd Anniversary -Prologue-",
+    "type": "EVENT",
+    "detail": "OPEN 18:30 START 19:00 | Adv ¥4,500(+D)| Door ¥5,000(+D)\nU-25 ¥2,500(+D)",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "LIVE POCKET",
+          "url": "https://livepocket.jp/e/aethercross"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "artists": "Broken By The Scream\nMana Diagram\n愛探眼影",
+    "flyer": "assets/flyers/2026-11-06-tokyo-aether-cross-release-3rd-anniversary-prologu.jpg"
+  },
+  {
     "date": "2026-11-14",
     "display": "11.14",
     "dow": "SAT",
