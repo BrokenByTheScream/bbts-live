@@ -197,17 +197,23 @@
     "display": "10.19",
     "dow": "MON",
     "city": "SAITAMA",
-    "venue": "TBA",
+    "venue": "SAITAMA",
     "title": "FC会員限定イベント Vo.49",
     "type": "FC EVENT",
-    "detail": "TBA",
-    "status": "COMING SOON",
+    "detail": "OPEN 18:30 / START 19:00｜ADV ¥3,000 / DOOR ¥3,500 (+1D)",
+    "status": "ON SALE",
     "country": "JAPAN",
     "tickets": {
       "general": [],
-      "fc": [],
+      "fc": [
+        {
+          "label": "FC TICKET",
+          "url": "https://www.brokenbythescream.jp/answers/live_2026_10_HEARTS/new"
+        }
+      ],
       "vip": []
-    }
+    },
+    "flyer": "assets/flyers/2026-10-19-saitama-fc-vo-49.jpg"
   },
   {
     "date": "2026-10-24",
