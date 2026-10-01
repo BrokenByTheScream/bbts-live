@@ -1,0 +1,81 @@
+name: BBTS Scheduled Publish
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bbts-scheduled-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check public repo token
+        id: config
+        shell: bash
+        env:
+          TOKEN: ${{ secrets.BBTS_PUBLIC_REPO_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "BBTS_PUBLIC_REPO_TOKEN is not configured yet."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout private scheduler repo
+        uses: actions/checkout@v4
+        with:
+          path: scheduler-repo
+
+      - name: Checkout public BBTS LIVE HUB
+        if: steps.config.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: BrokenByTheScream/bbts-live
+          token: ${{ secrets.BBTS_PUBLIC_REPO_TOKEN }}
+          path: public-repo
+
+      - name: Publish due events
+        if: steps.config.outputs.ready == 'true'
+        run: |
+          python scheduler-repo/scheduler/publish_scheduled.py scheduler-repo public-repo
+
+      - name: Commit public site changes
+        if: steps.config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          cd public-repo
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "BBTS Scheduler"
+            git config user.email "actions@users.noreply.github.com"
+            git add events.json assets/flyers
+            git commit -m "Publish scheduled BBTS event"
+            git pull --rebase
+            git push
+          else
+            echo "No public changes."
+          fi
+
+      - name: Remove published queue entries
+        if: steps.config.outputs.ready == 'true'
+        shell: bash
+        run: |
+          cd scheduler-repo
+          if [ -n "$(git status --porcelain scheduler/queue)" ]; then
+            git config user.name "BBTS Scheduler"
+            git config user.email "actions@users.noreply.github.com"
+            git add scheduler/queue
+            git commit -m "Clear published BBTS schedule queue"
+            git pull --rebase
+            git push
+          else
+            echo "No queue cleanup."
+          fi
