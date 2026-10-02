@@ -246,6 +246,58 @@
     "missionRole": "TOUR STAGE"
   },
   {
+    "date": "2026-10-24",
+    "display": "10.24",
+    "dow": "SAT",
+    "city": "OSAKA",
+    "venue": "心斎橋 FANJ twice",
+    "title": "AIMING",
+    "type": "EVENT",
+    "detail": "【料金】前売り 3,200円 / 当日 4,200円（+1DRINK600円）\n【時間】OPEN 10:10 / START 10:30",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET DIVE",
+          "url": "https://ticketdive.com/event/AIMING_1024"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "artists": "【出演】 Broken By The Scream / AIMIA / AZ-ON / KAMuRO / 鳴ル神 / meluQ",
+    "ticketNote": "※10月3日（土）21:00より販売開始",
+    "flyer": "assets/flyers/2026-10-24-osaka-aiming.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2026-10-25",
+    "display": "10.25",
+    "dow": "SUN",
+    "city": "OSAKA",
+    "venue": "#G8 ナンバーゲート",
+    "title": "Kick ass GIG",
+    "type": "EVENT",
+    "detail": "【料金】前売り 2,800円 / 当日 3,800円（+1DRINK600円）\n【時間】OPEN 10:40 / START 11:00",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET DIVE",
+          "url": "https://t-dv.com/KaG_1025"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "artists": "【出演】Broken By The Scream / アブソプ / AIMIA / KAMuRO / XTEEN",
+    "ticketNote": "10月3日（土）21:00より販売開始",
+    "flyer": "assets/flyers/2026-10-25-osaka-kick-ass-gig.jpg",
+    "publishMode": "now"
+  },
+  {
     "date": "2026-10-31",
     "display": "10.31",
     "dow": "SAT",

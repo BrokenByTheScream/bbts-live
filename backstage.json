@@ -1,17 +1,5 @@
 [
   {
-    "date": "2026-10-24",
-    "area": "OSAKA",
-    "daypart": "DAY",
-    "state": "tentative"
-  },
-  {
-    "date": "2026-10-25",
-    "area": "OSAKA",
-    "daypart": "DAY",
-    "state": "tentative"
-  },
-  {
     "date": "2026-12-19",
     "area": "TOKYO",
     "daypart": "TBD",
