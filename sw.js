@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bbts-live-pwa-current-20260911';
+const CACHE_NAME = 'bbts-live-pwa-flyer-viewer-20261002';
 
 const PRECACHE = [
   './',
