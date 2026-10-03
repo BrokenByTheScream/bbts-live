@@ -1333,6 +1333,22 @@ dialog{
   }
 }
 
+
+/* ===== PUBLISH CONTROL + PAST SHOWS ===== */
+.past-more-wrap{display:flex;justify-content:center;padding-top:22px}
+.past-more-btn{border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.035);color:#d7d9df;min-width:230px;padding:12px 18px;border-radius:999px;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.16em;transition:.2s ease}
+.past-more-btn:hover{color:#fff;border-color:rgba(255,49,95,.58);background:rgba(255,49,95,.09);transform:translateY(-2px)}
+
+/* ===== FLYER IMAGE VIEWER ===== */
+.modal-flyer-link{padding:0;cursor:zoom-in;appearance:none;-webkit-appearance:none}
+#imageViewer{width:100vw!important;max-width:none!important;height:100vh!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;background:rgba(0,0,0,.96)!important;overflow:hidden!important}
+#imageViewer::backdrop{background:rgba(0,0,0,.92)!important;backdrop-filter:blur(6px)}
+.image-viewer-stage{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:max(64px,calc(env(safe-area-inset-top) + 54px)) max(18px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+.image-viewer-stage img{display:block;width:auto;height:auto;max-width:min(94vw,1400px);max-height:calc(100vh - 100px);object-fit:contain;margin:auto}
+.image-viewer-close{position:absolute;z-index:2;top:max(14px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));width:46px;height:46px;border:1px solid rgba(255,255,255,.48);border-radius:50%;background:rgba(0,0,0,.66);color:#fff;font-size:28px;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px)}
+.image-viewer-close:hover{border-color:#ff315f;background:rgba(255,49,95,.16)}
+@media(max-width:700px){.image-viewer-stage{padding:max(60px,calc(env(safe-area-inset-top) + 50px)) 10px max(18px,env(safe-area-inset-bottom))}.image-viewer-stage img{max-width:calc(100vw - 20px);max-height:calc(100vh - 88px)}}
+
 </style>
 </head>
 <body>
@@ -1413,19 +1429,69 @@ dialog{
   </div>
 </section>
 
-<section id="past"><div class="section-head"><div><h2>PAST SHOWS</h2><div class="rule"></div></div><p>ARCHIVE</p></div><div class="schedule" id="pastList"></div></section>
+<section id="past">
+  <div class="section-head"><div><h2>PAST SHOWS</h2><div class="rule"></div></div><p>ARCHIVE</p></div>
+  <div class="schedule" id="pastList"></div>
+  <div class="past-more-wrap" id="pastMoreWrap" hidden>
+    <button class="past-more-btn" id="pastMoreBtn" type="button">VIEW MORE PAST SHOWS</button>
+  </div>
+</section>
 
 
 <footer><span>SCREAM BEYOND BORDERS.</span><span>BBTS LIVE HUB</span></footer></div>
 <dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><small id="mType"></small><h2 id="mTitle"></h2></div><button class="close" id="closeBtn">×</button></div><div class="modal-content" id="modalContent"><div class="modal-flyers" id="mFlyers" aria-label="Event images"></div><div><div class="meta" id="mMeta"></div><div class="ticket-note" id="mTicketNote"></div><div class="ticket-stack" id="ticketButtons"></div></div></div></div></dialog>
+<dialog id="imageViewer" aria-label="Event image viewer">
+  <div class="image-viewer-stage" id="imageViewerStage">
+    <button class="image-viewer-close" id="imageViewerClose" type="button" aria-label="画像を閉じる">×</button>
+    <img id="imageViewerImg" alt="">
+  </div>
+</dialog>
 <script>
 let events=[];
 const dialog=document.getElementById('detailDialog');
+const imageViewer=document.getElementById('imageViewer');
+const imageViewerImg=document.getElementById('imageViewerImg');
+
+function openImageViewer(src,alt='Event image'){
+  imageViewerImg.src=src;
+  imageViewerImg.alt=alt;
+  imageViewer.showModal();
+}
+function closeImageViewer(){
+  if(imageViewer.open)imageViewer.close();
+  imageViewerImg.removeAttribute('src');
+}
 
 function eventDate(e){return new Date(e.date+'T23:59:59+09:00')}
+
+function publishDate(e){
+  if(!e || !e.publishAt)return null;
+  const raw=String(e.publishAt).trim();
+  if(/[zZ]$|[+\-]\d{2}:\d{2}$/.test(raw))return new Date(raw);
+  const withSeconds=/T\d{2}:\d{2}:\d{2}$/.test(raw)?raw:`${raw}:00`;
+  return new Date(`${withSeconds}+09:00`);
+}
+
+function isPubliclyVisible(e,now=new Date()){
+  if(!e)return false;
+  const mode=e.publishMode||'now';
+  if(mode==='backstage')return false;
+  if(mode==='scheduled'){
+    const at=publishDate(e);
+    if(!at || Number.isNaN(at.getTime()))return false;
+    return now>=at;
+  }
+  return true;
+}
+
+function publicEvents(){
+  const now=new Date();
+  return events.filter(e=>isPubliclyVisible(e,now));
+}
+
 function isPast(e){return eventDate(e)<new Date()}
-function upcoming(){return events.filter(e=>!isPast(e)).sort((a,b)=>a.date.localeCompare(b.date))}
-function past(){return events.filter(isPast).sort((a,b)=>b.date.localeCompare(a.date))}
+function upcoming(){return publicEvents().filter(e=>!isPast(e)).sort((a,b)=>a.date.localeCompare(b.date))}
+function past(){return publicEvents().filter(isPast).sort((a,b)=>b.date.localeCompare(a.date))}
 
 function openEvent(e){
   document.getElementById('mType').textContent=[e.type,e.status,e.country].filter(Boolean).join(' / ');
@@ -1446,11 +1512,11 @@ function openEvent(e){
 
   if(flyerSources.length){
     flyerSources.forEach((src,index)=>{
-      const link=document.createElement('a');
-      link.href=src;
-      link.target='_blank';
-      link.rel='noopener';
+      const link=document.createElement('button');
+      link.type='button';
       link.className='modal-flyer-link';
+      link.setAttribute('aria-label',`${e.title} image ${index+1} を拡大表示`);
+      link.onclick=()=>openImageViewer(src,`${e.title} image ${index+1}`);
 
       const img=document.createElement('img');
       img.className='modal-flyer';
@@ -1540,12 +1606,36 @@ function renderSchedule(filter='ALL'){
   list.forEach(e=>root.appendChild(row(e)));
 }
 
+let pastExpanded=false;
+
 function renderPast(){
-  const root=document.getElementById('pastList');root.innerHTML='';
+  const root=document.getElementById('pastList');
+  const wrap=document.getElementById('pastMoreWrap');
+  const btn=document.getElementById('pastMoreBtn');
+  root.innerHTML='';
   const list=past();
-  if(!list.length){root.innerHTML='<div class="past-empty">PAST SHOWS WILL APPEAR HERE AUTOMATICALLY.</div>';return;}
-  list.forEach(e=>root.appendChild(row(e)));
+
+  if(!list.length){
+    root.innerHTML='<div class="past-empty">PAST SHOWS WILL APPEAR HERE AUTOMATICALLY.</div>';
+    wrap.hidden=true;
+    return;
+  }
+
+  const visible=pastExpanded?list:list.slice(0,5);
+  visible.forEach(e=>root.appendChild(row(e)));
+
+  if(list.length>5){
+    wrap.hidden=false;
+    btn.textContent=pastExpanded?'SHOW LESS':'VIEW MORE PAST SHOWS';
+  }else{
+    wrap.hidden=true;
+  }
 }
+
+document.getElementById('pastMoreBtn').addEventListener('click',()=>{
+  pastExpanded=!pastExpanded;
+  renderPast();
+});
 
 
 function renderNextMission(){
@@ -1579,11 +1669,12 @@ function renderNextMission(){
 }
 
 function renderSpecialMissions(){
-  const taiwan=events.find(e=>e.date==='2026-10-10');
+  const visible=publicEvents();
+  const taiwan=visible.find(e=>e.date==='2026-10-10');
   const taiwanBox=document.getElementById('taiwanMission');
   if(taiwan){taiwanBox.style.display='';taiwanBox.onclick=()=>openEvent(taiwan)}else{taiwanBox.style.display='none'}
   const dates=['2026-10-24','2026-11-15','2026-12-21'];
-  const stages=dates.map(d=>events.find(e=>e.date===d)).filter(Boolean);
+  const stages=dates.map(d=>visible.find(e=>e.date===d)).filter(Boolean);
   const root=document.getElementById('tourStages');root.innerHTML='';let cleared=0;
   stages.forEach((e,i)=>{
     const done=isPast(e);if(done)cleared++;
@@ -1603,6 +1694,15 @@ document.getElementById('filters').addEventListener('click',e=>{
 document.getElementById('closeBtn').onclick=()=>dialog.close();
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 
+document.getElementById('imageViewerClose').onclick=closeImageViewer;
+imageViewer.addEventListener('click',e=>{
+  if(e.target===imageViewer || e.target.id==='imageViewerStage')closeImageViewer();
+});
+imageViewer.addEventListener('cancel',e=>{
+  e.preventDefault();
+  closeImageViewer();
+});
+
 async function loadEvents(){
   try{
     const res=await fetch(`events.json?v=${Date.now()}`,{cache:'no-store'});
@@ -1618,6 +1718,16 @@ async function loadEvents(){
   }
 }
 loadEvents();
+
+// Re-check scheduled publication while the page remains open.
+setInterval(()=>{
+  if(!events.length)return;
+  const active=document.querySelector('#filters button.active');
+  renderNextMission();
+  renderSchedule(active?active.dataset.filter:'ALL');
+  renderSpecialMissions();
+  renderPast();
+},30000);
 
 
 // BACKSTAGE BLACKBOARD
@@ -1704,5 +1814,13 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- Cloudflare Web Analytics -->
+<script type="module"
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token":"7719312afa4a48cd944a51cec3c7a3ae"}'>
+</script>
+<!-- End Cloudflare Web Analytics -->
+
 </body>
 </html>
