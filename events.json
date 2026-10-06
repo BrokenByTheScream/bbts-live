@@ -182,11 +182,14 @@
     "venue": "NUZONE 展演空間",
     "title": "MAGIC BREAK FES -SPLASH-",
     "type": "FESTIVAL",
-    "detail": "DAY3｜TICKET詳細近日発表",
-    "status": "COMING SOON",
+    "detail": "DAY3｜TICKET",
+    "status": "ON SALE",
     "country": "TAIWAN",
     "tickets": {
-      "general": [],
+      "general": [   {
+          "label": "TIGET",
+          "url": "https://tiget.net/events/525755"
+        }],
       "fc": [],
       "vip": []
     },
