@@ -4,5 +4,29 @@
     "area": "TOKYO",
     "daypart": "TBD",
     "state": "tentative"
+  },
+  {
+    "date": "2027-01-03",
+    "area": "TOKYO",
+    "daypart": "TBD",
+    "state": "tentative"
+  },
+  {
+    "date": "2027-01-04",
+    "area": "TOKYO",
+    "daypart": "TBD",
+    "state": "tentative"
+  },
+  {
+    "date": "2027-02-06",
+    "area": "NAGOYA",
+    "daypart": "TBD",
+    "state": "tentative"
+  },
+  {
+    "date": "2027-02-07",
+    "area": "CHIBA",
+    "daypart": "TBD",
+    "state": "tentative"
   }
 ]

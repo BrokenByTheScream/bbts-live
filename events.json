@@ -182,14 +182,11 @@
     "venue": "NUZONE 展演空間",
     "title": "MAGIC BREAK FES -SPLASH-",
     "type": "FESTIVAL",
-    "detail": "DAY3｜TICKET",
-    "status": "ON SALE",
+    "detail": "DAY3｜TICKET詳細近日発表",
+    "status": "COMING SOON",
     "country": "TAIWAN",
     "tickets": {
-      "general": [   {
-          "label": "TIGET",
-          "url": "https://tiget.net/events/525755"
-        }],
+      "general": [],
       "fc": [],
       "vip": []
     },
@@ -224,7 +221,7 @@
     "dow": "SAT",
     "city": "OSAKA",
     "venue": "心斎橋FANJ twice",
-    "title": "Fire From The Signals -JAPAN TOUR- (夜公演)",
+    "title": "Fire From The Signals -JAPAN TOUR-",
     "type": "ONE MAN",
     "detail": "OPEN 18:00 / START 18:30｜ADV ¥4,500 / DOOR ¥5,000",
     "status": "ON SALE",
@@ -254,7 +251,7 @@
     "dow": "SAT",
     "city": "OSAKA",
     "venue": "心斎橋 FANJ twice",
-    "title": "AIMING (昼公演)",
+    "title": "AIMING",
     "type": "EVENT",
     "detail": "【料金】前売り 3,200円 / 当日 4,200円（+1DRINK600円）\n【時間】OPEN 10:10 / START 10:30",
     "status": "COMING SOON",
@@ -511,5 +508,283 @@
     "artists": "Broken By The Scream / icontinew / ASTERISM",
     "ticketNote": "チケット発売開始：9/28(月)20:00",
     "flyer": "assets/flyers/2026-12-27-tokyo-icontinew-antiknock-pre-sonic-impact-new-ins.jpg"
+  },
+  {
+    "date": "2027-04-27",
+    "display": "04.27",
+    "dow": "TUE",
+    "city": "NEW YORK, NY",
+    "country": "USA",
+    "venue": "Gramercy Theatre",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.ticketmaster.com/event/0000655B936B4168#tickets"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-04-29",
+    "display": "04.29",
+    "dow": "THU",
+    "city": "BOSTON, MA",
+    "venue": "Brighton Music Hall",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "country": "USA",
+    "tickets": {
+      "general": [
+        {
+          "label": "GENERAL TICKET",
+          "url": "https://www.ticketmaster.com/event/01006558E3123854#venue"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-04-30",
+    "display": "04.30",
+    "dow": "FRI",
+    "city": "HARRISBURG, PA",
+    "country": "USA",
+    "venue": "Capital City Music Hall",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.ticketmaster.com/event/0200655AC7F99CD3#venue"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-01",
+    "display": "05.01",
+    "dow": "SAT",
+    "city": "WASHINGTON, DC",
+    "country": "USA",
+    "venue": "Pearl Street Warehouse",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://app.opendate.io/e/broken-by-the-scream-may-01-2027-748909"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-03",
+    "display": "05.03",
+    "dow": "MON",
+    "city": "MONTREAL, QC",
+    "country": "CANADA",
+    "venue": "Fairmount Theatre",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.universe.com/events/broken-by-the-scream-tickets-8L4RX2"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-04",
+    "display": "05.04",
+    "dow": "TUE",
+    "city": "TORONTO, ON",
+    "country": "CANADA",
+    "venue": "Mod Club",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.ticketmaster.ca/event/1000655AB7218AF3"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-06",
+    "display": "05.06",
+    "dow": "THU",
+    "city": "MILWAUKEE, WI",
+    "country": "USA",
+    "venue": "The Rave Bar",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.etix.com/ticket/p/75734382/broken-by-the-scream-milwaukee-the-rave-eagles-club"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-07",
+    "display": "05.07",
+    "dow": "FRI",
+    "city": "CHICAGO, IL",
+    "country": "USA",
+    "venue": "Bottom Lounge",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://bottomlounge.com/shows/broken-by-the-scream-may-07-2027-792693/"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-08",
+    "display": "05.08",
+    "dow": "SAT",
+    "city": "MINNEAPOLIS, MN",
+    "country": "USA",
+    "venue": "Fine Line Music Cafe",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.axs.com/jp/events/1668729/broken-by-the-scream-tickets?skin=fineline"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-10",
+    "display": "05.10",
+    "dow": "MON",
+    "city": "KANSAS CITY, MO",
+    "country": "USA",
+    "venue": "recordBar",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.ticketmaster.com/event/0600655AAD3A76F0"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-11",
+    "display": "05.11",
+    "dow": "TUE",
+    "city": "OKLAHOMA CITY, OK",
+    "country": "USA",
+    "venue": "Beer City Music Hall",
+    "title": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "type": "ONE MAN",
+    "detail": "",
+    "status": "ON SALE",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET",
+          "url": "https://www.prekindle.com/checkout/id/-2852527948963608165"
+        },
+        {
+          "label": "TICKET",
+          "url": "https://www.prekindle.com/promo/id/-2852527948963608159"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "special": "NORTH AMERICA",
+    "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
   }
 ]
