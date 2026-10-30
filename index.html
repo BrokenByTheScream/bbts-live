@@ -1349,6 +1349,41 @@ dialog{
 .image-viewer-close:hover{border-color:#ff315f;background:rgba(255,49,95,.16)}
 @media(max-width:700px){.image-viewer-stage{padding:max(60px,calc(env(safe-area-inset-top) + 50px)) 10px max(18px,env(safe-area-inset-bottom))}.image-viewer-stage img{max-width:calc(100vw - 20px);max-height:calc(100vh - 88px)}}
 
+
+/* YEAR DIVIDERS — 2026-10-31 */
+.year-divider{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:30px 4px 12px;
+  border-bottom:1px solid var(--line);
+}
+.year-divider:first-child{padding-top:4px}
+.year-divider-year{
+  flex:0 0 auto;
+  font-family:Georgia,serif;
+  font-size:clamp(30px,4vw,46px);
+  line-height:1;
+  letter-spacing:.08em;
+  color:#fff;
+}
+.year-divider-label{
+  flex:0 0 auto;
+  font-size:9px;
+  letter-spacing:.22em;
+  color:#8f929b;
+}
+.year-divider-line{
+  height:1px;
+  flex:1 1 auto;
+  background:linear-gradient(90deg,rgba(255,49,95,.55),rgba(255,255,255,.08));
+}
+@media(max-width:700px){
+  .year-divider{gap:10px;padding:24px 0 10px}
+  .year-divider-year{font-size:32px}
+  .year-divider-label{font-size:8px;letter-spacing:.16em}
+}
+
 </style>
 </head>
 <body>
@@ -1595,6 +1630,25 @@ function row(e){
   return el;
 }
 
+function yearDivider(year,label='LIVE SCHEDULE'){
+  const el=document.createElement('div');
+  el.className='year-divider';
+  el.innerHTML=`<strong class="year-divider-year">${year}</strong><span class="year-divider-label">${label}</span><i class="year-divider-line" aria-hidden="true"></i>`;
+  return el;
+}
+
+function appendYearGrouped(root,list,label='LIVE SCHEDULE'){
+  let currentYear='';
+  list.forEach(e=>{
+    const year=String(e.date||'').slice(0,4);
+    if(year && year!==currentYear){
+      currentYear=year;
+      root.appendChild(yearDivider(year,label));
+    }
+    root.appendChild(row(e));
+  });
+}
+
 function renderSchedule(filter='ALL'){
   let list=upcoming();
   if(filter==='ONE MAN')list=list.filter(e=>e.type==='ONE MAN');
@@ -1603,7 +1657,7 @@ function renderSchedule(filter='ALL'){
   if(filter==='FC EVENT')list=list.filter(e=>e.type==='FC EVENT');
   const root=document.getElementById('scheduleList');
   root.innerHTML='';
-  list.forEach(e=>root.appendChild(row(e)));
+  appendYearGrouped(root,list,'LIVE SCHEDULE');
 }
 
 let pastExpanded=false;
@@ -1622,7 +1676,7 @@ function renderPast(){
   }
 
   const visible=pastExpanded?list:list.slice(0,5);
-  visible.forEach(e=>root.appendChild(row(e)));
+  appendYearGrouped(root,visible,'ARCHIVE');
 
   if(list.length>5){
     wrap.hidden=false;
