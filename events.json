@@ -172,7 +172,10 @@
       ]
     },
     "missionRole": "SPECIAL STAGE",
-    "flyer": "assets/flyers/taiwan-oneman-2026-10-10.jpg"
+    "flyer": "assets/flyers/taiwan-oneman-2026-10-10.jpg",
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "TAIWAN ONE MAN"
   },
   {
     "date": "2026-10-11",
@@ -306,7 +309,7 @@
     "title": "東京激ロックDJパーティー EDGE-CRUSHER Vol.207",
     "type": "EVENT",
     "detail": "OPEN 13:00 / CLOSE 21:00 | ADV ¥3,500+1D / ¥4,500+1D",
-    "status": "ON SALE",
+    "status": "COMING SOON",
     "country": "JAPAN",
     "tickets": {
       "general": [
@@ -330,7 +333,7 @@
     "title": "AETHER CROSS Release 3rd Anniversary -Prologue-",
     "type": "EVENT",
     "detail": "OPEN 18:30 START 19:00 | Adv ¥4,500(+D)| Door ¥5,000(+D)\nU-25 ¥2,500(+D)",
-    "status": "ON SALE",
+    "status": "COMING SOON",
     "country": "JAPAN",
     "tickets": {
       "general": [
@@ -344,6 +347,27 @@
     },
     "artists": "Broken By The Scream\nMana Diagram\n愛探眼影",
     "flyer": "assets/flyers/2026-11-06-tokyo-aether-cross-release-3rd-anniversary-prologu.jpg"
+  },
+  {
+    "date": "2026-11-09",
+    "display": "11.09",
+    "dow": "MON",
+    "city": "ONLINE",
+    "venue": "ONLINE",
+    "title": "秋のオンラインチェキ会",
+    "type": "EVENT",
+    "detail": "詳細後日",
+    "status": "ON SALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [],
+      "fc": [],
+      "vip": []
+    },
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "秋のオンラインチェキ会",
+    "publishMode": "now"
   },
   {
     "date": "2026-11-14",
@@ -412,7 +436,7 @@
     "detail": "先行予約［抽選］受付",
     "artists": "怒髪天 / moreru / 鬼の右腕 / Broken By The Scream / 愛探眼影 / Pale / FesterDecay / Cissné",
     "ticketNote": "先行予約［抽選］ 2026/09/05 18:00〜",
-    "status": "ON SALE",
+    "status": "PRESALE",
     "country": "JAPAN",
     "tickets": {
       "general": [
@@ -424,7 +448,10 @@
       "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/2026-11-28-mixed-hell-2026.jpg"
+    "flyer": "assets/flyers/2026-11-28-mixed-hell-2026.jpg",
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "MIXED HELL 2026 second"
   },
   {
     "date": "2026-11-29",
@@ -532,7 +559,10 @@
     },
     "special": "NORTH AMERICA",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now"
+    "publishMode": "now",
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
   },
   {
     "date": "2027-04-29",
@@ -555,9 +585,11 @@
       "fc": [],
       "vip": []
     },
-    "special": "NORTH AMERICA",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now"
+    "publishMode": "now",
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
   },
   {
     "date": "2027-04-30",
@@ -582,7 +614,10 @@
     },
     "special": "NORTH AMERICA",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now"
+    "publishMode": "now",
+    "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
   },
   {
     "date": "2027-05-01",
