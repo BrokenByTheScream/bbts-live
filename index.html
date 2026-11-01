@@ -1350,7 +1350,19 @@ dialog{
 @media(max-width:700px){.image-viewer-stage{padding:max(60px,calc(env(safe-area-inset-top) + 50px)) 10px max(18px,env(safe-area-inset-bottom))}.image-viewer-stage img{max-width:calc(100vw - 20px);max-height:calc(100vh - 88px)}}
 
 
-/* YEAR DIVIDERS — 2026-10-31 */
+/* v9 DYNAMIC SPECIAL SHOWS */
+.special-shell.special-dynamic{grid-template-columns:repeat(2,minmax(0,1fr))}
+.special-shell.special-dynamic .special-stage.special-no-flyer{grid-template-columns:1fr}
+.special-shell.special-dynamic .campaign.special-no-flyer{grid-template-columns:1fr}
+.special-shell.special-dynamic .campaign.special-wide{grid-column:1 / -1}
+.special-shell.special-dynamic .campaign.special-wide .stage-line{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.special-shell.special-dynamic .campaign.special-wide .stage-line:before{display:none}
+.special-empty{grid-column:1/-1;color:#777b84;font-size:12px;letter-spacing:.12em;padding:18px 0}
+@media(max-width:1150px){.special-shell.special-dynamic{grid-template-columns:1fr}}
+@media(max-width:700px){.special-shell.special-dynamic{grid-template-columns:1fr}}
+
+
+/* SIMPLE YEAR DIVIDERS — 2026-11-01 */
 .year-divider{
   padding:34px 4px 10px;
 }
@@ -1408,7 +1420,7 @@ dialog{
   </div>
 </section>
 <section id="schedule"><div class="section-head"><div><h2>ALL SCHEDULE</h2><div class="rule"></div></div><p>ALL UPCOMING EVENTS</p></div><div class="filters" id="filters"><button class="active" data-filter="ALL">ALL</button><button data-filter="ONE MAN">ONE MAN</button><button data-filter="OVERSEAS">OVERSEAS</button><button data-filter="FESTIVAL">FESTIVAL</button><button data-filter="FC EVENT">FC</button></div><div class="schedule" id="scheduleList"></div></section>
-<section id="special"><div class="section-head"><div><h2>SPECIAL SHOWS</h2><div class="rule"></div></div><p>ONE MAN / JAPAN TOUR</p></div><div class="special-shell"><article class="special-stage" id="taiwanMission"><img src="assets/flyers/taiwan-oneman-2026-10-10.jpg" alt="Taiwan One Man Show flyer"><div class="special-copy"><span>SPECIAL STAGE</span><h3>TAIWAN ONE MAN</h3><b>10.10 / TAIPEI</b><p>Broken By The Scream Taiwan One Man<br>Jack's Studio</p><div class="special-action">VIEW DETAILS →</div></div></article><div class="campaign"><div class="campaign-flyer"><img src="assets/flyers/fire-from-the-signals-2026.jpg" alt="Fire From The Signals JAPAN TOUR 2026 flyer"></div><div class="campaign-main"><div class="campaign-head"><div><span>TOUR CAMPAIGN</span><h3>FIRE FROM THE SIGNALS</h3><small>JAPAN TOUR 2026</small></div></div><div class="stage-line" id="tourStages"></div></div></div></div></section>
+<section id="special"><div class="section-head"><div><h2>SPECIAL SHOWS</h2><div class="rule"></div></div><p>FEATURED LIVE / TOUR</p></div><div class="special-shell special-dynamic" id="specialShowsRoot"></div></section>
 
 <section id="backstage">
   <div class="section-head">
@@ -1706,20 +1718,155 @@ function renderNextMission(){
   };
 }
 
+
+function specialFlyers(e){
+  if(Array.isArray(e?.flyers)&&e.flyers.length)return e.flyers.filter(Boolean);
+  return e?.flyer?[e.flyer]:[];
+}
+
+function legacySpecialMeta(e){
+  if(!e)return null;
+  if(e.missionGroup){
+    return {
+      enabled:true,
+      display:'tour',
+      group:String(e.missionGroup),
+      title:String(e.missionGroup),
+      subtitle:String(e.missionGroup)==='FIRE FROM THE SIGNALS'?'JAPAN TOUR 2026':''
+    };
+  }
+  if(String(e.missionRole||'').toUpperCase()==='SPECIAL STAGE'){
+    return {
+      enabled:true,
+      display:'single',
+      group:'',
+      title:/taiwan one man/i.test(String(e.title||''))?'TAIWAN ONE MAN':String(e.title||''),
+      subtitle:''
+    };
+  }
+  return null;
+}
+
+function specialMeta(e){
+  const legacy=legacySpecialMeta(e);
+  const explicit=e&&Object.prototype.hasOwnProperty.call(e,'specialShow');
+  if(explicit && e.specialShow!==true)return null;
+
+  if(explicit){
+    const display=String(e.specialDisplay||legacy?.display||(e.specialGroup?'tour':'single'));
+    return {
+      enabled:true,
+      display,
+      group:String(e.specialGroup||legacy?.group||e.specialTitle||e.title||''),
+      title:String(e.specialTitle||legacy?.title||e.title||''),
+      subtitle:String(e.specialSubtitle||legacy?.subtitle||'')
+    };
+  }
+  return legacy;
+}
+
+function specialDisplayGroups(){
+  const map=new Map();
+  publicEvents().forEach((e,index)=>{
+    const meta=specialMeta(e);
+    if(!meta||!meta.enabled)return;
+    const key=meta.display==='tour'
+      ? 'tour:'+String(meta.group||meta.title).toLowerCase()
+      : 'single:'+String(e.date||'')+':'+index;
+    if(!map.has(key))map.set(key,{key,meta,items:[]});
+    map.get(key).items.push(e);
+  });
+  return [...map.values()].sort((a,b)=>{
+    const ad=a.items.map(e=>e.date||'9999-12-31').sort()[0];
+    const bd=b.items.map(e=>e.date||'9999-12-31').sort()[0];
+    return ad.localeCompare(bd);
+  });
+}
+
 function renderSpecialMissions(){
-  const visible=publicEvents();
-  const taiwan=visible.find(e=>e.date==='2026-10-10');
-  const taiwanBox=document.getElementById('taiwanMission');
-  if(taiwan){taiwanBox.style.display='';taiwanBox.onclick=()=>openEvent(taiwan)}else{taiwanBox.style.display='none'}
-  const dates=['2026-10-24','2026-11-15','2026-12-21'];
-  const stages=dates.map(d=>visible.find(e=>e.date===d)).filter(Boolean);
-  const root=document.getElementById('tourStages');root.innerHTML='';let cleared=0;
-  stages.forEach((e,i)=>{
-    const done=isPast(e);if(done)cleared++;
-    const final=e.date==='2026-12-21';
-    const el=document.createElement('article');el.className='stage'+(done?' cleared':'')+(final?' final':'');
-    el.innerHTML=`<div class="stage-node">${done?'✓':(final?'★':'●')}</div><div class="stage-role">${final?'FINAL STAGE':`STAGE 0${i+1}`}</div><div class="stage-city">${e.city}</div><div class="stage-date">${e.display}</div><div class="stage-venue">${e.venue}</div><div class="stage-details">VIEW DETAILS →</div>`;
-    el.onclick=()=>openEvent(e);root.appendChild(el);
+  const section=document.getElementById('special');
+  const root=document.getElementById('specialShowsRoot');
+  if(!section||!root)return;
+
+  const groups=specialDisplayGroups();
+  root.innerHTML='';
+
+  if(!groups.length){
+    section.hidden=true;
+    return;
+  }
+  section.hidden=false;
+
+  groups.forEach(group=>{
+    const meta=group.meta;
+    const items=group.items.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+
+    if(meta.display!=='tour'){
+      const e=items[0];
+      const flyer=specialFlyers(e)[0]||'';
+      const article=document.createElement('article');
+      article.className='special-stage'+(flyer?'':' special-no-flyer');
+
+      if(flyer){
+        const img=document.createElement('img');
+        img.src=flyer;
+        img.alt=(meta.title||e.title||'SPECIAL SHOW')+' flyer';
+        img.loading='lazy';
+        article.appendChild(img);
+      }
+
+      const copy=document.createElement('div');
+      copy.className='special-copy';
+      copy.innerHTML=`<span>SPECIAL STAGE</span><h3>${meta.title||e.title||'SPECIAL SHOW'}</h3><b>${e.display||''} / ${e.city||''}</b><p>${e.title||''}<br>${e.venue||''}</p><div class="special-action">VIEW DETAILS →</div>`;
+      article.appendChild(copy);
+      article.onclick=()=>openEvent(e);
+      root.appendChild(article);
+      return;
+    }
+
+    const flyerEvent=items.find(e=>specialFlyers(e).length)||items[0];
+    const flyer=specialFlyers(flyerEvent)[0]||'';
+    const campaign=document.createElement('div');
+    campaign.className='campaign'+(flyer?'':' special-no-flyer')+(items.length>4?' special-wide':'');
+
+    if(flyer){
+      const fw=document.createElement('div');
+      fw.className='campaign-flyer';
+      const img=document.createElement('img');
+      img.src=flyer;
+      img.alt=(meta.title||'TOUR')+' flyer';
+      img.loading='lazy';
+      fw.appendChild(img);
+      campaign.appendChild(fw);
+    }
+
+    const main=document.createElement('div');
+    main.className='campaign-main';
+
+    const head=document.createElement('div');
+    head.className='campaign-head';
+    const headCopy=document.createElement('div');
+    headCopy.innerHTML=`<span>TOUR CAMPAIGN</span><h3>${meta.title||items[0]?.title||'TOUR'}</h3>${meta.subtitle?`<small>${meta.subtitle}</small>`:''}`;
+    head.appendChild(headCopy);
+    main.appendChild(head);
+
+    const line=document.createElement('div');
+    line.className='stage-line';
+
+    items.forEach((e,i)=>{
+      const done=isPast(e);
+      const role=String(e.missionRole||'').trim();
+      const final=/FINAL/i.test(role);
+      const el=document.createElement('article');
+      el.className='stage'+(done?' cleared':'')+(final?' final':'');
+      el.innerHTML=`<div class="stage-node">${done?'✓':(final?'★':'●')}</div><div class="stage-role">${role||(final?'FINAL STAGE':`STAGE ${String(i+1).padStart(2,'0')}`)}</div><div class="stage-city">${e.city||''}</div><div class="stage-date">${e.display||''}</div><div class="stage-venue">${e.venue||''}</div><div class="stage-details">VIEW DETAILS →</div>`;
+      el.onclick=()=>openEvent(e);
+      line.appendChild(el);
+    });
+
+    main.appendChild(line);
+    campaign.appendChild(main);
+    root.appendChild(campaign);
   });
 }
 
