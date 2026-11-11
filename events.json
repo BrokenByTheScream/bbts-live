@@ -333,7 +333,7 @@
     "title": "AETHER CROSS Release 3rd Anniversary -Prologue-",
     "type": "EVENT",
     "detail": "OPEN 18:30 START 19:00 | Adv ¥4,500(+D)| Door ¥5,000(+D)\nU-25 ¥2,500(+D)",
-    "status": "ON SALE",
+    "status": "COMING SOON",
     "country": "JAPAN",
     "tickets": {
       "general": [
@@ -477,6 +477,57 @@
     "flyer": "assets/flyers/2026-11-29-kakumei-logic-2026.jpg"
   },
   {
+    "date": "2026-12-05",
+    "display": "12.05",
+    "dow": "SAT",
+    "city": "SAITAMA",
+    "venue": "SAITAMA",
+    "title": "Broken By The Scream FC会員限定イベント Vol.50 年末スペシャル",
+    "type": "FC EVENT",
+    "detail": "開場10:30/開演11:00  前売 3500円/当日 4000円",
+    "status": "ON SALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [],
+      "fc": [
+        {
+          "label": "FC会員限定予約(当日お支払い)",
+          "url": "https://www.brokenbythescream.jp/answers/live_2026_12_HEARTS/new"
+        }
+      ],
+      "vip": []
+    },
+    "special": "FC会員限定予約",
+    "specialShow": false,
+    "flyer": "assets/flyers/2026-12-05-saitama-broken-by-the-scream-fc-vol-50.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2026-12-19",
+    "display": "12.19",
+    "dow": "SAT",
+    "city": "TOKYO",
+    "venue": "GARRET udagawa",
+    "title": "AIMING",
+    "type": "EVENT",
+    "detail": "前売り 2,800円 / 当日 3,800円（+1DRINK600円）\nOPEN 11:00 / START 11:30",
+    "status": "ON SALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "TICKET DIVE",
+          "url": "https://ticketdive.com/event/AIMING_1219"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "specialShow": false,
+    "flyer": "assets/flyers/2026-12-19-tokyo-aiming.jpg",
+    "publishMode": "now"
+  },
+  {
     "date": "2026-12-21",
     "display": "12.21",
     "dow": "MON",
@@ -558,11 +609,13 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now",
-    "specialShow": false,
-    "specialDisplay": "single",
-    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
+    "publishMode": "now"
   },
   {
     "date": "2027-04-29",
@@ -585,11 +638,14 @@
       "fc": [],
       "vip": []
     },
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "special": "NORTH AMERICA",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now",
-    "specialShow": false,
-    "specialDisplay": "single",
-    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
+    "publishMode": "now"
   },
   {
     "date": "2027-04-30",
@@ -613,11 +669,13 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
-    "publishMode": "now",
-    "specialShow": false,
-    "specialDisplay": "single",
-    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027"
+    "publishMode": "now"
   },
   {
     "date": "2027-05-01",
@@ -641,6 +699,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -666,6 +729,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -691,6 +759,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -716,6 +789,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -741,6 +819,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -766,6 +849,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -791,6 +879,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   },
@@ -820,6 +913,11 @@
       "vip": []
     },
     "special": "NORTH AMERICA",
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
     "publishMode": "now"
   }
