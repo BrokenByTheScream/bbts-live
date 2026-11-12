@@ -448,10 +448,11 @@
       "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/2026-11-28-mixed-hell-2026.jpg",
     "specialShow": false,
     "specialDisplay": "single",
-    "specialTitle": "MIXED HELL 2026 second"
+    "specialTitle": "MIXED HELL 2026 second",
+    "flyer": "assets/flyers/2026-11-28-mixed-hell-2026.jpg",
+    "publishMode": "now"
   },
   {
     "date": "2026-11-29",
@@ -461,7 +462,7 @@
     "venue": "下北沢11会場",
     "title": "LIVEHOLIC presents. “革命ロジック2026”",
     "type": "CIRCUIT",
-    "detail": "OPEN 11:00 (予定)｜ADV ¥5,000 / 学生 ¥4,000 (+D)｜DOOR +¥1,000",
+    "detail": "OPEN 11:00 (予定)｜ADV ¥5,000 / 学生 ¥4,000 (+D)｜DOOR +¥1,000\n※17時半下北沢シャングリラ出演予定",
     "status": "ON SALE",
     "country": "JAPAN",
     "tickets": {
@@ -474,7 +475,12 @@
       "fc": [],
       "vip": []
     },
-    "flyer": "assets/flyers/2026-11-29-kakumei-logic-2026.jpg"
+    "specialShow": false,
+    "flyers": [
+      "assets/flyers/2026-11-29-kakumei-logic-2026.jpg",
+      "assets/flyers/2026-11-29-tokyo-liveholic-presents-2026.jpg"
+    ],
+    "publishMode": "now"
   },
   {
     "date": "2026-12-05",
@@ -605,6 +611,31 @@
     "artists": "Broken By The Scream / icontinew / ASTERISM",
     "ticketNote": "チケット発売開始：9/28(月)20:00",
     "flyer": "assets/flyers/2026-12-27-tokyo-icontinew-antiknock-pre-sonic-impact-new-ins.jpg"
+  },
+  {
+    "date": "2027-02-06",
+    "display": "02.06",
+    "dow": "SAT",
+    "city": "NAGOYA",
+    "venue": "TBA",
+    "title": "RAD CREATION & RAD ENTERTAINMENT presents でらロックフェスティバル",
+    "type": "EVENT",
+    "detail": "2027年2月6日(土)\n\nOPEN / START 11:30 / 12:00\n\n先行チケット販売中 \n\n1日券 ¥5,600(1D別) / 通し券¥10,000(2D代別)",
+    "status": "COMING SOON",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "ぴあ",
+          "url": "https://t.pia.jp/pia/event/event.do?eventBundleCd=b2669489"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "specialShow": false,
+    "flyer": "assets/flyers/2027-02-06-nagoya-rad-creation-rad-entertainment-presents.jpg",
+    "publishMode": "now"
   },
   {
     "date": "2027-04-27",
