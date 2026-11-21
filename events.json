@@ -433,16 +433,19 @@
     "venue": "CLUB CITTA",
     "title": "MIXED HELL 2026 second",
     "type": "FESTIVAL",
-    "detail": "先行予約［抽選］受付",
+    "detail": "",
     "artists": "怒髪天 / moreru / 鬼の右腕 / Broken By The Scream / 愛探眼影 / Pale / FesterDecay / Cissné",
-    "ticketNote": "先行予約［抽選］ 2026/09/05 18:00〜",
-    "status": "PRESALE",
+    "status": "ON SALE",
     "country": "JAPAN",
     "tickets": {
       "general": [
         {
           "label": "チケットぴあ",
           "url": "https://t.pia.jp/pia/event/event.do?eventCd=2633817"
+        },
+        {
+          "label": "Advance tickets for international visitors",
+          "url": "https://ticket.pia.jp/piasp/inbound/mixedhell26eng.jsp"
         }
       ],
       "fc": [],
@@ -613,6 +616,36 @@
     "flyer": "assets/flyers/2026-12-27-tokyo-icontinew-antiknock-pre-sonic-impact-new-ins.jpg"
   },
   {
+    "date": "2027-01-24",
+    "display": "01.24",
+    "dow": "SUN",
+    "city": "TOKYO",
+    "venue": "青山RizM",
+    "title": "青山RizM 10th Anniversary!!””蒼天””",
+    "type": "EVENT",
+    "detail": "OPEN 15:00 / START 15:30\nADV ￥4,500+D",
+    "status": "ON SALE",
+    "country": "JAPAN",
+    "tickets": {
+      "general": [
+        {
+          "label": "e＋",
+          "url": "https://eplus.jp/sf/detail/4637930001-P0030001"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "artists": "Broken By The Scream／UNDYING WORDS／S/HE／Disconnect Cendrillon／exist†trace／Little Lilith／BONE DAWN",
+    "ticketNote": "11/22(日)12:00発売開始!!",
+    "specialShow": false,
+    "flyers": [
+      "assets/flyers/2027-01-24-tokyo-rizm-10th-anniversary.jpg",
+      "assets/flyers/2027-01-24-tokyo-rizm-10th-anniversary-2.jpg"
+    ],
+    "publishMode": "now"
+  },
+  {
     "date": "2027-02-06",
     "display": "02.06",
     "dow": "SAT",
@@ -621,7 +654,7 @@
     "title": "RAD CREATION & RAD ENTERTAINMENT presents でらロックフェスティバル",
     "type": "EVENT",
     "detail": "2027年2月6日(土)\n\nOPEN / START 11:30 / 12:00\n\n先行チケット販売中 \n\n1日券 ¥5,600(1D別) / 通し券¥10,000(2D代別)",
-    "status": "ON SALE",
+    "status": "COMING SOON",
     "country": "JAPAN",
     "tickets": {
       "general": [
@@ -969,6 +1002,35 @@
     "specialSubtitle": "NORTH AMERICA",
     "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
     "flyer": "assets/flyers/the-integration-game-world-tour-2027-tour.jpg",
+    "publishMode": "now"
+  },
+  {
+    "date": "2027-05-15",
+    "display": "05.15",
+    "dow": "SAT",
+    "city": "MONTERREY, MX",
+    "venue": "Parque Fundidora, Monterrey, Nuevo León",
+    "title": "DIA LIBRE FESTIVAL 2027",
+    "type": "EVENT",
+    "detail": "",
+    "status": "ON SALE",
+    "country": "OTHER",
+    "tickets": {
+      "general": [
+        {
+          "label": "GENERAL TICKET",
+          "url": "https://boletomovil.com/evento/dia-libre-2027-05-15"
+        }
+      ],
+      "fc": [],
+      "vip": []
+    },
+    "specialShow": true,
+    "specialDisplay": "tour",
+    "specialTitle": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialGroup": "THE INTEGRATION GAME – WORLD TOUR 2027",
+    "specialSubtitle": "NORTH AMERICA",
+    "flyer": "assets/flyers/2027-05-15-monterrey-mx-dia-libre-festival-2027.jpg",
     "publishMode": "now"
   }
 ]
