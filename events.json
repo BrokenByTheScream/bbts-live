@@ -678,7 +678,7 @@
     "venue": "柏PALOOZA",
     "title": "重”ROCK COLISEUM オモロック コロシアム2027  DAY.2",
     "type": "EVENT",
-    "detail": "",
+    "detail": "時間：開場：13:00 開演 13:30 料金：前売り ¥4,000 当日 ¥4,500",
     "status": "COMING SOON",
     "country": "JAPAN",
     "tickets": {
@@ -694,6 +694,8 @@
     "artists": "THE冠   / ADAM at / セックスマシーン！！ / 仮面女子 /  Broken By The Scream / プピリットパロ /  虎の子ラミー  / and more...",
     "ticketNote": "チケット販売：11/29 11:00~\n\n入場順：A1 (e+)  →B1 (TIGET) →当日券",
     "specialShow": false,
+    "specialDisplay": "single",
+    "specialTitle": "重”ROCK COLISEUM オモロック コロシアム2027  DAY.2",
     "flyer": "assets/flyers/2027-02-07-chiba-rock-coliseum-2027-day-2.jpg",
     "publishMode": "now"
   },
