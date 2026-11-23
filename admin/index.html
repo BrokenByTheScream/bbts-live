@@ -142,6 +142,18 @@ input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid 
 #webStatus.ok{color:#6bdc98} #webStatus.error{color:#ff6f94}
 #publishWeb:disabled,#webConnect:disabled{opacity:.4;cursor:progress}
 @media(max-width:800px){.web-connect-grid{grid-template-columns:1fr}.web-connect-grid button{width:100%}}
+  
+/* モバイルでは公開操作欄を固定しない */
+@media (max-width: 760px),
+       (max-width: 1024px) and (pointer: coarse) {
+  .export {
+    position: static;
+    bottom: auto;
+    margin-top: 20px;
+    backdrop-filter: none;
+  }
+}
+
 </style>
 </head>
 <body>
