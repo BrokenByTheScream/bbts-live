@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BBTS Schedule Admin Web v11</title>
+<title>BBTS Schedule Admin Web v11.1</title>
 <style>
 :root{--bg:#07080b;--panel:#0e1015;--text:#f5f6f7;--muted:#9299a7;--line:#2b303b;--accent:#ff315f;--ok:#65d99a;--warn:#ffcb66;--danger:#ff819c}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}body{padding:18px}.wrap{max-width:1180px;margin:auto}
@@ -146,7 +146,7 @@ input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid 
 </head>
 <body>
 <div class="wrap">
-<h1>BBTS SCHEDULE ADMIN <span class="hot">WEB v11</span></h1>
+<h1>BBTS SCHEDULE ADMIN <span class="hot">WEB v11.1</span></h1>
 <div class="sub">PUBLIC + TOUR + SPECIAL + BACKSTAGE + SCHEDULED</div>
 <div class="steps"><div class="step"><b>1. Web接続</b><span>GitHubから自動取得</span></div><div class="step"><b>2. 追加・編集</b><span>曜日・表示日は自動</span></div><div class="step"><b>3. Webへ公開</b><span>GitHubへ直接反映</span></div></div>
 
@@ -173,6 +173,7 @@ input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid 
 </section>
 
 <datalist id="venueSuggestions"></datalist>
+<datalist id="countrySuggestions"></datalist>
 <section class="panel view" id="backstageView"><div class="tools"><input id="backSearch" placeholder="日付 / AREAで検索"><button id="addBack" class="warn">＋ BACKSTAGE追加</button></div><div id="backList" class="list"></div></section>
 <section class="panel view" id="scheduledView"><div class="tools"><input id="schedSearch" placeholder="公開日時 / 日付 / 都市 / イベント名で検索"></div><div class="notice">予約公開の情報は <b>events.jsonには入りません</b>。PRIVATE SCHEDULER用のQUEUEとして書き出します。</div><div id="schedList" class="list"></div></section>
 
@@ -180,7 +181,8 @@ input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid 
 </div>
 
 <div class="modal" id="pubModal"><div class="dialog"><div class="dialogHead"><h3 id="pubTitle">PUBLIC EVENT</h3><button data-close="pubModal">×</button></div><div id="pubMsg" class="msg"></div>
-<div class="grid3" style="margin-top:12px"><label>DATE *<input id="pDate" type="date"></label><label>CITY *<input id="pCity" placeholder="TOKYO"></label><label>COUNTRY<select id="pCountry"><option>JAPAN</option><option>TAIWAN</option><option>USA</option><option>CANADA</option><option>GERMANY</option><option>FRANCE</option><option>UK</option><option>NETHERLANDS</option><option>OTHER</option></select></label></div>
+<div class="grid3" style="margin-top:12px"><label>DATE *<input id="pDate" type="date"></label><label>CITY *<input id="pCity" placeholder="TOKYO"></label><label>COUNTRY *<input id="pCountry" list="countrySuggestions" value="JAPAN" placeholder="例：MEXICO" autocomplete="off" title="候補から選択、または新しい国名を英語で直接入力"></label></div>
+<div class="notice" style="margin-top:8px">COUNTRY：候補にない国名は英語で直接入力できます（例：MEXICO）。入力後は候補として記憶されます。</div>
 <div class="grid" style="margin-top:10px"><label>EVENT TITLE *<input id="pTitle"></label><label>VENUE *<input id="pVenue" list="venueSuggestions" autocomplete="off"></label></div>
 <div class="grid3" style="margin-top:10px"><label>TYPE<select id="pType"><option>EVENT</option><option>LIVE</option><option>ONE MAN</option><option>FESTIVAL</option><option>CIRCUIT</option><option>FC EVENT</option><option>BAND SET</option></select></label><label>STATUS<select id="pStatus"><option>ON SALE</option><option>COMING SOON</option><option>PRESALE</option><option>SOLD OUT</option><option>INFO</option></select></label><input type="hidden" id="pSpecial"></div>
 <div class="specialBox">
@@ -307,6 +309,7 @@ input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid 
   <div id="bulkFlyerList" class="bulkFlyerList"></div>
 
   <div class="section">DATES / 公演日程</div>
+  <div class="notice">COUNTRY：各公演ごとに国を選択、または新しい国名を英語で直接入力できます。</div>
   <div class="bulkSummary">DATE / CITY / COUNTRY / VENUE を入力してください。必要な公演だけ「＋ URL追加」でプレイガイド名とURLを設定できます。個別URLがある公演は共通GENERALより優先されます。</div>
   <div id="bulkRows" class="bulkRows"></div>
   <div class="actions" style="margin-top:10px;justify-content:flex-start">
@@ -365,6 +368,43 @@ let serverFlyerPaths=[], webLoaded=false, webBusy=false, webBase='', webPassword
 const queueShas=new Map(), queueSnapshots=new Map(), originalQueueIds=new Set();
 const newAssets=new Map(), newAssetMeta=new Map(), enc=new TextEncoder(), D=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 const clean=v=>String(v??'').trim(), upper=v=>clean(v).toUpperCase(), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// COUNTRY candidates: built-in countries + countries from saved public/queued events + browser-local additions.
+// No new GitHub API endpoint is needed; saving an event persists its country in events.json/queue as before.
+const defaultCountries = ['JAPAN','TAIWAN','USA','CANADA','GERMANY','FRANCE','UK','NETHERLANDS','OTHER'];
+const countryStorageKey = 'bbts_admin_extra_countries_v1';
+let extraCountries = [];
+try {
+  const stored = JSON.parse(localStorage.getItem(countryStorageKey) || '[]');
+  if (Array.isArray(stored)) extraCountries = stored.filter(v => typeof v === 'string').map(upper).filter(Boolean).slice(0,150);
+} catch (_) {}
+function countryChoices() {
+  const known = new Set(defaultCountries);
+  for (const item of events) if (item && item.country) known.add(upper(item.country));
+  for (const queue of scheduled) if (queue && queue.event && queue.event.country) known.add(upper(queue.event.country));
+  for (const name of extraCountries) known.add(name);
+  return [...known].filter(Boolean);
+}
+function renderCountrySuggestions() {
+  const el = $('countrySuggestions');
+  if (el) el.innerHTML = countryChoices().map(name => `<option value="${esc(name)}"></option>`).join('');
+}
+function rememberCountry(value) {
+  const name = upper(value);
+  if (!name) return;
+  if (!countryChoices().includes(name)) {
+    extraCountries.push(name);
+    if (extraCountries.length > 150) extraCountries = extraCountries.slice(-150);
+    try { localStorage.setItem(countryStorageKey, JSON.stringify(extraCountries)); } catch (_) {}
+  }
+  renderCountrySuggestions();
+}
+// Works for the single-event input and the tour rows created dynamically.
+document.addEventListener('focusout', event => {
+  const input = event.target;
+  if (!input || !input.matches || !input.matches('#pCountry, .brCountry')) return;
+  input.value = upper(input.value) || 'JAPAN';
+  rememberCountry(input.value);
+});
 function disp(s){const p=String(s||'').split('-');return p.length===3?`${p[1]}.${p[2]}`:''} function dow(s){if(!s)return'';const[y,m,d]=s.split('-').map(Number);return D[new Date(Date.UTC(y,m-1,d)).getUTCDay()]}
 function slug(s){return clean(s).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,44)||'event'}
 function status(){ $('pubCount').textContent=events.length;$('backCount').textContent=backstage.length;$('schedCount').textContent=scheduled.length;$('pubStatus').textContent=pubLoaded?`PUBLIC ${events.length}件`:'PUBLIC 未読込';$('backStatus').textContent=backLoaded?`BACKSTAGE ${backstage.length}件`:'BACKSTAGE 未読込';$('schedStatus').textContent=`予約 ${scheduled.length}件`;$('imgStatus').textContent=`新規画像 ${newAssets.size}`;$('pubStatus').className='pill '+(pubLoaded?'ok':'');$('backStatus').className='pill '+(backLoaded?'ok':'');$('schedStatus').className='pill '+(scheduled.length?'ok':'');$('imgStatus').className='pill '+(newAssets.size?'ok':'') }
@@ -515,7 +555,7 @@ function renderBack(){const q=clean($('backSearch').value).toLowerCase(),rows=ba
 function localPublishAt(v){return clean(v).replace(/([+-]\d\d:\d\d|Z)$/,'').slice(0,16)}
 function scheduledEvent(item){return item&&item.event?item.event:{}}
 function renderScheduled(){const q=clean($('schedSearch').value).toLowerCase(),rows=scheduled.map((s,i)=>({s,i,e:scheduledEvent(s)})).filter(({s,e})=>[s.publishAt,e.date,e.city,e.venue,e.title].join(' ').toLowerCase().includes(q));$('schedList').innerHTML=rows.length?rows.map(({s,e,i})=>`<div class="item"><div class="date">${esc(e.display||disp(e.date))}<small>${esc(e.dow||dow(e.date))}</small></div><div class="place">${esc(e.city||'—')}</div><div class="main"><b>${esc(e.title||'(NO TITLE)')}</b><span>公開 ${esc(localPublishAt(s.publishAt).replace('T',' '))} JST · ${esc(e.venue||'')}</span></div><div class="actions"><button data-se="${i}">編集</button><button class="danger" data-sd="${i}">削除</button></div></div>`).join(''):'<div class="empty">予約公開なし</div>';status()}
-function render(){sort();renderPub();renderSpecialManager();renderBack();renderScheduled();renderVenueSuggestions();if($('pExistingFlyer'))renderExistingFlyerLibrary();if($('bulkExistingFlyer'))renderBulkExistingFlyers()}
+function render(){sort();renderPub();renderSpecialManager();renderBack();renderScheduled();renderVenueSuggestions();renderCountrySuggestions();if($('pExistingFlyer'))renderExistingFlyerLibrary();if($('bulkExistingFlyer'))renderBulkExistingFlyers()}
 async function loadFiles(files){let msg=[];for(const f of files){if(!f.name.toLowerCase().endsWith('.json'))continue;try{const d=JSON.parse(await f.text()),n=f.name.toLowerCase();if(Array.isArray(d)){if(n.startsWith('backstage')){backstage=d;backLoaded=true;msg.push(`${f.name} → BACKSTAGE ${d.length}件`)}else if(n.startsWith('events')){events=d;pubLoaded=true;msg.push(`${f.name} → PUBLIC ${d.length}件`)}else if(d.every(x=>x&&('area'in x)&&!('title'in x))){backstage=d;backLoaded=true}else{events=d;pubLoaded=true}}else if(d&&typeof d==='object'&&d.event&&d.publishAt){const ix=scheduled.findIndex(x=>x.queueId&&x.queueId===d.queueId);if(ix>=0)scheduled[ix]=d;else scheduled.push(d);msg.push(`${f.name} → 予約公開 1件`)}else throw Error('対応していないJSON形式です')}catch(e){msg.push(`${f.name}: エラー ${e.message}`)}}$('loadMsg').innerHTML=msg.length?`<div class="notice">${msg.map(esc).join('<br>')}</div>`:'';render();renderExistingFlyerLibrary()}
 $('jsonFiles').onchange=e=>loadFiles([...e.target.files]);const drop=$('drop');['dragenter','dragover'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.add('drag')}));['dragleave','drop'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.remove('drag')}));drop.addEventListener('drop',e=>loadFiles([...e.dataTransfer.files]));
 $$('[data-tab]').forEach(b=>b.onclick=()=>{$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));$$('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.tab+'View').classList.add('active')});$('pubSearch').oninput=renderPub;$('backSearch').oninput=renderBack;$('schedSearch').oninput=renderScheduled;
@@ -579,16 +619,12 @@ function queueIdFor(ev,publishAt,existing=''){if(existing)return existing;return
 function openScheduled(i){editScheduled=i;editPub=null;promoteBack=null;const s=scheduled[i],e={...scheduledEvent(s),publishMode:'scheduled',publishAt:localPublishAt(s.publishAt)};openPub(null,e);$('pubTitle').textContent='予約公開を編集'}
 
 
-function bulkCountryOptions(selected='JAPAN'){
-  const vals=['JAPAN','TAIWAN','USA','CANADA','GERMANY','FRANCE','UK','NETHERLANDS','OTHER'];
-  return vals.map(v=>`<option${v===selected?' selected':''}>${v}</option>`).join('');
-}
 function addBulkRow(data={}){
   const r=document.createElement('div');
   r.className='bulkRow';
   r.innerHTML=`<label>DATE *<input class="brDate" type="date" value="${esc(data.date||'')}"></label>
     <label>CITY *<input class="brCity" placeholder="NEW YORK, NY" value="${esc(data.city||'')}"></label>
-    <label>COUNTRY<select class="brCountry">${bulkCountryOptions(data.country||'JAPAN')}</select></label>
+    <label>COUNTRY *<input class="brCountry" list="countrySuggestions" value="${esc(data.country||'JAPAN')}" placeholder="例：MEXICO" autocomplete="off" title="候補から選択、または新しい国名を英語で直接入力"></label>
     <label class="bulkVenue">VENUE *<input class="brVenue" list="venueSuggestions" autocomplete="off" value="${esc(data.venue||'')}"></label>
     <button class="danger brRemove">削除</button>
     <div class="bulkPerTickets">
@@ -672,7 +708,7 @@ function bulkRowsData(){
   return $$('#bulkRows .bulkRow').map(r=>({
     date:clean(r.querySelector('.brDate').value),
     city:upper(r.querySelector('.brCity').value),
-    country:clean(r.querySelector('.brCountry').value)||'JAPAN',
+    country:upper(r.querySelector('.brCountry').value)||'JAPAN',
     venue:clean(r.querySelector('.brVenue').value),
     generalTickets:bulkPerShowTickets(r)
   })).filter(r=>r.date||r.city||r.venue||r.generalTickets.length);
@@ -806,6 +842,7 @@ $('bulkSave').onclick=()=>{
     $('bulkMsg').textContent=`追加できる公演がありませんでした。重複 ${skipped}件。`;
     return;
   }
+  rows.forEach(r => rememberCountry(r.country));
   close('bulkModal');render();
   const suffix=skipped?`（重複 ${skipped}件はスキップ）`:'';
   $('loadMsg').innerHTML=`<div class="notice">TOUR一括登録：${added}公演を追加しました。${suffix}</div>`;
@@ -831,7 +868,8 @@ $('savePublic').onclick=()=>{
   }
   const oldScheduled=editScheduled!==null?scheduled[editScheduled]:null;
   const base=editPub===null?(oldScheduled?{...scheduledEvent(oldScheduled)}:{}):{...events[editPub]},
-    ev={...base,date,display:disp(date),dow:dow(date),city,venue,title,type:clean($('pType').value)||'EVENT',detail:clean($('pDetail').value),status:clean($('pStatus').value)||'ON SALE',country:clean($('pCountry').value)||'JAPAN',tickets:tickets()};
+    ev={...base,date,display:disp(date),dow:dow(date),city,venue,title,type:clean($('pType').value)||'EVENT',detail:clean($('pDetail').value),status:clean($('pStatus').value)||'ON SALE',country:upper($('pCountry').value)||'JAPAN',tickets:tickets()};
+  rememberCountry(ev.country);
   delete ev.publishAt;delete ev.publishMode;
   for(const [k,id] of [['special','pSpecial'],['artists','pArtists'],['ticketNote','pTicketNote'],['missionGroup','pMissionGroup'],['missionRole','pMissionRole']]){const v=clean($(id).value);if(v)ev[k]=v;else delete ev[k]}
   const spOn=$('pSpecialShow').checked;
