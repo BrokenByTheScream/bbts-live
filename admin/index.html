@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BBTS Schedule Admin Web v11</title>
+<style>
+:root{--bg:#07080b;--panel:#0e1015;--text:#f5f6f7;--muted:#9299a7;--line:#2b303b;--accent:#ff315f;--ok:#65d99a;--warn:#ffcb66;--danger:#ff819c}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}body{padding:18px}.wrap{max-width:1180px;margin:auto}
+h1{margin:0;font:500 clamp(30px,5vw,50px)/1 Georgia,serif;letter-spacing:.06em}.sub{margin:8px 0 20px;color:var(--muted);font-size:11px}.hot{color:var(--accent)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.step,.panel{border:1px solid var(--line);background:var(--panel)}.step{padding:12px}.step b{display:block;font-size:11px}.step span{color:var(--muted);font-size:10px}.panel{padding:16px;margin-bottom:12px}.panel h2{margin:0 0 12px;font-size:11px;letter-spacing:.15em}
+button,.button{min-height:40px;border:1px solid var(--line);background:#171b24;color:#fff;border-radius:5px;padding:0 13px;cursor:pointer;font-size:10px;letter-spacing:.06em}.primary{border-color:var(--accent);background:rgba(255,49,95,.12)}.good{border-color:rgba(101,217,154,.45);background:rgba(101,217,154,.08)}.warn{border-color:rgba(255,203,102,.45);background:rgba(255,203,102,.08)}.danger{color:var(--danger)}
+input,select,textarea{width:100%;background:#080a0e;color:#fff;border:1px solid #323845;border-radius:4px;padding:10px 11px;font:inherit;font-size:13px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent)}textarea{min-height:70px;resize:vertical}
+.load{border:1px dashed #3a404c;padding:18px;text-align:center}.load.drag{border-color:var(--accent);background:rgba(255,49,95,.05)}input[type=file]{display:none}.status{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.pill{border:1px solid var(--line);padding:6px 9px;border-radius:99px;color:var(--muted);font-size:10px}.pill.ok{color:#cffff0;border-color:rgba(101,217,154,.4)}
+.tabs,.tools,.actions{display:flex;gap:8px;flex-wrap:wrap}.tabs{margin:12px 0}.tabs button.active{border-color:var(--accent);background:rgba(255,49,95,.1)}.view{display:none}.view.active{display:block}.tools{align-items:center;margin-bottom:10px}.tools input{flex:1;min-width:220px}.tools button{white-space:nowrap}
+.list{display:grid;gap:7px}.item{display:grid;grid-template-columns:95px 115px minmax(0,1fr) auto;gap:10px;align-items:center;border-top:1px solid var(--line);padding:10px 0}.item:first-child{border-top:0}.date{font:500 19px/1 Georgia,serif}.date small{display:block;margin-top:4px;color:var(--muted);font:10px system-ui}.place{font-size:10px;letter-spacing:.08em}.main b{display:block;font-size:12px}.main span{display:block;color:var(--muted);font-size:10px;margin-top:3px}.actions{justify-content:flex-end}.actions button{min-height:34px;padding:0 9px}.empty{color:var(--muted);font-size:10px;padding:10px 0}.notice{border-left:3px solid var(--warn);background:rgba(255,203,102,.05);padding:10px;color:#ddd4b8;font-size:10px;line-height:1.65;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.full{grid-column:1/-1}label{display:grid;gap:5px;color:#c9ccd3;font-size:9px;letter-spacing:.06em}.section{margin-top:16px;padding-top:13px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:#ff88a3}.ticketRows{display:grid;gap:6px}.ticketRow{display:grid;grid-template-columns:150px 1fr auto;gap:6px}.ticketRow button{min-height:39px}.flyers{display:grid;gap:6px;margin-top:8px}.flyer{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:7px;font-size:10px}.flyer span{flex:1;overflow-wrap:anywhere}.flyer small{display:block;color:var(--muted);margin-top:3px;line-height:1.45}
+.modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(0,0,0,.75);padding:4vh 12px;overflow:auto}.modal.open{display:block}.dialog{max-width:850px;margin:auto;border:1px solid #3a404c;background:#0b0d12;padding:16px}.dialogHead{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;background:#0b0d12;padding-bottom:12px;border-bottom:1px solid var(--line);z-index:2}.dialogHead h3{margin:0;font-size:14px}.msg{margin-bottom:10px;color:#ffd4de;font-size:10px}.export{position:sticky;bottom:10px;z-index:10;display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid rgba(255,49,95,.5);background:rgba(9,10,14,.94);backdrop-filter:blur(12px);padding:12px}.export p{margin:0;color:var(--muted);font-size:10px}.export .primary{min-height:48px;font-weight:700}
+@media(max-width:760px){.steps,.grid,.grid3{grid-template-columns:1fr}.full{grid-column:auto}.item{grid-template-columns:75px 1fr;grid-template-areas:"date main" "place main" "actions actions"}.date{grid-area:date}.place{grid-area:place}.main{grid-area:main}.actions{grid-area:actions;justify-content:flex-start}.ticketRow{grid-template-columns:1fr}.export{align-items:stretch;flex-direction:column}.export button{width:100%}}
+
+.textbox{width:100%;min-height:300px;background:#07090d;color:#f6f6f6;border:1px solid #333947;border-radius:5px;padding:14px;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}
+.formatTabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 10px}
+.formatTabs button.active{border-color:var(--accent);background:rgba(255,49,95,.12)}
+.copyOk{color:var(--ok);font-size:10px;margin-left:8px}
+
+
+.publishBox{margin-top:12px;border:1px solid var(--line);padding:12px;background:rgba(255,255,255,.02)}
+.publishModes{display:flex;gap:8px;flex-wrap:wrap}
+.publishModes label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);padding:8px 10px;border-radius:999px;font-size:10px}
+.publishModes input{accent-color:var(--accent)}
+.publishHelp{margin-top:9px;color:var(--muted);font-size:10px;line-height:1.6}
+.publishWarn{margin-top:9px;border:1px solid rgba(255,200,87,.35);background:rgba(255,200,87,.06);color:#ffe9a8;padding:8px 9px;font-size:10px;line-height:1.6}
+
+/* ===== EASY v10 / EXISTING FLYER LIBRARY ===== */
+.flyer-tools{display:grid;gap:9px;margin-top:8px}
+.flyer-new-row,.flyer-existing-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.flyer-existing-row select{flex:1;min-width:260px}
+.flyer-library-note{color:var(--muted);font-size:9px;line-height:1.55}
+.flyer .badge{display:inline-block;margin-left:7px;padding:2px 5px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:8px;letter-spacing:.08em}
+.flyer .badge.new{color:#ffd4de;border-color:rgba(255,49,95,.45)}
+@media(max-width:760px){.flyer-new-row,.flyer-existing-row{align-items:stretch}.flyer-existing-row select{min-width:0;width:100%}.flyer-existing-row button{width:100%}}
+
+
+.bulkRows{display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.bulkRow{display:grid;grid-template-columns:140px 1fr 150px 1.25fr auto;gap:7px;align-items:end;padding:8px;border:1px solid rgba(255,255,255,.09);border-radius:8px;background:rgba(255,255,255,.025)}
+.bulkRow label{margin:0}
+.bulkRow .danger{height:36px}
+.bulkFlyerList{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.bulkFlyerItem{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;border:1px solid rgba(255,255,255,.09);border-radius:8px;background:rgba(255,255,255,.025);font-size:11px}
+.bulkFlyerItem span{overflow-wrap:anywhere}
+.bulkSummary{font-size:11px;color:#bbb;line-height:1.6}
+@media(max-width:820px){
+  .bulkRow{grid-template-columns:1fr 1fr}
+  .bulkRow .bulkVenue{grid-column:1 / -1}
+  .bulkRow .danger{grid-column:1 / -1}
+}
+
+
+.bulkRow{grid-template-columns:140px 1fr 150px 1.15fr auto}
+.bulkPerTickets{grid-column:1 / -1;border-top:1px solid rgba(255,255,255,.08);padding-top:8px;margin-top:2px}
+.bulkPerTicketHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.bulkPerTicketHead b{font-size:10px;color:#ddd}
+.bulkPerTicketRows{display:flex;flex-direction:column;gap:6px}
+.bulkPerTicketRow{display:grid;grid-template-columns:190px 1fr auto;gap:7px;align-items:center}
+.bulkPerTicketRow input{min-width:0}
+@media(max-width:820px){
+  .bulkPerTicketRow{grid-template-columns:1fr}
+  .bulkPerTicketRow .danger{width:100%}
+}
+
+
+.specialToggleOn{border-color:rgba(255,49,95,.72)!important;background:rgba(255,49,95,.14)!important;color:#fff!important}
+.specialToggleOff{opacity:.72}
+.special-manager{display:flex;flex-direction:column;gap:10px}
+.special-manager-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;border:1px solid rgba(255,255,255,.10);border-radius:9px;background:rgba(255,255,255,.025)}
+.special-manager-copy b{display:block;font-size:13px;color:#fff}
+.special-manager-copy span{display:block;margin-top:4px;font-size:10px;color:var(--muted);line-height:1.55}
+.special-manager-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.special-manager-state{font-size:9px;letter-spacing:.12em;padding:5px 8px;border:1px solid rgba(255,255,255,.16);border-radius:99px}
+.special-manager-state.on{border-color:rgba(255,49,95,.68);background:rgba(255,49,95,.12);color:#fff}
+.specialBox{margin-top:12px;border:1px solid rgba(255,49,95,.24);background:rgba(255,49,95,.045);padding:12px;border-radius:9px}
+.specialBox .specialHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.specialBox .specialHead b{font-size:11px;letter-spacing:.08em}
+.switchLine{display:flex;align-items:center;gap:8px;font-size:11px}
+.specialFields{margin-top:10px}
+@media(max-width:760px){
+  .special-manager-item{grid-template-columns:1fr}
+  .special-manager-actions{justify-content:flex-start}
+}
+
+
+.preview-dialog{max-width:1180px!important;width:min(1180px,calc(100vw - 24px))!important}
+.preview-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 12px}
+.preview-toolbar .spacer{flex:1}
+.preview-toolbar label{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}
+.previewViewport{background:#111319;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:18px;max-height:76vh;overflow:auto}
+.previewViewport.mobile{display:flex;justify-content:center}
+.previewPage{width:100%;min-height:620px;background:#050608;color:#f7f7f5;border:1px solid rgba(255,255,255,.08);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.previewViewport.mobile .previewPage{width:390px;max-width:100%}
+.pvHeader{height:62px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);background:#08090c;position:sticky;top:0;z-index:2}
+.pvBrand{font-size:12px;font-weight:800;letter-spacing:.15em}
+.pvBadge{font-size:8px;letter-spacing:.16em;border:1px solid rgba(255,49,95,.55);padding:5px 8px;border-radius:99px;color:#ff8aa5}
+.pvHero{padding:54px 30px 32px;background:linear-gradient(180deg,#11131a,#07080b)}
+.pvHero small{display:block;color:#a8abb3;letter-spacing:.26em;font-size:8px}
+.pvHero h2{margin:8px 0 28px;font-family:Georgia,serif;font-weight:500;font-size:clamp(38px,6vw,72px);letter-spacing:.08em;line-height:.95}
+.pvNext{border-left:1px solid rgba(255,255,255,.26);padding-left:18px;max-width:470px}
+.pvNextLabel{font-size:10px;letter-spacing:.20em;color:#ff7795}
+.pvNextMain{font-size:18px;font-weight:700;margin-top:8px}
+.pvNextSub{font-size:10px;color:#a8abb3;margin-top:5px;line-height:1.6}
+.pvSection{padding:34px 30px}
+.pvSectionTitle{font-family:Georgia,serif;font-size:28px;letter-spacing:.10em;margin:0 0 18px}
+.pvYear{padding:26px 0 10px;border-bottom:1px solid rgba(255,255,255,.14);font-family:Georgia,serif;font-size:34px;letter-spacing:.08em}
+.pvYear:first-child{padding-top:0}
+.pvRow{display:grid;grid-template-columns:82px 110px minmax(0,1fr) 100px;gap:14px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12);align-items:center}
+.pvDate{font-family:Georgia,serif;font-size:20px}
+.pvMeta{font-size:8px;line-height:1.55;color:#a8abb3;letter-spacing:.12em}
+.pvMain b{display:block;font-size:12px;line-height:1.45}
+.pvMain span{display:block;margin-top:4px;font-size:9px;color:#92959e;line-height:1.55}
+.pvStatus{justify-self:start;font-size:8px;border:1px solid rgba(255,255,255,.18);padding:5px 7px;border-radius:99px}
+.pvStatus.scheduled{border-color:rgba(255,200,90,.45);color:#ffd27d}
+.pvSpecialGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pvSpecialCard{border:1px solid rgba(255,255,255,.14);padding:18px;background:#0b0c10;min-height:130px}
+.pvSpecialCard small{font-size:8px;letter-spacing:.18em;color:#ff7795}
+.pvSpecialCard h3{font-family:Georgia,serif;font-weight:500;font-size:24px;margin:8px 0}
+.pvSpecialCard p{font-size:9px;color:#a8abb3;line-height:1.7;margin:0}
+.pvEmpty{padding:18px 0;color:#777b84;font-size:10px}
+.previewViewport.mobile .pvHeader{padding:0 16px}
+.previewViewport.mobile .pvHero{padding:38px 18px 26px}
+.previewViewport.mobile .pvSection{padding:28px 18px}
+.previewViewport.mobile .pvHero h2{font-size:52px}
+.previewViewport.mobile .pvRow{grid-template-columns:68px minmax(0,1fr) 24px;grid-template-areas:"date main status" "meta main status";gap:4px 10px;align-items:start}
+.previewViewport.mobile .pvDate{grid-area:date}
+.previewViewport.mobile .pvMeta{grid-area:meta}
+.previewViewport.mobile .pvMain{grid-area:main}
+.previewViewport.mobile .pvStatus{grid-area:status;font-size:0;width:8px;height:8px;border-radius:50%;padding:0;margin-top:5px;background:#ff315f;border:0}
+
+
+.web-connect-grid{display:grid;grid-template-columns:1.1fr 1fr auto;gap:10px;align-items:end;margin-top:14px}
+.web-connect-grid label{display:block;font-size:10px;color:#c7c9d2}
+.web-connect-grid input{display:block;width:100%;margin-top:5px}
+.web-connect-grid button{white-space:nowrap;min-height:40px}
+#webStatus.ok{color:#6bdc98} #webStatus.error{color:#ff6f94}
+#publishWeb:disabled,#webConnect:disabled{opacity:.4;cursor:progress}
+@media(max-width:800px){.web-connect-grid{grid-template-columns:1fr}.web-connect-grid button{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>BBTS SCHEDULE ADMIN <span class="hot">WEB v11</span></h1>
+<div class="sub">PUBLIC + TOUR + SPECIAL + BACKSTAGE + SCHEDULED</div>
+<div class="steps"><div class="step"><b>1. Web接続</b><span>GitHubから自動取得</span></div><div class="step"><b>2. 追加・編集</b><span>曜日・表示日は自動</span></div><div class="step"><b>3. Webへ公開</b><span>GitHubへ直接反映</span></div></div>
+
+<section class="panel" id="cloudPanel">
+  <h2>01 / CLOUD CONNECTION</h2>
+  <div class="notice">Cloudflare Workerに接続して、PUBLIC・BACKSTAGE・予約QUEUE・既存フライヤーを自動読込します。パスワードは保存しません。</div>
+  <div class="web-connect-grid">
+    <label>WORKER URL<input id="webApiBase" type="url" spellcheck="false" placeholder="https://bbts-schedule-admin-api.*****.workers.dev"></label>
+    <label>ADMIN PASSWORD<input id="webPassword" type="password" autocomplete="off" placeholder="Cloudflareに設定したADMIN_PASSWORD"></label>
+    <button type="button" id="webConnect" class="primary">接続して最新データを取得</button>
+  </div>
+  <div id="webStatus" class="notice" role="status" aria-live="polite" style="margin-top:10px">未接続です。まずWorker URLと管理者パスワードを入力してください。</div>
+  <div class="status"><span class="pill" id="pubStatus">PUBLIC 未読込</span><span class="pill" id="backStatus">BACKSTAGE 未読込</span><span class="pill" id="schedStatus">予約 0</span><span class="pill" id="imgStatus">新規画像 0</span></div>
+  <div id="loadMsg"></div>
+  <div id="drop" hidden><input id="jsonFiles" type="file" accept=".json" multiple></div>
+</section>
+
+<div class="tabs"><button class="active" data-tab="public">PUBLIC <span id="pubCount">0</span></button><button data-tab="special">SPECIAL SHOWS <span id="specialCount">0</span></button><button data-tab="backstage">BACKSTAGE <span id="backCount">0</span></button><button data-tab="scheduled">予約公開 <span id="schedCount">0</span></button></div>
+<section class="panel view active" id="publicView"><div class="tools"><input id="pubSearch" placeholder="日付 / 都市 / 会場 / イベント名で検索"><button id="addPublic" class="primary">＋ PUBLIC追加</button><button id="addBulkPublic" class="good">＋ TOUR一括登録</button></div><div class="notice">ツアー日程は「複製」を使うと、タイトル・チケット・フライヤー等を引き継いで日付や会場だけ変更できます。</div><div id="pubList" class="list"></div></section>
+
+<section class="panel view" id="specialView">
+  <div class="notice"><b>SPECIAL SHOWS管理</b><br>イベント単体はPUBLIC一覧の☆ボタンでもON/OFFできます。ツアーはここでグループ全体をまとめてON/OFFできます。</div>
+  <div id="specialList" class="special-manager"></div>
+</section>
+
+<datalist id="venueSuggestions"></datalist>
+<section class="panel view" id="backstageView"><div class="tools"><input id="backSearch" placeholder="日付 / AREAで検索"><button id="addBack" class="warn">＋ BACKSTAGE追加</button></div><div id="backList" class="list"></div></section>
+<section class="panel view" id="scheduledView"><div class="tools"><input id="schedSearch" placeholder="公開日時 / 日付 / 都市 / イベント名で検索"></div><div class="notice">予約公開の情報は <b>events.jsonには入りません</b>。PRIVATE SCHEDULER用のQUEUEとして書き出します。</div><div id="schedList" class="list"></div></section>
+
+<div class="export"><p><b style="color:#fff">最後はこれだけ</b><br>プレビューで確認してから、Webへ公開します。バックアップZIPも保存できます。</p><div class="actions"><button id="previewSite" class="good">サイトプレビュー</button><button id="exportZip">バックアップZIP</button><button id="publishWeb" class="primary">Webへ公開</button></div></div>
+</div>
+
+<div class="modal" id="pubModal"><div class="dialog"><div class="dialogHead"><h3 id="pubTitle">PUBLIC EVENT</h3><button data-close="pubModal">×</button></div><div id="pubMsg" class="msg"></div>
+<div class="grid3" style="margin-top:12px"><label>DATE *<input id="pDate" type="date"></label><label>CITY *<input id="pCity" placeholder="TOKYO"></label><label>COUNTRY<select id="pCountry"><option>JAPAN</option><option>TAIWAN</option><option>USA</option><option>CANADA</option><option>GERMANY</option><option>FRANCE</option><option>UK</option><option>NETHERLANDS</option><option>OTHER</option></select></label></div>
+<div class="grid" style="margin-top:10px"><label>EVENT TITLE *<input id="pTitle"></label><label>VENUE *<input id="pVenue" list="venueSuggestions" autocomplete="off"></label></div>
+<div class="grid3" style="margin-top:10px"><label>TYPE<select id="pType"><option>EVENT</option><option>LIVE</option><option>ONE MAN</option><option>FESTIVAL</option><option>CIRCUIT</option><option>FC EVENT</option><option>BAND SET</option></select></label><label>STATUS<select id="pStatus"><option>ON SALE</option><option>COMING SOON</option><option>PRESALE</option><option>SOLD OUT</option><option>INFO</option></select></label><input type="hidden" id="pSpecial"></div>
+<div class="specialBox">
+  <div class="specialHead">
+    <b>★ SPECIAL SHOWS</b>
+    <label class="switchLine"><input id="pSpecialShow" type="checkbox"> SPECIAL SHOWSに表示</label>
+  </div>
+  <div id="pSpecialFields" class="specialFields hidden">
+    <div class="grid3">
+      <label>表示形式<select id="pSpecialDisplay"><option value="single">単独公演</option><option value="tour">ツアー</option></select></label>
+      <label>表示タイトル<input id="pSpecialTitle" placeholder="TAIWAN ONE MAN"></label>
+      <label>サブタイトル<input id="pSpecialSubtitle" placeholder="JAPAN TOUR 2027 など"></label>
+    </div>
+    <div id="pSpecialGroupWrap" class="hidden" style="margin-top:10px">
+      <label>TOUR GROUP<input id="pSpecialGroup" placeholder="未入力ならタイトル＋年から自動生成"></label>
+    </div>
+    <div class="publishHelp">通常はOFF。SPECIAL SHOWSに出したい公演だけONにします。ツアーは同じTOUR GROUPの公演が1つにまとまります。</div>
+  </div>
+</div>
+
+
+<div class="section">PUBLISH / 公開設定</div>
+<div class="publishBox">
+  <div class="publishModes">
+    <label><input type="radio" name="publishMode" value="now" checked> すぐ公開</label>
+    <label><input type="radio" name="publishMode" value="scheduled"> 予約公開</label>
+    <label><input type="radio" name="publishMode" value="backstage"> BACKSTAGEのみ</label>
+  </div>
+  <div id="publishAtWrap" class="hidden" style="margin-top:10px">
+    <label>公開日時 / Publish at<input id="pPublishAt" type="datetime-local"></label>
+  </div>
+  <div id="publishBackWrap" class="grid hidden" style="margin-top:10px">
+    <label>BACKSTAGE AREA<input id="pBackArea" placeholder="TOKYO"></label>
+    <label>DAY / NIGHT<select id="pBackDaypart"><option>DAY</option><option>NIGHT</option><option>TBD</option></select></label>
+  </div>
+  <div class="publishHelp">既存イベントに設定がない場合は「すぐ公開」扱いです。</div>
+  <div class="publishWarn">予約公開はPUBLICのevents.jsonには入れず、PRIVATE SCHEDULERのQUEUEへ保存します。公開時刻を過ぎるとGitHub Actionsが約5分間隔でPUBLICへ移します。</div>
+</div>
+<div class="section">DETAIL</div><label>OPEN / START / 料金など<textarea id="pDetail" placeholder="OPEN 18:00 / START 18:30｜ADV ¥4,500 / DOOR ¥5,000"></textarea></label>
+<div class="grid" style="margin-top:10px"><label>LINEUP<textarea id="pArtists"></textarea></label><label>TICKET NOTE<textarea id="pTicketNote"></textarea></label></div>
+<div class="section">TICKETS</div><div class="grid3">
+<div><div class="tools"><b style="font-size:10px">GENERAL</b><button data-add-ticket="general">＋</button></div><div id="tickets-general" class="ticketRows"></div></div>
+<div><div class="tools"><b style="font-size:10px">FC</b><button data-add-ticket="fc">＋</button></div><div id="tickets-fc" class="ticketRows"></div></div>
+<div><div class="tools"><b style="font-size:10px">VIP</b><button data-add-ticket="vip">＋</button></div><div id="tickets-vip" class="ticketRows"></div></div>
+</div>
+<div class="section">FLYER</div>
+<div class="flyer-tools">
+  <div class="flyer-new-row">
+    <label class="button" for="pFlyers" style="display:inline-flex;align-items:center">＋ 新しい画像を追加（複数可）</label>
+    <input id="pFlyers" type="file" accept="image/*" multiple>
+  </div>
+  <div class="flyer-existing-row">
+    <select id="pExistingFlyer" aria-label="既存フライヤーを選択"><option value="">既存フライヤーを選択...</option></select>
+    <button id="addExistingFlyer" type="button" class="good">＋ 既存フライヤーを使う</button>
+    <button id="reloadExistingFlyers" type="button">再読込</button>
+  </div>
+  <div class="flyer-library-note" id="flyerLibraryInfo">GitHubの assets/flyers/ 内の画像を一覧化します。未使用画像も選べて、同じファイルをそのまま再利用します。</div>
+</div>
+<div class="flyers" id="flyerList"></div>
+<div class="notice">新しい画像は自動でJPEG化・長辺1400px化・軽量化します。<b>既存フライヤー</b>を選んだ場合は同じ <b>assets/flyers/...</b> パスを再利用し、更新ZIPに画像を重複同梱しません。</div>
+<input type="hidden" id="pMissionGroup"><input type="hidden" id="pMissionRole">
+<div class="actions" style="margin-top:14px"><button id="savePublic" class="good">保存</button><button data-close="pubModal">キャンセル</button></div></div></div>
+
+
+<div class="modal" id="bulkModal"><div class="dialog" style="max-width:1080px">
+  <div class="dialogHead"><h3>TOUR / 複数公演を一括登録</h3><button data-close="bulkModal">×</button></div>
+  <div id="bulkMsg" class="msg"></div>
+  <div class="notice">上の共通情報は全公演に適用されます。下の日程欄だけ公演ごとに変更します。会場欄では過去に使用した会場名が候補表示されます。</div>
+
+  <div class="section">COMMON / 共通情報</div>
+  <div class="grid">
+    <label>EVENT TITLE *<input id="bulkTitle" placeholder="THE INTEGRATION GAME – WORLD TOUR 2027"></label>
+    <input type="hidden" id="bulkSpecial">
+  </div>
+  <div class="grid3" style="margin-top:10px">
+    <label>TYPE<select id="bulkType"><option>EVENT</option><option>LIVE</option><option>ONE MAN</option><option>FESTIVAL</option><option>CIRCUIT</option><option>FC EVENT</option><option>BAND SET</option></select></label>
+    <label>STATUS<select id="bulkStatus"><option>ON SALE</option><option>COMING SOON</option><option>PRESALE</option><option>SOLD OUT</option><option>INFO</option></select></label>
+    <label>共通公開方法<select id="bulkMode"><option value="now">すぐ公開</option><option value="scheduled">予約公開</option><option value="backstage">BACKSTAGEのみ</option></select></label>
+  </div>
+  
+<div class="specialBox">
+  <div class="specialHead">
+    <b>★ SPECIAL SHOWS / TOUR</b>
+    <label class="switchLine"><input id="bulkSpecialShow" type="checkbox"> このツアーをSPECIAL SHOWSに表示</label>
+  </div>
+  <div id="bulkSpecialFields" class="specialFields hidden">
+    <div class="grid">
+      <label>表示タイトル<input id="bulkSpecialTitle" placeholder="THE INTEGRATION GAME – WORLD TOUR 2027"></label>
+      <label>サブタイトル<input id="bulkSpecialSubtitle" placeholder="NORTH AMERICA 2027"></label>
+    </div>
+    <div class="publishHelp">一括登録した全公演を1つのTOURカードとしてSPECIAL SHOWSにまとめます。</div>
+  </div>
+</div>
+
+<div id="bulkPublishAtWrap" class="hidden" style="margin-top:10px">
+    <label>公開日時 / Publish at<input id="bulkPublishAt" type="datetime-local"></label>
+  </div>
+
+  <div class="section">DETAIL</div>
+  <label>OPEN / START / 料金など<textarea id="bulkDetail" placeholder="OPEN 18:00 / START 18:30｜ADV ¥4,500 / DOOR ¥5,000"></textarea></label>
+  <div class="grid" style="margin-top:10px">
+    <label>LINEUP<textarea id="bulkArtists"></textarea></label>
+    <label>TICKET NOTE<textarea id="bulkTicketNote"></textarea></label>
+  </div>
+
+  <div class="section">TICKETS / 共通設定</div><div class="bulkSummary">全公演で同じURLを使う場合だけ入力してください。各公演に個別プレイガイドを入れた場合、その公演では個別GENERALを優先します。</div>
+  <div class="grid3">
+    <div><div class="tools"><b style="font-size:10px">GENERAL</b><button data-add-bulk-ticket="general">＋</button></div><div id="bulk-tickets-general" class="ticketRows"></div></div>
+    <div><div class="tools"><b style="font-size:10px">FC</b><button data-add-bulk-ticket="fc">＋</button></div><div id="bulk-tickets-fc" class="ticketRows"></div></div>
+    <div><div class="tools"><b style="font-size:10px">VIP</b><button data-add-bulk-ticket="vip">＋</button></div><div id="bulk-tickets-vip" class="ticketRows"></div></div>
+  </div>
+
+  <div class="section">FLYER / 全公演共通</div>
+  <div class="flyer-tools">
+    <div class="flyer-new-row">
+      <label class="filePick">＋ 新しい画像を追加<input id="bulkFlyers" type="file" accept="image/*" multiple hidden></label>
+    </div>
+    <div class="flyer-existing-row">
+      <select id="bulkExistingFlyer"><option value="">既存フライヤーを選択...</option></select>
+      <button id="bulkAddExistingFlyer">＋ 既存フライヤーを使う</button>
+    </div>
+  </div>
+  <div id="bulkFlyerInfo" class="bulkSummary"></div>
+  <div id="bulkFlyerList" class="bulkFlyerList"></div>
+
+  <div class="section">DATES / 公演日程</div>
+  <div class="bulkSummary">DATE / CITY / COUNTRY / VENUE を入力してください。必要な公演だけ「＋ URL追加」でプレイガイド名とURLを設定できます。個別URLがある公演は共通GENERALより優先されます。</div>
+  <div id="bulkRows" class="bulkRows"></div>
+  <div class="actions" style="margin-top:10px;justify-content:flex-start">
+    <button id="bulkAddRow">＋ 日程を1行追加</button>
+    <button id="bulkAddFive">＋ 5行追加</button>
+  </div>
+
+  <div class="actions" style="margin-top:18px">
+    <button id="bulkSave" class="good">まとめて登録</button>
+    <button data-close="bulkModal">キャンセル</button>
+  </div>
+</div></div>
+
+
+<div class="modal" id="backModal"><div class="dialog" style="max-width:620px"><div class="dialogHead"><h3>BACKSTAGE</h3><button data-close="backModal">×</button></div><div id="backMsg" class="msg"></div><div class="grid3" style="margin-top:12px"><label>DATE *<input id="bDate" type="date"></label><label>AREA *<input id="bArea" placeholder="TOKYO"></label><label>DAY / NIGHT<select id="bDaypart"><option>DAY</option><option>NIGHT</option><option>TBD</option></select></label></div><div class="actions" style="margin-top:14px"><button id="saveBack" class="warn">保存</button><button data-close="backModal">キャンセル</button></div></div></div>
+
+
+
+<div class="modal" id="previewModal"><div class="dialog preview-dialog">
+  <div class="dialogHead"><h3>SITE PREVIEW / 公開前確認</h3><button data-close="previewModal">×</button></div>
+  <div class="notice">現在エディターに保存されている内容を表示します。GitHubへの更新はまだ行われません。</div>
+  <div class="preview-toolbar">
+    <button id="previewDesktop" class="active">PC</button>
+    <button id="previewMobile">MOBILE</button>
+    <span class="spacer"></span>
+    <label><input id="previewScheduled" type="checkbox"> 予約公開も含める</label>
+    <button id="previewRefresh">再表示</button>
+  </div>
+  <div id="previewViewport" class="previewViewport">
+    <div id="previewPage" class="previewPage"></div>
+  </div>
+</div></div>
+
+<div class="modal" id="textModal"><div class="dialog" style="max-width:760px">
+  <div class="dialogHead"><h3>告知テキスト書き出し</h3><button data-close="textModal">×</button></div>
+  <div class="notice">入力済みのPUBLIC情報から自動生成します。文章はこの画面で直接修正してからコピーできます。</div>
+  <div class="formatTabs">
+    <button id="fmtHp" class="active">HP用</button>
+    <button id="fmtX">X用</button>
+    <button id="fmtIg">Instagram用</button>
+  </div>
+  <textarea id="exportText" class="textbox"></textarea>
+  <div class="actions" style="margin-top:10px;justify-content:flex-start">
+    <button id="copyText" class="primary">コピー</button>
+    <button id="downloadText">TXT保存</button>
+    <span id="copyState" class="copyOk"></span>
+  </div>
+</div></div>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)];
+let events=[], backstage=[], scheduled=[], pubLoaded=false, backLoaded=false, editPub=null, editBack=null, editScheduled=null, promoteBack=null, flyerPaths=[], bulkFlyerPaths=[], deletedQueueIds=[];
+let serverFlyerPaths=[], webLoaded=false, webBusy=false, webBase='', webPassword='', eventsSha='', backstageSha='', eventsSnapshot='', backstageSnapshot='';
+const queueShas=new Map(), queueSnapshots=new Map(), originalQueueIds=new Set();
+const newAssets=new Map(), newAssetMeta=new Map(), enc=new TextEncoder(), D=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+const clean=v=>String(v??'').trim(), upper=v=>clean(v).toUpperCase(), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function disp(s){const p=String(s||'').split('-');return p.length===3?`${p[1]}.${p[2]}`:''} function dow(s){if(!s)return'';const[y,m,d]=s.split('-').map(Number);return D[new Date(Date.UTC(y,m-1,d)).getUTCDay()]}
+function slug(s){return clean(s).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,44)||'event'}
+function status(){ $('pubCount').textContent=events.length;$('backCount').textContent=backstage.length;$('schedCount').textContent=scheduled.length;$('pubStatus').textContent=pubLoaded?`PUBLIC ${events.length}件`:'PUBLIC 未読込';$('backStatus').textContent=backLoaded?`BACKSTAGE ${backstage.length}件`:'BACKSTAGE 未読込';$('schedStatus').textContent=`予約 ${scheduled.length}件`;$('imgStatus').textContent=`新規画像 ${newAssets.size}`;$('pubStatus').className='pill '+(pubLoaded?'ok':'');$('backStatus').className='pill '+(backLoaded?'ok':'');$('schedStatus').className='pill '+(scheduled.length?'ok':'');$('imgStatus').className='pill '+(newAssets.size?'ok':'') }
+function sort(){events.sort((a,b)=>clean(a.date).localeCompare(clean(b.date)));backstage.sort((a,b)=>clean(a.date).localeCompare(clean(b.date)));scheduled.sort((a,b)=>clean(a.publishAt).localeCompare(clean(b.publishAt)))}
+
+
+function hasOwn(o,k){return !!o&&Object.prototype.hasOwnProperty.call(o,k)}
+function legacySpecialInfo(e){
+  if(!e)return null;
+  const year=String(e.date||'').slice(0,4);
+  if(e.missionGroup){
+    const title=clean(e.missionGroup);
+    return {
+      enabled:true,
+      display:'tour',
+      group:slug(title)+'-'+year,
+      title,
+      subtitle:title==='FIRE FROM THE SIGNALS'?'JAPAN TOUR 2026':''
+    };
+  }
+  if(clean(e.missionRole).toUpperCase()==='SPECIAL STAGE'){
+    const fallback=/taiwan one man/i.test(clean(e.title))?'TAIWAN ONE MAN':clean(e.title);
+    return {enabled:true,display:'single',group:'',title:fallback,subtitle:''};
+  }
+  return null;
+}
+function specialInfo(e){
+  const legacy=legacySpecialInfo(e);
+  const explicit=hasOwn(e,'specialShow');
+  if(explicit){
+    return {
+      enabled:e.specialShow===true,
+      display:clean(e.specialDisplay)||(legacy?.display||'single'),
+      group:clean(e.specialGroup)||(legacy?.group||''),
+      title:clean(e.specialTitle)||(legacy?.title||clean(e.title)),
+      subtitle:clean(e.specialSubtitle)||(legacy?.subtitle||'')
+    };
+  }
+  if(legacy)return legacy;
+  if(e&&(e.specialDisplay||e.specialGroup||e.specialTitle||e.specialSubtitle)){
+    return {
+      enabled:e.specialShow===true,
+      display:clean(e.specialDisplay)||'single',
+      group:clean(e.specialGroup),
+      title:clean(e.specialTitle)||clean(e.title),
+      subtitle:clean(e.specialSubtitle)
+    };
+  }
+  return {enabled:false,display:'single',group:'',title:clean(e?.title),subtitle:''};
+}
+function applySpecialInfo(e,info,enabled){
+  if(!e)return;
+  const i=info||specialInfo(e);
+  e.specialShow=!!enabled;
+  e.specialDisplay=clean(i.display)||'single';
+  e.specialTitle=clean(i.title)||clean(e.title);
+  if(clean(i.subtitle))e.specialSubtitle=clean(i.subtitle);else delete e.specialSubtitle;
+  if(e.specialDisplay==='tour'){
+    e.specialGroup=clean(i.group)||`${slug(e.specialTitle||e.title)}-${String(e.date||'').slice(0,4)}`;
+  }else{
+    delete e.specialGroup;
+  }
+}
+function specialKey(e,i){
+  const s=specialInfo(e);
+  if(s.display==='tour')return `tour:${s.group||slug(s.title||e.title)}`;
+  return `single:${i}`;
+}
+function specialGroups(){
+  const map=new Map();
+  events.forEach((e,i)=>{
+    const s=specialInfo(e),configured=s.enabled||hasOwn(e,'specialShow')||legacySpecialInfo(e)||e.specialDisplay||e.specialGroup||e.specialTitle;
+    if(!configured)return;
+    const key=specialKey(e,i);
+    if(!map.has(key))map.set(key,{key,display:s.display,title:s.title||e.title,subtitle:s.subtitle||'',items:[]});
+    map.get(key).items.push({e,i,s});
+  });
+  return [...map.values()].sort((a,b)=>{
+    const ad=Math.min(...a.items.map(x=>Date.parse((x.e.date||'9999-12-31')+'T00:00:00Z')||Infinity));
+    const bd=Math.min(...b.items.map(x=>Date.parse((x.e.date||'9999-12-31')+'T00:00:00Z')||Infinity));
+    return ad-bd;
+  });
+}
+function setSpecialUI(){
+  const on=$('pSpecialShow').checked;
+  $('pSpecialFields').classList.toggle('hidden',!on);
+  $('pSpecialGroupWrap').classList.toggle('hidden',!on||$('pSpecialDisplay').value!=='tour');
+}
+function setBulkSpecialUI(){
+  $('bulkSpecialFields').classList.toggle('hidden',!$('bulkSpecialShow').checked);
+}
+
+function venueRecords(){
+  const rows=[];
+  const add=e=>{const venue=clean(e?.venue),city=upper(e?.city),country=clean(e?.country||'');if(venue)rows.push({venue,city,country})};
+  events.forEach(add);
+  scheduled.forEach(s=>add(scheduledEvent(s)));
+  const byVenue=new Map();
+  rows.forEach(r=>{
+    const key=r.venue.toLowerCase();
+    if(!byVenue.has(key))byVenue.set(key,r);
+  });
+  return [...byVenue.values()].sort((a,b)=>a.venue.localeCompare(b.venue));
+}
+function renderVenueSuggestions(city=''){
+  const dl=$('venueSuggestions');if(!dl)return;
+  const c=upper(city),all=venueRecords(),rows=c?all.filter(r=>r.city===c):all;
+  const shown=rows.length?rows:all;
+  dl.innerHTML=shown.map(r=>`<option value="${esc(r.venue)}">${esc([r.city,r.country].filter(Boolean).join(' / '))}</option>`).join('');
+}
+
+function renderPub(){const q=clean($('pubSearch').value).toLowerCase(),rows=events.map((e,i)=>({e,i})).filter(({e})=>[e.date,e.city,e.venue,e.title,e.type].join(' ').toLowerCase().includes(q));$('pubList').innerHTML=rows.length?rows.map(({e,i})=>`<div class="item"><div class="date">${esc(e.display||disp(e.date))}<small>${esc(e.dow||dow(e.date))}</small></div><div class="place">${esc(e.city||'—')}</div><div class="main"><b>${esc(e.title||'(NO TITLE)')}</b><span>${esc(e.venue||'')} · ${esc(e.type||'')}</span></div><div class="actions"><button class="${specialInfo(e).enabled?'specialToggleOn':'specialToggleOff'}" data-ps="${i}">${specialInfo(e).enabled?'★ SPECIAL ON':'☆ SPECIAL OFF'}</button><button class="good" data-pt="${i}">告知テキスト</button><button data-pe="${i}">編集</button><button data-pc="${i}">複製</button><button class="danger" data-pd="${i}">削除</button></div></div>`).join(''):'<div class="empty">PUBLICイベントなし</div>';status()}
+
+function renderSpecialManager(){
+  const root=$('specialList');if(!root)return;
+  const groups=specialGroups();
+  $('specialCount').textContent=groups.length;
+  if(!groups.length){
+    root.innerHTML='<div class="empty">SPECIAL SHOWS設定なし。PUBLIC一覧の「☆ SPECIAL OFF」を押すと追加できます。</div>';
+    return;
+  }
+  root.innerHTML=groups.map((g,gi)=>{
+    const onCount=g.items.filter(x=>specialInfo(x.e).enabled).length;
+    const allOn=onCount===g.items.length,partial=onCount>0&&!allOn;
+    const dates=g.items.map(x=>x.e.display||disp(x.e.date)).join(' / ');
+    const cities=g.items.map(x=>x.e.city).filter(Boolean).join(' / ');
+    const state=allOn?'ON':(partial?'PARTIAL':'OFF');
+    return `<div class="special-manager-item">
+      <div class="special-manager-copy">
+        <b>${esc(g.title||'(NO TITLE)')}</b>
+        <span>${g.display==='tour'?'TOUR':'SINGLE'} · ${esc(g.subtitle||'')}${g.subtitle?' · ':''}${g.items.length}公演<br>${esc(dates)}${cities?` · ${esc(cities)}`:''}</span>
+      </div>
+      <div class="special-manager-actions">
+        <span class="special-manager-state ${allOn?'on':''}">${state}</span>
+        <button class="${allOn?'specialToggleOn':'good'}" data-sg-toggle="${gi}">${allOn?'SPECIAL OFFにする':'SPECIAL ONにする'}</button>
+      </div>
+    </div>`;
+  }).join('');
+  $$('[data-sg-toggle]').forEach(b=>b.onclick=()=>{
+    const g=specialGroups()[Number(b.dataset.sgToggle)];if(!g)return;
+    const allOn=g.items.every(x=>specialInfo(x.e).enabled);
+    g.items.forEach(x=>applySpecialInfo(x.e,x.s,!allOn));
+    render();
+  });
+}
+
+function renderBack(){const q=clean($('backSearch').value).toLowerCase(),rows=backstage.map((e,i)=>({e,i})).filter(({e})=>[e.date,e.area,e.daypart].join(' ').toLowerCase().includes(q));$('backList').innerHTML=rows.length?rows.map(({e,i})=>`<div class="item"><div class="date">${esc(disp(e.date))}<small>${esc(dow(e.date))}</small></div><div class="place">${esc(e.area||'—')}</div><div class="main"><b>${esc(e.area||'')} / ${esc(e.daypart||'TBD')}</b><span>UNANNOUNCED / 未発表情報</span></div><div class="actions"><button class="good" data-bp="${i}">PUBLICに確定</button><button data-be="${i}">編集</button><button class="danger" data-bd="${i}">削除</button></div></div>`).join(''):'<div class="empty">BACKSTAGE予定なし</div>';status()}
+function localPublishAt(v){return clean(v).replace(/([+-]\d\d:\d\d|Z)$/,'').slice(0,16)}
+function scheduledEvent(item){return item&&item.event?item.event:{}}
+function renderScheduled(){const q=clean($('schedSearch').value).toLowerCase(),rows=scheduled.map((s,i)=>({s,i,e:scheduledEvent(s)})).filter(({s,e})=>[s.publishAt,e.date,e.city,e.venue,e.title].join(' ').toLowerCase().includes(q));$('schedList').innerHTML=rows.length?rows.map(({s,e,i})=>`<div class="item"><div class="date">${esc(e.display||disp(e.date))}<small>${esc(e.dow||dow(e.date))}</small></div><div class="place">${esc(e.city||'—')}</div><div class="main"><b>${esc(e.title||'(NO TITLE)')}</b><span>公開 ${esc(localPublishAt(s.publishAt).replace('T',' '))} JST · ${esc(e.venue||'')}</span></div><div class="actions"><button data-se="${i}">編集</button><button class="danger" data-sd="${i}">削除</button></div></div>`).join(''):'<div class="empty">予約公開なし</div>';status()}
+function render(){sort();renderPub();renderSpecialManager();renderBack();renderScheduled();renderVenueSuggestions();if($('pExistingFlyer'))renderExistingFlyerLibrary();if($('bulkExistingFlyer'))renderBulkExistingFlyers()}
+async function loadFiles(files){let msg=[];for(const f of files){if(!f.name.toLowerCase().endsWith('.json'))continue;try{const d=JSON.parse(await f.text()),n=f.name.toLowerCase();if(Array.isArray(d)){if(n.startsWith('backstage')){backstage=d;backLoaded=true;msg.push(`${f.name} → BACKSTAGE ${d.length}件`)}else if(n.startsWith('events')){events=d;pubLoaded=true;msg.push(`${f.name} → PUBLIC ${d.length}件`)}else if(d.every(x=>x&&('area'in x)&&!('title'in x))){backstage=d;backLoaded=true}else{events=d;pubLoaded=true}}else if(d&&typeof d==='object'&&d.event&&d.publishAt){const ix=scheduled.findIndex(x=>x.queueId&&x.queueId===d.queueId);if(ix>=0)scheduled[ix]=d;else scheduled.push(d);msg.push(`${f.name} → 予約公開 1件`)}else throw Error('対応していないJSON形式です')}catch(e){msg.push(`${f.name}: エラー ${e.message}`)}}$('loadMsg').innerHTML=msg.length?`<div class="notice">${msg.map(esc).join('<br>')}</div>`:'';render();renderExistingFlyerLibrary()}
+$('jsonFiles').onchange=e=>loadFiles([...e.target.files]);const drop=$('drop');['dragenter','dragover'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.add('drag')}));['dragleave','drop'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.remove('drag')}));drop.addEventListener('drop',e=>loadFiles([...e.dataTransfer.files]));
+$$('[data-tab]').forEach(b=>b.onclick=()=>{$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));$$('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.tab+'View').classList.add('active')});$('pubSearch').oninput=renderPub;$('backSearch').oninput=renderBack;$('schedSearch').oninput=renderScheduled;
+function open(id){$(id).classList.add('open');document.body.style.overflow='hidden'} function close(id){$(id).classList.remove('open');document.body.style.overflow=''} $$('[data-close]').forEach(b=>b.onclick=()=>close(b.dataset.close));
+function set(id,v=''){$(id).value=v??''} function ticketRow(k,label='',url=''){const r=document.createElement('div');r.className='ticketRow';r.innerHTML=`<input class="tl" placeholder="表示名" value="${esc(label)}"><input class="tu" placeholder="https://..." value="${esc(url)}"><button class="danger">×</button>`;r.querySelector('button').onclick=()=>r.remove();$('tickets-'+k).appendChild(r)}
+$$('[data-add-ticket]').forEach(b=>b.onclick=()=>ticketRow(b.dataset.addTicket));function tickets(){const o={general:[],fc:[],vip:[]};for(const k of Object.keys(o))$$('#tickets-'+k+' .ticketRow').forEach(r=>{const url=clean(r.querySelector('.tu').value),label=clean(r.querySelector('.tl').value);if(url)o[k].push({label:label||k.toUpperCase()+' TICKET',url})});return o}
+
+async function toJpegBytes(file,maxLong=1400,quality=.82){
+  if(!file || !String(file.type||'').startsWith('image/')) throw new Error('画像ファイルではありません');
+  let img;
+  try{
+    img=await createImageBitmap(file);
+  }catch(_){
+    img=await new Promise((resolve,reject)=>{
+      const el=new Image(),u=URL.createObjectURL(file);
+      el.onload=()=>{URL.revokeObjectURL(u);resolve(el)};
+      el.onerror=()=>{URL.revokeObjectURL(u);reject(new Error('画像を読み込めません'))};
+      el.src=u;
+    });
+  }
+  const iw=img.width||img.naturalWidth, ih=img.height||img.naturalHeight;
+  const scale=Math.min(1,maxLong/Math.max(iw,ih));
+  const w=Math.max(1,Math.round(iw*scale)),h=Math.max(1,Math.round(ih*scale));
+  const c=document.createElement('canvas');c.width=w;c.height=h;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='#000';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);
+  if(img.close)img.close();
+  const blob=await new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(new Error('JPEG変換に失敗しました')),'image/jpeg',quality));
+  return new Uint8Array(await blob.arrayBuffer());
+}
+
+function flyerUsageMap(){
+  const usage=new Map();
+  const add=(p,label)=>{p=clean(p);if(!p)return;if(!usage.has(p))usage.set(p,[]);usage.get(p).push(label)};
+  events.forEach(e=>flyerArray(e).forEach(p=>add(p,`${e.date||''} ${e.city||''} ${e.title||''}`.trim())));
+  scheduled.forEach(s=>{const e=scheduledEvent(s);flyerArray(e).forEach(p=>{if(serverFlyerPaths.includes(p)||newAssets.has(p))add(p,`予約 ${e.date||''} ${e.city||''} ${e.title||''}`.trim())})});
+  serverFlyerPaths.forEach(p=>{if(!usage.has(p))usage.set(p,[])});
+  for(const p of newAssets.keys())if(!usage.has(p))usage.set(p,['この編集セッションで追加']);
+  return usage;
+}
+function existingFlyerPaths(){return [...flyerUsageMap().keys()].sort((a,b)=>a.localeCompare(b))}
+function renderExistingFlyerLibrary(){
+  const sel=$('pExistingFlyer');if(!sel)return;
+  const current=sel.value,usage=flyerUsageMap(),paths=[...usage.keys()].sort((a,b)=>a.localeCompare(b));
+  sel.innerHTML='<option value="">既存フライヤーを選択...</option>'+paths.map(p=>{const file=p.split('/').pop(),n=usage.get(p)?.length||0;return `<option value="${esc(p)}">${esc(file)} — 使用 ${n}件</option>`}).join('');
+  if(paths.includes(current))sel.value=current;
+  $('flyerLibraryInfo').textContent=paths.length?`既存フライヤー ${paths.length}件を検出。選択すると画像を複製せず同じパスを再利用します。`:'GitHubの既存フライヤーはまだありません。';
+}
+function renderFlyers(){
+  $('flyerList').innerHTML=flyerPaths.length?flyerPaths.map((p,i)=>{const meta=newAssetMeta.get(p),isNew=newAssets.has(p);const extra=meta?`<small>${esc(meta.originalName)} / ${Math.round(meta.originalSize/1024)}KB → ${Math.round(meta.compressedSize/1024)}KB</small>`:'';const badge=isNew?'<span class="badge new">NEW IMAGE</span>':'<span class="badge">EXISTING</span>';return `<div class="flyer"><span>${esc(p)} ${badge}${extra}</span><button class="danger" data-fr="${i}">この公演から外す</button></div>`}).join(''):'<div class="empty">画像なし</div>';
+  $$('[data-fr]').forEach(b=>b.onclick=()=>{flyerPaths.splice(Number(b.dataset.fr),1);renderFlyers();renderExistingFlyerLibrary();status()})
+}
+
+function pubMode(){const r=document.querySelector('input[name="publishMode"]:checked');return r?r.value:'now'}
+function updatePubModeUI(){const m=pubMode();$('publishAtWrap').classList.toggle('hidden',m!=='scheduled');$('publishBackWrap').classList.toggle('hidden',m!=='backstage')}
+function setPubMode(m='now'){const r=document.querySelector(`input[name="publishMode"][value="${m||'now'}"]`);if(r)r.checked=true;updatePubModeUI()}
+document.querySelectorAll('input[name="publishMode"]').forEach(r=>r.addEventListener('change',updatePubModeUI));
+function queuePublishAt(local){const v=clean(local);if(!v)return'';return v.length===16?`${v}:00+09:00`:(/[zZ]$|[+-]\d\d:\d\d$/.test(v)?v:`${v}+09:00`)}
+function flyerArray(e){if(Array.isArray(e.flyers))return e.flyers.filter(Boolean);return e.flyer?[e.flyer]:[]}
+function queueIdFor(ev,publishAt,existing=''){if(existing)return existing;return `${clean(publishAt).replace(/[^0-9]/g,'').slice(0,12)}-${clean(ev.date)}-${slug(ev.city)}-${slug(ev.title)}`}
+function openScheduled(i){editScheduled=i;editPub=null;promoteBack=null;const s=scheduled[i],e={...scheduledEvent(s),publishMode:'scheduled',publishAt:localPublishAt(s.publishAt)};openPub(null,e);$('pubTitle').textContent='予約公開を編集'}
+
+
+function bulkCountryOptions(selected='JAPAN'){
+  const vals=['JAPAN','TAIWAN','USA','CANADA','GERMANY','FRANCE','UK','NETHERLANDS','OTHER'];
+  return vals.map(v=>`<option${v===selected?' selected':''}>${v}</option>`).join('');
+}
+function addBulkRow(data={}){
+  const r=document.createElement('div');
+  r.className='bulkRow';
+  r.innerHTML=`<label>DATE *<input class="brDate" type="date" value="${esc(data.date||'')}"></label>
+    <label>CITY *<input class="brCity" placeholder="NEW YORK, NY" value="${esc(data.city||'')}"></label>
+    <label>COUNTRY<select class="brCountry">${bulkCountryOptions(data.country||'JAPAN')}</select></label>
+    <label class="bulkVenue">VENUE *<input class="brVenue" list="venueSuggestions" autocomplete="off" value="${esc(data.venue||'')}"></label>
+    <button class="danger brRemove">削除</button>
+    <div class="bulkPerTickets">
+      <div class="bulkPerTicketHead">
+        <b>公演別プレイガイド / GENERAL</b>
+        <button type="button" class="brAddTicket">＋ URL追加</button>
+      </div>
+      <div class="bulkPerTicketRows"></div>
+    </div>`;
+  r.querySelector('.brRemove').onclick=()=>r.remove();
+  r.querySelector('.brAddTicket').onclick=()=>addBulkPerTicketRow(r);
+  $('bulkRows').appendChild(r);
+
+  const initial=Array.isArray(data.generalTickets)?data.generalTickets:[];
+  initial.forEach(x=>addBulkPerTicketRow(r,x));
+}
+function addBulkPerTicketRow(row,data={}){
+  const wrap=row.querySelector('.bulkPerTicketRows');
+  if(!wrap)return;
+  const tr=document.createElement('div');
+  tr.className='bulkPerTicketRow';
+  tr.innerHTML=`<input class="brTicketLabel" placeholder="プレイガイド名（例：Ticketmaster）" value="${esc(data.label||'')}">
+    <input class="brTicketUrl" placeholder="https://..." value="${esc(data.url||'')}">
+    <button type="button" class="danger">×</button>`;
+  tr.querySelector('button').onclick=()=>tr.remove();
+  wrap.appendChild(tr);
+}
+function bulkPerShowTickets(row){
+  const arr=[];
+  row.querySelectorAll('.bulkPerTicketRow').forEach(tr=>{
+    const url=clean(tr.querySelector('.brTicketUrl')?.value),label=clean(tr.querySelector('.brTicketLabel')?.value);
+    if(url)arr.push({label:label||'TICKET',url});
+  });
+  return arr;
+}
+
+function clearBulkRows(){ $('bulkRows').innerHTML=''; }
+function bulkTicketRow(k,label='',url=''){
+  const r=document.createElement('div');
+  r.className='ticketRow';
+  r.innerHTML=`<input class="tl" placeholder="表示名" value="${esc(label)}"><input class="tu" placeholder="https://..." value="${esc(url)}"><button class="danger">×</button>`;
+  r.querySelector('button').onclick=()=>r.remove();
+  $('bulk-tickets-'+k).appendChild(r);
+}
+function bulkTickets(){
+  const o={general:[],fc:[],vip:[]};
+  for(const k of Object.keys(o))$$('#bulk-tickets-'+k+' .ticketRow').forEach(r=>{
+    const url=clean(r.querySelector('.tu').value),label=clean(r.querySelector('.tl').value);
+    if(url)o[k].push({label:label||k.toUpperCase()+' TICKET',url});
+  });
+  return o;
+}
+function renderBulkExistingFlyers(){
+  const sel=$('bulkExistingFlyer');if(!sel)return;
+  const current=sel.value,usage=flyerUsageMap(),paths=[...usage.keys()].sort((a,b)=>a.localeCompare(b));
+  sel.innerHTML='<option value="">既存フライヤーを選択...</option>'+paths.map(p=>`<option value="${esc(p)}">${esc(p.split('/').pop())} — 使用 ${usage.get(p)?.length||0}件</option>`).join('');
+  if(paths.includes(current))sel.value=current;
+  $('bulkFlyerInfo').textContent=paths.length?`既存フライヤー ${paths.length}件。選択した画像は全公演で同じパスを再利用します。`:'既存フライヤーはまだありません。新しい画像を追加できます。';
+}
+function renderBulkFlyers(){
+  $('bulkFlyerList').innerHTML=bulkFlyerPaths.length?bulkFlyerPaths.map((p,i)=>{
+    const badge=newAssets.has(p)?'NEW IMAGE':'EXISTING';
+    return `<div class="bulkFlyerItem"><span>${esc(p)} <b>${badge}</b></span><button class="danger" data-bfr="${i}">外す</button></div>`;
+  }).join(''):'<div class="empty">画像なし</div>';
+  $$('[data-bfr]').forEach(b=>b.onclick=()=>{bulkFlyerPaths.splice(Number(b.dataset.bfr),1);renderBulkFlyers()});
+}
+function bulkModeUI(){
+  $('bulkPublishAtWrap').classList.toggle('hidden',$('bulkMode').value!=='scheduled');
+}
+function openBulk(){
+  $('bulkMsg').textContent='';
+  bulkFlyerPaths=[];
+  set('bulkTitle','');set('bulkSpecial','');set('bulkType','EVENT');set('bulkStatus','ON SALE');set('bulkMode','now');set('bulkPublishAt','');
+  $('bulkSpecialShow').checked=false;set('bulkSpecialTitle','');set('bulkSpecialSubtitle','');setBulkSpecialUI();
+  set('bulkDetail','');set('bulkArtists','');set('bulkTicketNote','');
+  for(const k of ['general','fc','vip'])$('bulk-tickets-'+k).innerHTML='';
+  clearBulkRows();addBulkRow();addBulkRow();addBulkRow();
+  bulkModeUI();renderVenueSuggestions();renderBulkExistingFlyers();renderBulkFlyers();open('bulkModal');
+}
+function bulkRowsData(){
+  return $$('#bulkRows .bulkRow').map(r=>({
+    date:clean(r.querySelector('.brDate').value),
+    city:upper(r.querySelector('.brCity').value),
+    country:clean(r.querySelector('.brCountry').value)||'JAPAN',
+    venue:clean(r.querySelector('.brVenue').value),
+    generalTickets:bulkPerShowTickets(r)
+  })).filter(r=>r.date||r.city||r.venue||r.generalTickets.length);
+}
+function duplicateExists(ev){
+  const same=x=>clean(x?.date)===ev.date&&clean(x?.title)===ev.title&&clean(x?.venue).toLowerCase()===ev.venue.toLowerCase();
+  return events.some(same)||scheduled.some(s=>same(scheduledEvent(s)));
+}
+
+function duplicatePublic(i){
+  const src=events[i];
+  if(!src)return;
+  const copy=JSON.parse(JSON.stringify(src));
+  promoteBack=null;
+  editScheduled=null;
+  openPub(null,copy);
+  $('pubTitle').textContent='PUBLIC EVENTを複製';
+  $('pubMsg').innerHTML='<div class="notice"><b>複製中</b>：必要箇所を変更して保存してください。元のイベントは変更されません。</div>';
+}
+
+function openPub(i=null,prefill={}){if(i!==null)editScheduled=null;editPub=i;flyerPaths=[];$('pubMsg').textContent='';for(const k of ['general','fc','vip'])$('tickets-'+k).innerHTML='';const e=i===null?prefill:events[i];$('pubTitle').textContent=i===null?'PUBLIC EVENTを追加':'PUBLIC EVENTを編集';set('pDate',e.date);set('pCity',e.city);set('pCountry',e.country||'JAPAN');set('pTitle',e.title);set('pVenue',e.venue);set('pType',e.type||'EVENT');set('pStatus',e.status||'ON SALE');set('pSpecial',e.special);set('pDetail',e.detail);set('pArtists',e.artists);set('pTicketNote',e.ticketNote);set('pMissionGroup',e.missionGroup);set('pMissionRole',e.missionRole);
+const si=specialInfo(e);
+$('pSpecialShow').checked=!!si.enabled;
+set('pSpecialDisplay',si.display||'single');
+set('pSpecialTitle',si.title||e.title||'');
+set('pSpecialSubtitle',si.subtitle||'');
+set('pSpecialGroup',si.group||'');
+setSpecialUI();
+setPubMode(e.publishMode||'now');set('pPublishAt',e.publishAt?String(e.publishAt).slice(0,16):'');set('pBackArea',e.city||e.area||'');set('pBackDaypart',e.daypart||'TBD');const t=e.tickets||{};for(const k of ['general','fc','vip'])(t[k]||[]).forEach(x=>ticketRow(k,x.label,x.url));if(e.flyer)flyerPaths=[e.flyer];if(Array.isArray(e.flyers))flyerPaths=[...e.flyers];renderFlyers();renderExistingFlyerLibrary();open('pubModal')}
+
+$('pVenue').addEventListener('focus',()=>renderVenueSuggestions($('pCity').value));
+$('pCity').addEventListener('input',()=>{if(document.activeElement===$('pVenue'))renderVenueSuggestions($('pCity').value)});
+$('bulkRows').addEventListener('focusin',e=>{
+  if(e.target.classList.contains('brVenue')){
+    const row=e.target.closest('.bulkRow');
+    renderVenueSuggestions(row?.querySelector('.brCity')?.value||'');
+  }
+});
+$('addBulkPublic').onclick=openBulk;
+$('bulkMode').onchange=bulkModeUI;
+$('bulkAddRow').onclick=()=>addBulkRow();
+$('bulkAddFive').onclick=()=>{for(let i=0;i<5;i++)addBulkRow()};
+$$('[data-add-bulk-ticket]').forEach(b=>b.onclick=()=>bulkTicketRow(b.dataset.addBulkTicket));
+$('bulkAddExistingFlyer').onclick=()=>{
+  const p=clean($('bulkExistingFlyer').value);
+  if(!p){$('bulkMsg').textContent='既存フライヤーを選択してください。';return}
+  if(!bulkFlyerPaths.includes(p))bulkFlyerPaths.push(p);
+  renderBulkFlyers();
+  $('bulkMsg').textContent=`既存フライヤーを追加しました：${p}`;
+};
+$('bulkFlyers').onchange=async e=>{
+  const files=[...e.target.files],title=slug($('bulkTitle').value)||'tour';
+  let info=[],errs=[];
+  for(const f of files){
+    let n=1,path='';
+    while(true){
+      const suffix=n===1?'':`-${n}`,candidate=`assets/flyers/${title}-tour${suffix}.jpg`;
+      if(!existingFlyerPaths().includes(candidate)&&!bulkFlyerPaths.includes(candidate)){path=candidate;break}
+      n++;
+    }
+    try{
+      const bytes=await toJpegBytes(f);
+      newAssets.set(path,bytes);
+      newAssetMeta.set(path,{originalName:f.name,originalSize:f.size,compressedSize:bytes.byteLength});
+      if(!bulkFlyerPaths.includes(path))bulkFlyerPaths.push(path);
+      info.push(`${f.name}: ${Math.round(f.size/1024)}KB → ${Math.round(bytes.byteLength/1024)}KB`);
+    }catch(err){errs.push(`${f.name}: ${err.message}`)}
+  }
+  e.target.value='';
+  renderBulkFlyers();renderBulkExistingFlyers();status();
+  $('bulkMsg').innerHTML=(info.length?`画像を軽量化して追加しました。<br>${info.map(esc).join('<br>')}`:'')+(errs.length?`<br>${errs.map(esc).join('<br>')}`:'');
+};
+$('bulkSave').onclick=()=>{
+  const title=clean($('bulkTitle').value),type=clean($('bulkType').value)||'EVENT',statusV=clean($('bulkStatus').value)||'ON SALE',
+    special=clean($('bulkSpecial').value),detail=clean($('bulkDetail').value),artists=clean($('bulkArtists').value),
+    ticketNote=clean($('bulkTicketNote').value),mode=clean($('bulkMode').value)||'now',publishAtLocal=clean($('bulkPublishAt').value),
+    bulkSpOn=$('bulkSpecialShow').checked,bulkSpTitle=clean($('bulkSpecialTitle').value)||title,bulkSpSubtitle=clean($('bulkSpecialSubtitle').value),
+    rows=bulkRowsData(),t=bulkTickets();
+
+  if(!title){$('bulkMsg').textContent='EVENT TITLEは必須です。';return}
+  if(!rows.length){$('bulkMsg').textContent='公演日程を1件以上入力してください。';return}
+  const bad=rows.findIndex(r=>!r.date||!r.city||!r.venue);
+  if(bad>=0){$('bulkMsg').textContent=`${bad+1}行目：DATE・CITY・VENUEは必須です。`;return}
+  if(mode==='scheduled'&&!publishAtLocal){$('bulkMsg').textContent='予約公開では公開日時を指定してください。';return}
+
+  let added=0,skipped=0;
+  for(const r of rows){
+    if(mode==='backstage'){
+      const exists=backstage.some(b=>clean(b.date)===r.date&&upper(b.area)===r.city);
+      if(exists){skipped++;continue}
+      backstage.push({date:r.date,area:r.city,daypart:'TBD',state:'tentative'});added++;continue;
+    }
+
+    const rowTickets=JSON.parse(JSON.stringify(t));
+    if(Array.isArray(r.generalTickets)&&r.generalTickets.length)rowTickets.general=JSON.parse(JSON.stringify(r.generalTickets));
+    const ev={
+      date:r.date,display:disp(r.date),dow:dow(r.date),city:r.city,country:r.country,venue:r.venue,title,
+      type,detail,status:statusV,tickets:rowTickets
+    };
+    if(special)ev.special=special;
+    if(bulkSpOn){
+      ev.specialShow=true;
+      ev.specialDisplay='tour';
+      ev.specialGroup=`${slug(bulkSpTitle)}-${String(rows[0]?.date||r.date).slice(0,4)}`;
+      ev.specialTitle=bulkSpTitle;
+      if(bulkSpSubtitle)ev.specialSubtitle=bulkSpSubtitle;
+    }else{
+      ev.specialShow=false;
+    }
+    
+    if(artists)ev.artists=artists;
+    if(ticketNote)ev.ticketNote=ticketNote;
+    if(bulkFlyerPaths.length===1)ev.flyer=bulkFlyerPaths[0];
+    if(bulkFlyerPaths.length>1)ev.flyers=[...bulkFlyerPaths];
+
+    if(duplicateExists(ev)){skipped++;continue}
+
+    if(mode==='scheduled'){
+      const publishAt=queuePublishAt(publishAtLocal);
+      const qid=queueIdFor(ev,publishAt,'');
+      const assetFiles=flyerArray(ev).filter(p=>newAssets.has(p)).map(p=>p.split('/').pop());
+      scheduled.push({queueId:qid,publishAt,event:ev,assetFiles});
+    }else{
+      ev.publishMode='now';
+      events.push(ev);
+    }
+    added++;
+  }
+
+  if(!added){
+    $('bulkMsg').textContent=`追加できる公演がありませんでした。重複 ${skipped}件。`;
+    return;
+  }
+  close('bulkModal');render();
+  const suffix=skipped?`（重複 ${skipped}件はスキップ）`:'';
+  $('loadMsg').innerHTML=`<div class="notice">TOUR一括登録：${added}公演を追加しました。${suffix}</div>`;
+};
+
+$('pSpecialShow').onchange=setSpecialUI;
+$('pSpecialDisplay').onchange=setSpecialUI;
+$('bulkSpecialShow').onchange=setBulkSpecialUI;
+$('addPublic').onclick=()=>{promoteBack=null;editScheduled=null;openPub()};
+$('pFlyers').onchange=async e=>{const files=[...e.target.files],date=clean($('pDate').value)||'undated',city=slug($('pCity').value),title=slug($('pTitle').value);let info=[],errs=[];for(const f of files){const base=`${date}-${city}-${title}`;let n=1,path='';while(true){const suffix=n===1?'':`-${n}`,candidate=`assets/flyers/${base}${suffix}.jpg`;if(!existingFlyerPaths().includes(candidate)&&!flyerPaths.includes(candidate)){path=candidate;break}n++}try{const bytes=await toJpegBytes(f);newAssets.set(path,bytes);newAssetMeta.set(path,{originalName:f.name,originalSize:f.size,compressedSize:bytes.byteLength});if(!flyerPaths.includes(path))flyerPaths.push(path);info.push(`${f.name}: ${Math.round(f.size/1024)}KB → ${Math.round(bytes.byteLength/1024)}KB`)}catch(err){errs.push(`${f.name}: ${err.message}`)}}e.target.value='';renderFlyers();renderExistingFlyerLibrary();status();$('pubMsg').innerHTML=(info.length?`画像を軽量化して追加しました。<br>${info.map(esc).join('<br>')}`:'')+(errs.length?`<br>${errs.map(esc).join('<br>')}`:'')};
+$('addExistingFlyer').onclick=()=>{const p=clean($('pExistingFlyer').value);if(!p){$('pubMsg').textContent='既存フライヤーを選択してください。';return}if(flyerPaths.includes(p)){$('pubMsg').textContent='このフライヤーはすでにこの公演で使用しています。';return}flyerPaths.push(p);renderFlyers();$('pubMsg').textContent=`既存フライヤーを追加しました：${p}`};
+$('reloadExistingFlyers').onclick=()=>{renderExistingFlyerLibrary();$('pubMsg').textContent='既存フライヤー一覧を再読込しました。'};
+$('savePublic').onclick=()=>{
+  const date=clean($('pDate').value),city=upper($('pCity').value),title=clean($('pTitle').value),venue=clean($('pVenue').value);
+  if(!date||!city||!title||!venue){$('pubMsg').textContent='日付・都市・イベント名・会場は必須です。';return}
+  const mode=pubMode(),publishAtLocal=clean($('pPublishAt').value);
+  if(mode==='scheduled'&&!publishAtLocal){$('pubMsg').textContent='予約公開では公開日時を指定してください。';return}
+  if(mode==='backstage'){
+    const area=upper($('pBackArea').value)||city,daypart=clean($('pBackDaypart').value)||'TBD';
+    backstage.push({date,area,daypart,state:'tentative'});backstage.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    if(editPub!==null)events.splice(editPub,1);if(editScheduled!==null){const old=scheduled[editScheduled];if(old?.queueId)deletedQueueIds.push(old.queueId);scheduled.splice(editScheduled,1)}
+    editScheduled=null;promoteBack=null;close('pubModal');render();return;
+  }
+  const oldScheduled=editScheduled!==null?scheduled[editScheduled]:null;
+  const base=editPub===null?(oldScheduled?{...scheduledEvent(oldScheduled)}:{}):{...events[editPub]},
+    ev={...base,date,display:disp(date),dow:dow(date),city,venue,title,type:clean($('pType').value)||'EVENT',detail:clean($('pDetail').value),status:clean($('pStatus').value)||'ON SALE',country:clean($('pCountry').value)||'JAPAN',tickets:tickets()};
+  delete ev.publishAt;delete ev.publishMode;
+  for(const [k,id] of [['special','pSpecial'],['artists','pArtists'],['ticketNote','pTicketNote'],['missionGroup','pMissionGroup'],['missionRole','pMissionRole']]){const v=clean($(id).value);if(v)ev[k]=v;else delete ev[k]}
+  const spOn=$('pSpecialShow').checked;
+  if(spOn){
+    ev.specialShow=true;
+    ev.specialDisplay=clean($('pSpecialDisplay').value)||'single';
+    ev.specialTitle=clean($('pSpecialTitle').value)||title;
+    const spSub=clean($('pSpecialSubtitle').value);if(spSub)ev.specialSubtitle=spSub;else delete ev.specialSubtitle;
+    if(ev.specialDisplay==='tour'){
+      ev.specialGroup=clean($('pSpecialGroup').value)||`${slug(ev.specialTitle||title)}-${String(date).slice(0,4)}`;
+    }else delete ev.specialGroup;
+  }else{
+    const prior=editPub!==null?events[editPub]:(oldScheduled?scheduledEvent(oldScheduled):null);
+    if(hasOwn(prior,'specialShow')||legacySpecialInfo(prior)||prior?.specialDisplay||prior?.specialGroup||prior?.specialTitle){
+      const info=specialInfo(prior||ev);
+      applySpecialInfo(ev,info,false);
+    }else{
+      ev.specialShow=false;
+      delete ev.specialDisplay;delete ev.specialGroup;delete ev.specialTitle;delete ev.specialSubtitle;
+    }
+  }
+  delete ev.flyer;delete ev.flyers;if(flyerPaths.length===1)ev.flyer=flyerPaths[0];if(flyerPaths.length>1)ev.flyers=[...flyerPaths];
+  if(mode==='scheduled'){
+    const publishAt=queuePublishAt(publishAtLocal),qid=queueIdFor(ev,publishAt,oldScheduled?.queueId||''),
+      referencedFiles=new Set(flyerArray(ev).map(p=>p.split('/').pop())),
+      assetFiles=[...new Set([
+        ...((oldScheduled&&Array.isArray(oldScheduled.assetFiles))?oldScheduled.assetFiles.filter(f=>referencedFiles.has(f)):[]),
+        ...flyerArray(ev).filter(p=>newAssets.has(p)).map(p=>p.split('/').pop())
+      ])];
+    const item={queueId:qid,publishAt,event:ev,assetFiles};
+    if(editScheduled!==null)scheduled[editScheduled]=item;else scheduled.push(item);
+    if(editPub!==null)events.splice(editPub,1);
+  }else{
+    ev.publishMode='now';
+    if(editPub===null)events.push(ev);else events[editPub]=ev;
+    if(editScheduled!==null){const old=scheduled[editScheduled];if(old?.queueId)deletedQueueIds.push(old.queueId);scheduled.splice(editScheduled,1)}
+  }
+  if(promoteBack!==null){backstage.splice(promoteBack,1);promoteBack=null}
+  editScheduled=null;close('pubModal');render()
+};
+
+
+function previewDateEnd(date){
+  const d=new Date(String(date||'')+'T23:59:59+09:00');
+  return Number.isNaN(d.getTime())?null:d;
+}
+function previewAllEvents(){
+  const list=events.map(e=>({...e,__previewScheduled:false}));
+  if($('previewScheduled')?.checked){
+    scheduled.forEach(s=>{
+      const e=scheduledEvent(s);
+      const exists=list.some(x=>clean(x.date)===clean(e.date)&&clean(x.title)===clean(e.title)&&clean(x.venue)===clean(e.venue));
+      if(!exists)list.push({...e,__previewScheduled:true});
+    });
+  }
+  return list.sort((a,b)=>clean(a.date).localeCompare(clean(b.date)));
+}
+function previewUpcoming(list){
+  const now=new Date();
+  return list.filter(e=>{
+    const d=previewDateEnd(e.date);
+    return d&&d>=now;
+  });
+}
+function previewPast(list){
+  const now=new Date();
+  return list.filter(e=>{
+    const d=previewDateEnd(e.date);
+    return d&&d<now;
+  }).sort((a,b)=>clean(b.date).localeCompare(clean(a.date)));
+}
+function previewYearRows(list){
+  if(!list.length)return '<div class="pvEmpty">NO EVENTS</div>';
+  let year='',out='';
+  list.forEach(e=>{
+    const y=String(e.date||'').slice(0,4);
+    if(y&&y!==year){year=y;out+=`<div class="pvYear">${esc(y)}</div>`}
+    out+=`<div class="pvRow">
+      <div class="pvDate">${esc(e.display||disp(e.date))}</div>
+      <div class="pvMeta">${esc(e.dow||dow(e.date))}<br>${esc(e.country||'')}</div>
+      <div class="pvMain"><b>${esc(e.city||'')} / ${esc(e.title||'')}</b><span>${esc(e.venue||'')}${e.detail?` — ${esc(e.detail)}`:''}</span></div>
+      <div class="pvStatus ${e.__previewScheduled?'scheduled':''}">${e.__previewScheduled?'予約':esc(e.status||e.type||'')}</div>
+    </div>`;
+  });
+  return out;
+}
+function previewSpecialGroups(list){
+  const map=new Map();
+  list.forEach((e,i)=>{
+    const s=specialInfo(e);if(!s.enabled)return;
+    const key=s.display==='tour'?`tour:${s.group||slug(s.title||e.title)}`:`single:${i}`;
+    if(!map.has(key))map.set(key,{display:s.display,title:s.title||e.title,subtitle:s.subtitle||'',items:[]});
+    map.get(key).items.push(e);
+  });
+  return [...map.values()];
+}
+function renderSitePreview(){
+  const list=previewAllEvents(),up=previewUpcoming(list),pa=previewPast(list).slice(0,5),next=up[0],groups=previewSpecialGroups(list);
+  const nextHtml=next?`<div class="pvNext"><div class="pvNextLabel">NEXT SCREAM</div><div class="pvNextMain">${esc(next.display||disp(next.date))} / ${esc(next.city||'')} — ${esc(next.title||'')}</div><div class="pvNextSub">${esc(next.venue||'')}<br>${esc(next.country||'')}</div></div>`:'<div class="pvEmpty">NEXT SHOWなし</div>';
+  const specialHtml=groups.length?`<section class="pvSection"><h2 class="pvSectionTitle">SPECIAL SHOWS</h2><div class="pvSpecialGrid">${groups.map(g=>{
+    const dates=g.items.map(e=>e.display||disp(e.date)).join(' / ');
+    const cities=g.items.map(e=>e.city).filter(Boolean).join(' / ');
+    return `<article class="pvSpecialCard"><small>${g.display==='tour'?'TOUR CAMPAIGN':'SPECIAL STAGE'}</small><h3>${esc(g.title||'')}</h3><p>${g.subtitle?esc(g.subtitle)+'<br>':''}${esc(dates)}<br>${esc(cities)}</p></article>`;
+  }).join('')}</div></section>`:'';
+  $('previewPage').innerHTML=`<div class="pvHeader"><div class="pvBrand">BROKEN BY THE SCREAM</div><div class="pvBadge">PREVIEW</div></div>
+    <section class="pvHero"><small>OFFICIAL LIVE INDEX</small><h2>LIVE<br>SCHEDULE</h2>${nextHtml}</section>
+    <section class="pvSection"><h2 class="pvSectionTitle">ALL SCHEDULE</h2>${previewYearRows(up)}</section>
+    ${specialHtml}
+    <section class="pvSection"><h2 class="pvSectionTitle">PAST SHOWS</h2>${previewYearRows(pa)}</section>`;
+}
+function setPreviewMode(mode){
+  $('previewViewport').classList.toggle('mobile',mode==='mobile');
+  $('previewDesktop').classList.toggle('active',mode==='desktop');
+  $('previewMobile').classList.toggle('active',mode==='mobile');
+}
+
+let textIndex=null,textFormat='hp';
+
+function textTicketLines(e){
+  const out=[],t=e.tickets||{};
+  const add=(title,arr)=>{
+    if(!Array.isArray(arr)||!arr.length)return;
+    out.push(title);
+    arr.forEach(x=>{if(x&&x.url)out.push(`${x.label||'TICKET'}：${x.url}`)});
+  };
+  add('【TICKET】',t.general);
+  add('【FC TICKET】',t.fc);
+  add('【VIP TICKET】',t.vip);
+  return out;
+}
+function detailLines(e){return clean(e.detail).replace(/｜/g,'\n')}
+function hpText(e){
+  const a=[`【${e.title||'LIVE INFORMATION'}】`,'',`${e.date||''} (${e.dow||dow(e.date)})`];
+  if(e.venue)a.push(`会場：${e.venue}`);
+  if(e.detail)a.push('',detailLines(e));
+  if(e.artists)a.push('','【出演】',e.artists);
+  if(e.ticketNote)a.push('',e.ticketNote);
+  const t=textTicketLines(e);if(t.length)a.push('',...t);
+  return a.join('\n').trim();
+}
+function xText(e){
+  const a=['【LIVE INFO】',`${e.date||''} ${e.dow||dow(e.date)} / ${e.city||''}`,e.title||''];
+  if(e.venue)a.push(`📍${e.venue}`);
+  if(e.detail)a.push(detailLines(e).replace(/\n+/g,' / '));
+  const t=e.tickets||{},first=[...(t.general||[]),...(t.fc||[]),...(t.vip||[])].find(x=>x&&x.url);
+  if(first)a.push(`🎫 ${first.url}`);
+  return a.join('\n').trim();
+}
+function igText(e){
+  const a=['【LIVE INFORMATION】','',`📅 ${e.date||''} (${e.dow||dow(e.date)})`];
+  if(e.city)a.push(`📍 ${e.city}`);
+  a.push('',e.title||'');
+  if(e.venue)a.push(`会場：${e.venue}`);
+  if(e.detail)a.push('',detailLines(e));
+  if(e.artists)a.push('','出演：',e.artists);
+  const t=textTicketLines(e);if(t.length)a.push('',...t);
+  a.push('','#BrokenByTheScream #BBTS');
+  return a.join('\n').trim();
+}
+function refreshText(){
+  const e=events[textIndex];if(!e)return;
+  $('exportText').value=textFormat==='x'?xText(e):textFormat==='ig'?igText(e):hpText(e);
+  $('fmtHp').classList.toggle('active',textFormat==='hp');
+  $('fmtX').classList.toggle('active',textFormat==='x');
+  $('fmtIg').classList.toggle('active',textFormat==='ig');
+  $('copyState').textContent='';
+}
+function openText(i){
+  textIndex=Number(i);textFormat='hp';refreshText();open('textModal');
+}
+$('fmtHp').onclick=()=>{textFormat='hp';refreshText()};
+$('fmtX').onclick=()=>{textFormat='x';refreshText()};
+$('fmtIg').onclick=()=>{textFormat='ig';refreshText()};
+$('copyText').onclick=async()=>{
+  const v=$('exportText').value;
+  try{
+    await navigator.clipboard.writeText(v);
+  }catch(_){
+    $('exportText').focus();$('exportText').select();document.execCommand('copy');
+  }
+  $('copyState').textContent='コピーしました';
+};
+$('downloadText').onclick=()=>{
+  const e=events[textIndex]||{};
+  const name=`${e.date||'event'}-${slug(e.city||'city')}-${slug(e.title||'event')}-${textFormat}.txt`;
+  dl(new Blob([$('exportText').value],{type:'text/plain;charset=utf-8'}),name);
+};
+
+$('pubList').onclick=e=>{const s=e.target.closest('[data-ps]'),t=e.target.closest('[data-pt]'),a=e.target.closest('[data-pe]'),c=e.target.closest('[data-pc]'),d=e.target.closest('[data-pd]');if(s){const i=Number(s.dataset.ps),ev=events[i],info=specialInfo(ev);applySpecialInfo(ev,info,!info.enabled);render();return;}if(t){openText(Number(t.dataset.pt));return;}if(a){promoteBack=null;editScheduled=null;openPub(Number(a.dataset.pe));return;}if(c){duplicatePublic(Number(c.dataset.pc));return;}if(d){const i=Number(d.dataset.pd);if(confirm(`「${events[i]?.title||'この公演'}」を削除しますか？`)){events.splice(i,1);render()}}};
+$('schedList').onclick=e=>{const a=e.target.closest('[data-se]'),d=e.target.closest('[data-sd]');if(a)openScheduled(Number(a.dataset.se));if(d){const i=Number(d.dataset.sd),s=scheduled[i];if(confirm(`予約「${scheduledEvent(s)?.title||'この公演'}」を削除しますか？`)){if(s?.queueId)deletedQueueIds.push(s.queueId);scheduled.splice(i,1);render()}}};
+function openBack(i=null){editBack=i;$('backMsg').textContent='';const b=i===null?{}:backstage[i];set('bDate',b.date);set('bArea',b.area);set('bDaypart',b.daypart||'TBD');open('backModal')}$('addBack').onclick=()=>openBack();$('saveBack').onclick=()=>{const date=clean($('bDate').value),area=upper($('bArea').value),daypart=clean($('bDaypart').value)||'TBD';if(!date||!area){$('backMsg').textContent='日付とAREAは必須です。';return}const b={date,area,daypart,state:'tentative'};if(editBack===null)backstage.push(b);else backstage[editBack]={...backstage[editBack],...b};close('backModal');render()};
+$('backList').onclick=e=>{const p=e.target.closest('[data-bp]'),a=e.target.closest('[data-be]'),d=e.target.closest('[data-bd]');if(p){promoteBack=Number(p.dataset.bp);const b=backstage[promoteBack];openPub(null,{date:b.date,city:b.area,country:'JAPAN',type:'EVENT',status:'COMING SOON'});$('pubMsg').textContent='PUBLICとして保存すると元のBACKSTAGE予定は自動削除されます。'}if(a)openBack(Number(a.dataset.be));if(d){const i=Number(d.dataset.bd);if(confirm(`${backstage[i]?.date||''} ${backstage[i]?.area||''} を削除しますか？`)){backstage.splice(i,1);render()}}};
+const crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();function crc32(b){let c=0xffffffff;for(const x of b)c=crcT[(c^x)&255]^(c>>>8);return(c^0xffffffff)>>>0}function u16(v){const a=new Uint8Array(2);new DataView(a.buffer).setUint16(0,v,true);return a}function u32(v){const a=new Uint8Array(4);new DataView(a.buffer).setUint32(0,v>>>0,true);return a}function cat(ps){const n=ps.reduce((s,p)=>s+p.length,0),o=new Uint8Array(n);let x=0;for(const p of ps){o.set(p,x);x+=p.length}return o}function zip(es){let off=0,L=[],C=[];for(const e of es){const n=enc.encode(e.name),d=e.data,c=crc32(d),l=cat([u32(0x04034b50),u16(20),u16(0x0800),u16(0),u16(0),u16(0),u32(c),u32(d.length),u32(d.length),u16(n.length),u16(0),n,d]),z=cat([u32(0x02014b50),u16(20),u16(20),u16(0x0800),u16(0),u16(0),u16(0),u32(c),u32(d.length),u32(d.length),u16(n.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(off),n]);L.push(l);C.push(z);off+=l.length}const cb=cat(C),end=cat([u32(0x06054b50),u16(0),u16(0),u16(es.length),u16(es.length),u32(cb.length),u32(off),u16(0)]);return cat([...L,cb,end])}function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}
+
+$('previewSite').onclick=()=>{setPreviewMode('desktop');renderSitePreview();open('previewModal')};
+$('previewDesktop').onclick=()=>setPreviewMode('desktop');
+$('previewMobile').onclick=()=>setPreviewMode('mobile');
+$('previewScheduled').onchange=renderSitePreview;
+$('previewRefresh').onclick=renderSitePreview;
+
+$('exportZip').onclick=()=>{
+  sort();
+  const es=[
+    {name:'PUBLIC_UPDATE/events.json',data:enc.encode(JSON.stringify(events,null,2)+'\n')},
+    {name:'PUBLIC_UPDATE/backstage.json',data:enc.encode(JSON.stringify(backstage,null,2)+'\n')}
+  ];
+  const publicRefs=new Set(events.flatMap(flyerArray));
+  const scheduledRefs=new Set(scheduled.flatMap(s=>flyerArray(scheduledEvent(s))));
+  for(const [path,data] of newAssets){
+    if(publicRefs.has(path))es.push({name:`PUBLIC_UPDATE/${path}`,data});
+    if(scheduledRefs.has(path))es.push({name:`PRIVATE_SCHEDULER/scheduler/assets/flyers/${path.split('/').pop()}`,data});
+  }
+  for(const s of scheduled)es.push({name:`PRIVATE_SCHEDULER/scheduler/queue/${s.queueId}.json`,data:enc.encode(JSON.stringify(s,null,2)+'\n')});
+  if(deletedQueueIds.length)es.push({name:'PRIVATE_SCHEDULER/DELETE_QUEUE_FILES.txt',data:enc.encode([...new Set(deletedQueueIds)].map(x=>`scheduler/queue/${x}.json`).join('\n')+'\n')});
+  es.push({name:'README_UPDATE.txt',data:enc.encode(`BBTS LIVE HUB UPDATE BUNDLE\n\n1) PUBLIC_UPDATE の中身を BrokenByTheScream/bbts-live のルートへ上書き\n2) PRIVATE_SCHEDULER の中身を setsunastripe-bot/bbts-live-hub のルートへ上書き\n3) DELETE_QUEUE_FILES.txt がある場合は、記載されたPRIVATE側の旧QUEUEを削除\n\n予約公開イベントはPUBLICのevents.jsonには含まれません。\nPRIVATE側GitHub Actionsが約5分おきに確認し、公開時刻後にPUBLICへ移します。\n`)});
+  dl(new Blob([zip(es)],{type:'application/zip'}),`BBTS_UPDATE_BUNDLE_${new Date().toISOString().slice(0,10)}.zip`)
+};
+// --- WEB API bridge (keep in the v10 IIFE, so every v10 editor feature remains intact) ---
+function cloudMessage(message, type = '') {
+  const box = $('webStatus');
+  box.textContent = message;
+  box.className = type || 'notice';
+}
+function apiRoot() {
+  const value = clean($('webApiBase').value).replace(/\/+$/, '');
+  if (!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(value)) {
+    throw new Error('WorkerのHTTPS URL（末尾に /admin や /api を付けない）を入力してください');
+  }
+  return value;
+}
+async function cloudCall(path, method = 'GET', body) {
+  if (!webBase || !webPassword) throw new Error('Worker URLまたはパスワードが未設定です');
+  let response;
+  try {
+    response = await fetch(webBase + path, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Password': webPassword },
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+      cache: 'no-store'
+    });
+  } catch (_) {
+    throw new Error('Workerに接続できません。URL、Deploy、CORS設定を確認してください。');
+  }
+  let data;
+  try { data = await response.json(); }
+  catch (_) { throw new Error('WorkerからJSON以外の応答がありました。APIのDeployを確認してください。'); }
+  if (!response.ok || !data.ok) {
+    throw new Error(`${data.error || 'APIエラー'}（HTTP ${response.status}）`);
+  }
+  return data;
+}
+async function cloudConnect() {
+  if (webBusy) return;
+  try {
+    const requestedBase = apiRoot();
+    const requestedPassword = $('webPassword').value;
+    if (!requestedPassword) throw new Error('ADMIN PASSWORDを入力してください');
+    if (webLoaded && !confirm('最新データで再読み込みします。現在の未公開編集は失われます。続けますか？')) return;
+    webBase = requestedBase;
+    webPassword = requestedPassword;
+    webBusy = true;
+    $('webConnect').disabled = true;
+    cloudMessage('GitHubから最新データを取得しています...');
+    const data = await cloudCall('/api/bootstrap');
+    if (!Array.isArray(data.events) || !Array.isArray(data.backstage) || !Array.isArray(data.scheduled)) {
+      throw new Error('APIが想定外のデータを返しました');
+    }
+    events = data.events;
+    backstage = data.backstage;
+    scheduled = data.scheduled.map(entry => ({ ...entry.item, queueId: entry.id }));
+    serverFlyerPaths = Array.isArray(data.flyers) ? data.flyers : [];
+    eventsSha = data.versions.eventsSha;
+    backstageSha = data.versions.backstageSha;
+    queueShas.clear(); queueSnapshots.clear(); originalQueueIds.clear();
+    for (const entry of data.scheduled) {
+      originalQueueIds.add(entry.id);
+      queueShas.set(entry.id, entry.sha);
+      queueSnapshots.set(entry.id, JSON.stringify({ ...entry.item, queueId: entry.id }));
+    }
+    sort();
+    eventsSnapshot = JSON.stringify(events);
+    backstageSnapshot = JSON.stringify(backstage);
+    pubLoaded = true; backLoaded = true; webLoaded = true;
+    newAssets.clear(); newAssetMeta.clear(); deletedQueueIds = [];
+    // Worker base URL only. Password must never be kept in localStorage.
+    try { localStorage.setItem('bbts_web_admin_worker_url', webBase); } catch (_) {}
+    $('loadMsg').textContent = '';
+    render();
+    const changed = `PUBLIC ${events.length}件 / BACKSTAGE ${backstage.length}件 / 予約 ${scheduled.length}件 / 既存画像 ${serverFlyerPaths.length}件`;
+    cloudMessage('接続成功：' + changed, 'ok');
+  } catch (error) {
+    cloudMessage(error.message, 'error');
+  } finally {
+    webBusy = false;
+    $('webConnect').disabled = false;
+  }
+}
+
+function binaryBase64(bytes) {
+  let value = '';
+  for (let i = 0; i < bytes.length; i += 8192) {
+    value += String.fromCharCode(...bytes.subarray(i, i + 8192));
+  }
+  return btoa(value);
+}
+async function cloudPublish() {
+  if (webBusy) return;
+  if (!webLoaded) { cloudMessage('まず「接続して最新データを取得」を実行してください', 'error'); return; }
+  sort();
+  const publicRefs = new Set(events.flatMap(flyerArray));
+  const scheduledRefs = new Set(scheduled.flatMap(s => flyerArray(scheduledEvent(s))));
+  const assetUploads = [];
+  for (const [path, bytes] of newAssets) {
+    if (publicRefs.has(path)) assetUploads.push({ target: 'public', path, bytes });
+    if (scheduledRefs.has(path)) assetUploads.push({ target: 'scheduler', path, bytes });
+  }
+  const currentQueues = new Map();
+  for (const s of scheduled) {
+    if (!s.queueId) throw new Error('予約IDのない予定があります');
+    if (currentQueues.has(s.queueId)) { cloudMessage('予約IDが重複しています: ' + s.queueId, 'error'); return; }
+    currentQueues.set(s.queueId, s);
+  }
+  const deleted = [...originalQueueIds].filter(id => !currentQueues.has(id));
+  const pending = [...currentQueues].filter(([id, s]) => JSON.stringify(s) !== queueSnapshots.get(id));
+  const changedEvents = JSON.stringify(events) !== eventsSnapshot;
+  const changedBackstage = JSON.stringify(backstage) !== backstageSnapshot;
+  const summary = `画像 ${assetUploads.length}件 / 予約取消 ${deleted.length}件 / 予約登録・変更 ${pending.length}件 / PUBLIC ${changedEvents?'更新':'変更なし'} / BACKSTAGE ${changedBackstage?'更新':'変更なし'}`;
+  if (!assetUploads.length && !deleted.length && !pending.length && !changedEvents && !changedBackstage) {
+    cloudMessage('公開する変更はありません', 'ok');
+    return;
+  }
+  if (!confirm('以下の内容をGitHubへ反映します。\n\n' + summary + '\n\n予約公演は指定日時までPUBLICに表示されません。続けますか？')) return;
+  webBusy = true;
+  $('publishWeb').disabled = true;
+  $('webConnect').disabled = true;
+  let done = 0;
+  const total = assetUploads.length + deleted.length + pending.length + (changedEvents?1:0) + (changedBackstage?1:0);
+  function progress(label) { cloudMessage(`保存中 ${done+1}/${total}：${label}`); }
+  try {
+    // Assets must exist before any JSON references them. Failed writes can be retried.
+    for (const a of assetUploads) {
+      progress(`画像 ${a.target} / ${a.path}`);
+      await cloudCall('/api/asset', 'POST', { target: a.target, path: a.path, base64: binaryBase64(a.bytes) });
+      done++;
+    }
+    // Cancel queued files first so an obsolete queue cannot re-publish later.
+    for (const id of deleted) {
+      progress(`予約取消 ${id}`);
+      await cloudCall('/api/queue', 'DELETE', { queueId: id, expectedSha: queueShas.get(id) });
+      originalQueueIds.delete(id); queueShas.delete(id); queueSnapshots.delete(id);
+      done++;
+    }
+    for (const [id, item] of pending) {
+      progress(`予約登録・変更 ${id}`);
+      const result = await cloudCall('/api/queue', 'PUT', { queueId: id, expectedSha: queueShas.get(id) || null, item });
+      originalQueueIds.add(id);
+      queueShas.set(id, result.sha);
+      queueSnapshots.set(id, JSON.stringify(item));
+      done++;
+    }
+    if (changedEvents) {
+      progress('PUBLIC events.json');
+      const result = await cloudCall('/api/events', 'PUT', { events, expectedSha: eventsSha });
+      eventsSha = result.sha;
+      eventsSnapshot = JSON.stringify(events);
+      done++;
+    }
+    if (changedBackstage) {
+      progress('BACKSTAGE backstage.json');
+      const result = await cloudCall('/api/backstage', 'PUT', { backstage, expectedSha: backstageSha });
+      backstageSha = result.sha;
+      backstageSnapshot = JSON.stringify(backstage);
+      done++;
+    }
+    deletedQueueIds = [];
+    // No need to keep re-uploading assets after successful publish.
+    newAssets.clear(); newAssetMeta.clear();
+    render();
+    cloudMessage('保存完了：' + summary + '。公開サイトの更新には多少時間がかかる場合があります。', 'ok');
+  } catch (error) {
+    cloudMessage(`保存途中で停止しました（完了 ${done}/${total}件）。${error.message}。状況を確認してから再実行してください。`, 'error');
+  } finally {
+    webBusy = false;
+    $('publishWeb').disabled = false;
+    $('webConnect').disabled = false;
+  }
+}
+
+$('webConnect').onclick = cloudConnect;
+$('publishWeb').onclick = cloudPublish;
+$('webPassword').addEventListener('keydown', e => { if (e.key === 'Enter') cloudConnect(); });
+try { $('webApiBase').value = localStorage.getItem('bbts_web_admin_worker_url') || ''; } catch (_) {}
+// --- end WEB API bridge ---
+
+render();
+})();
+</script>
+</body>
+</html>
